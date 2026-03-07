@@ -17,9 +17,6 @@ public static class OrderClassMap
         builder.ToTable("tb_order");
 
         //================PROPERTIES================
-        builder.Property(o => o.Client)
-            .HasMaxLength(255)
-            .IsRequired();
         builder.Property(o => o.Code)
             .HasMaxLength(255)
             .IsRequired();

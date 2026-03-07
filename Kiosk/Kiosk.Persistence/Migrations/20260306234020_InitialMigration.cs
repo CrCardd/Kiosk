@@ -16,6 +16,7 @@ namespace Kiosk.Persistence.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Client = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     SessionToken = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     OderId = table.Column<Guid>(type: "TEXT", nullable: false),
                     created_at = table.Column<DateTime>(type: "TEXT", nullable: false),
@@ -49,7 +50,6 @@ namespace Kiosk.Persistence.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Client = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     Index = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     Code = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     Total = table.Column<decimal>(type: "TEXT", precision: 18, scale: 2, nullable: false),

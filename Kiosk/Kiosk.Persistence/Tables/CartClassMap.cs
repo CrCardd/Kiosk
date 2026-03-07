@@ -18,6 +18,9 @@ public static class CartClassMap
 
         
         //================PROPERTIES================
+        builder.Property(c => c.Client)
+            .HasMaxLength(255)
+            .IsRequired();
         builder.Property(c => c.SessionToken)
             .HasMaxLength(255)
             .IsRequired();

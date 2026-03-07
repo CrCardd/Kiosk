@@ -1,15 +1,13 @@
 
 using Kiosk.Api.Enums;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kiosk.Api.Controllers;
 
 [ApiController]
 //[Route(APIRoutes.Product)]
-public class ProductController(IMediator mediator) : ControllerBase
+public class ProductController : ControllerBase
 {
-    private readonly IMediator mediator = mediator;
     
     /*
     FORMAT EXAMPLE:

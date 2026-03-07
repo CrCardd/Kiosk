@@ -1,22 +1,41 @@
 
 using System.Reflection;
-using Kiosk.Application.Common.Exceptions;
 using FluentValidation;
-using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using Kiosk.Application.Common.Behaviors;
+using Kiosk.Domain.Services;
 
 namespace Kiosk.Application;
 
 public static class ServiceExtensions
 {
-    public static void ConfigureApplication(this IServiceCollection services)
+    public static void ConfigureServices(this IServiceCollection services)
     {
-        services.AddAutoMapper(Assembly.GetExecutingAssembly());
+// 1. IMPORTANTE: Pegue o Assembly onde o ICartService/CartService moram.
+    // Se eles estiverem no projeto Domain, use typeof(IBaseService).Assembly
+    var domainAssembly = typeof(IBaseService).Assembly;
 
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+    // 2. Buscamos todas as CLASSES que implementam IBaseService
+    var classesConcretas = domainAssembly.GetTypes()
+        .Where(t => t.IsClass && !t.IsAbstract && typeof(IBaseService).IsAssignableFrom(t))
+        .ToList();
 
-        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+    foreach (var implementationType in classesConcretas)
+    {
+        // 3. Descobrimos qual é a interface específica (ex: ICartService)
+        // Ignoramos a IBaseService genérica e pegamos a que herda dela
+        var serviceInterface = implementationType.GetInterfaces()
+            .FirstOrDefault(i => i != typeof(IBaseService) && typeof(IBaseService).IsAssignableFrom(i));
+
+        if (serviceInterface != null)
+        {
+            // Registra o par: ICartService -> CartService
+            services.AddTransient(serviceInterface, implementationType);
+        }
+        else
+        {
+            // Caso a classe não tenha uma interface específica, registra ela mesma
+            services.AddTransient(implementationType);
+        }        
+    }
     }
 }

@@ -39,6 +39,11 @@ namespace Kiosk.Persistence.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("id");
 
+                    b.Property<string>("Client")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT")
                         .HasColumnName("created_at");
@@ -152,11 +157,6 @@ namespace Kiosk.Persistence.Migrations
                         .HasColumnName("id");
 
                     b.Property<Guid>("CartId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Client")
-                        .IsRequired()
-                        .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Code")

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Kiosk.Persistence.Migrations
 {
     [DbContext(typeof(KioskContext))]
-    [Migration("20260306003241_InitialMigration")]
+    [Migration("20260306234020_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -41,6 +41,11 @@ namespace Kiosk.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
                         .HasColumnName("id");
+
+                    b.Property<string>("Client")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT")
@@ -155,11 +160,6 @@ namespace Kiosk.Persistence.Migrations
                         .HasColumnName("id");
 
                     b.Property<Guid>("CartId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Client")
-                        .IsRequired()
-                        .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Code")
