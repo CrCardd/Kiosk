@@ -4,5 +4,5 @@ namespace Kiosk.Domain.Services;
 
 public interface ICartService : IBaseService
 {
-    public Task Start(CartPayload payload);
+    public Task<CartPayload?> Start(CartPayload payload, CancellationToken cancellationToken);
 }

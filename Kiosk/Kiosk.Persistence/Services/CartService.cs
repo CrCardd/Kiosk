@@ -9,7 +9,7 @@ public class CartService(
     KioskContext ctx
 ) : ICartService
 {
-    public async Task Start(CartPayload payload)
+    public async Task<CartPayload?> Start(CartPayload payload, CancellationToken cancellationToken)
     {
         var cart = new Cart
         {
@@ -18,6 +18,12 @@ public class CartService(
         };
 
         ctx.Carts.Add(cart);
-        await ctx.SaveChangesAsync();
+        await ctx.SaveChangesAsync(cancellationToken);
+
+        return new(
+            cart.Client,
+            cart.SessionToken,
+            cart.Id
+        );
     }
 }

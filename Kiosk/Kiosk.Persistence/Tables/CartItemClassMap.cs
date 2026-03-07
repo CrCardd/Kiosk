@@ -25,9 +25,6 @@ public static class CartItemClassMap
         builder.HasOne(ci => ci.Cart)
             .WithMany(c => c.CartItems)
             .HasForeignKey(ci => ci.CartId);
-        builder.HasOne(ci => ci.Product)
-            .WithMany(c => c.CartItems)
-            .HasForeignKey(ci => ci.CartId);
         builder.HasOne(ci => ci.Variant)
             .WithMany(c => c.CartItems)
             .HasForeignKey(ci => ci.CartId);

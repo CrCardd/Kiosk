@@ -7,9 +7,16 @@ public class StartSessionCart(
     ICartService cartService
 ) : BaseFeature
 {
-    public async Task<StartSessionCartResponse> ExecuteAsync(StartSessionCartRequest request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<StartSessionCartResponse>> ExecuteAsync(StartSessionCartRequest request, CancellationToken cancellationToken)
     {
-        await cartService.Start(new(request.Client, request.SessionToken));
-        return new();
+        var response = await cartService.Start(new(request.Client, request.SessionToken), cancellationToken);
+
+        if(response?.Id == null)
+            return BaseResponse<StartSessionCartResponse>.Fail("Invalid data");
+        return BaseResponse<StartSessionCartResponse>.Success(new(
+            (Guid)response.Id,
+            response.SessionToken,
+            response.Client
+        ));
     }
 }

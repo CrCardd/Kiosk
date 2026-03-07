@@ -13,9 +13,7 @@ public class KioskContext(DbContextOptions<KioskContext> options) : DbContext(op
     public DbSet<Ingredient> Ingredients {get;set;}
     public DbSet<Order> Orders {get;set;}
     public DbSet<PriceHistoryIngredient> PriceHistoryIngredients {get;set;}
-    public DbSet<PriceHistoryProduct> PriceHistoryProducts {get;set;}
     public DbSet<PriceHistoryVariant> PriceHistoryVariants {get;set;}
-    public DbSet<Product> Products {get;set;}
     public DbSet<Service> Services {get;set;}
     public DbSet<Variant> Variants {get;set;}
     //public DbSet<_> _s {get;set;}
@@ -28,9 +26,7 @@ public class KioskContext(DbContextOptions<KioskContext> options) : DbContext(op
         modelBuilder.ConfigureIngredientTable();
         modelBuilder.ConfigureOrderTable();
         modelBuilder.ConfigurePriceHistoryIngredientTable();
-        modelBuilder.ConfigurePriceHistoryProductTable();
         modelBuilder.ConfigurePriceHistoryVariantTable();
-        modelBuilder.ConfigureProductTable();
         modelBuilder.ConfigureServiceTable();
         modelBuilder.ConfigureVariantTable();
         // modelBuilder.Configur();

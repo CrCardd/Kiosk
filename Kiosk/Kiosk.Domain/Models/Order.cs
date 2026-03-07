@@ -1,5 +1,5 @@
 
-﻿namespace Kiosk.Domain.Models;
+namespace Kiosk.Domain.Models;
 
 public class Order : BaseModel
 {

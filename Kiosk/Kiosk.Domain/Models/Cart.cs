@@ -11,6 +11,6 @@ public class Cart : BaseModel
 
     //================RELATIONS================
     public Order? Order {get;set;}
-    public Guid? OderId {get;set;}
+    public Guid? OrderId {get;set;}
     public ICollection<CartItem> CartItems {get;set;} = [];
 }

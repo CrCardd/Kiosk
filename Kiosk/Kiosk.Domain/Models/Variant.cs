@@ -1,11 +1,13 @@
 
-﻿namespace Kiosk.Domain.Models;
+namespace Kiosk.Domain.Models;
 
 public class Variant : BaseModel
 {
     //================PROPERTIES================
     public required string Name {get;set;}
     public required string Image {get;set;}
+    public int Ingredients {get;set;} = 1;
+    public bool Surpass {get;set;} = false;
     public required bool Available {get;set;}
     //================MY-RELATIONS================
     public required Service Service {get;set;}

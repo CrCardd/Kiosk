@@ -2,7 +2,7 @@ using System.Reflection;
 using Kiosk.Application.Features;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Kiosk.Application;
+namespace Kiosk.Application.Config;
 
 public static class FeatureExtension
 {

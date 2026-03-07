@@ -20,6 +20,8 @@ public static class IngredientClassMap
         builder.Property(i => i.Name)
             .HasMaxLength(255)
             .IsRequired();
+        builder.Property(i => i.Quantity);
+        builder.Property(i => i.Available);
         //================MY-RELATIONS================
         builder.HasOne(i => i.Service)
             .WithMany(s => s.Ingredients)

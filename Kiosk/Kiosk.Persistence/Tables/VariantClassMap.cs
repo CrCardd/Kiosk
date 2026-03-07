@@ -23,6 +23,8 @@ public static class VariantClassMap
         builder.Property(v => v.Image)
             .HasMaxLength(255)
             .IsRequired();
+        builder.Property(v => v.Ingredients);
+        builder.Property(v => v.Surpass);
         builder.Property(v => v.Available)
             .IsRequired();
         //================MY-RELATIONS================

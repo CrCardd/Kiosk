@@ -10,7 +10,6 @@ public class Service : BaseModel
     //================MY-RELATIONS================
 
     //================RELATIONS================
-    public ICollection<Product> Products {get;set;} = [];
     public ICollection<Variant> Variants {get;set;} = [];
     public ICollection<Ingredient> Ingredients {get;set;} = [];
 

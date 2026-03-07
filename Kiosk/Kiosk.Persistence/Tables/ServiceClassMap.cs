@@ -28,9 +28,6 @@ public static class ServiceClassMap
         //================MY-RELATIONS================
         
         //================RELATIONS================
-        builder.HasMany(s => s.Products)
-            .WithOne(p => p.Service)
-            .HasForeignKey(p => p.ServiceId);
         builder.HasMany(s => s.Variants)
             .WithOne(v => v.Service)
             .HasForeignKey(v => v.ServiceId);

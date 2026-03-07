@@ -1,0 +1,72 @@
+using Kiosk.Domain.Models;
+using Kiosk.Domain.Payloads.Models;
+using Kiosk.Domain.Payloads.Models.Updates;
+using Kiosk.Domain.Services;
+using Kiosk.Persistence.Context;
+using Microsoft.EntityFrameworkCore;
+
+namespace Kiosk.Persistence.Services;
+
+public class ServiceService(
+    KioskContext ctx
+) : IServiceService
+{
+    public async Task<ServicePayload?> Create(ServicePayload payload, CancellationToken cancellationToken)
+    {
+        var service = new Service
+        {
+            Name=payload.Name,
+            Image=payload.Image,
+            Available=payload.Available
+        };
+
+        ctx.Services.Add(service);
+        await ctx.SaveChangesAsync(cancellationToken);
+
+        return new(
+            service.Name,
+            service.Image,
+            service.Available,
+            service.Id
+        );
+    }
+
+    public async Task<ICollection<ServicePayload>> GetAll(bool? available)
+    =>
+        await ctx.Services
+            .Where(s => s.DisabledAt == null)
+            .Where(s => available == null ? true : s.Available == available)
+            .Select(s => new ServicePayload
+            (
+                s.Name,
+                s.Image,
+                s.Available,
+                s.Id
+            ))
+            .ToListAsync();
+
+    public async Task<ServicePayload?> Update(Guid Id, ServiceUpdatePayload payload, CancellationToken cancellationToken)
+    {
+        var service = ctx.Services
+            .Where(s => s.Id == Id)
+            .FirstOrDefault();
+        
+        if(service == null)
+            return null;
+        
+        if(payload.Name != null)
+            service.Name = payload.Name;
+        if(payload.Image != null)
+            service.Image = payload.Image;
+        if(payload.Available != null)
+            service.Available = (bool)payload.Available;
+        
+        await ctx.SaveChangesAsync(cancellationToken);
+        return new(
+            service.Name,
+            service.Image,
+            service.Available,
+            service.Id
+        );
+    }
+}
