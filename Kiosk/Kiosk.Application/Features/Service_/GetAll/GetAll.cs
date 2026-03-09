@@ -7,9 +7,11 @@ public class GetAll(
     IServiceService serviceService
 ) : BaseFeature
 {
-    public async Task<BaseResponse<GetAllResponse>> ExecuteAsync(GetAllRequest request, CancellationToken cancellationToken)
+    public async Task<Result<GetAllResponse>> ExecuteAsync(GetAllRequest request, CancellationToken cancellationToken)
     {
-        var response = await serviceService.GetAll(request.Available);
-        return BaseResponse<GetAllResponse>.Success(new(response));
+        var response = await serviceService.GetAll(request.Available, cancellationToken);
+        if(!response.IsSuccess)
+            return response.Message;
+        return new GetAllResponse(response.Value);
     }
 }

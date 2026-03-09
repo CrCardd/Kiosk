@@ -1,11 +1,13 @@
-using Kiosk.Domain.Payloads.Models;
-using Kiosk.Domain.Payloads.Models.Updates;
+
+using Kiosk.Domain.Payloads.Create;
+using Kiosk.Domain.Payloads.Get;
+using Kiosk.Domain.Payloads.Update;
 
 namespace Kiosk.Domain.Services;
 
 public interface IServiceService : IBaseService
 {
-    public Task<ServicePayload?> Create(ServicePayload payload, CancellationToken cancellationToken);
-    public Task<ICollection<ServicePayload>> GetAll(bool? available);
-    public Task<ServicePayload?> Update(Guid Id, ServiceUpdatePayload payload, CancellationToken cancellationToken);
+    public Task<Result<ServiceGetPayload>> Create(ServiceCreatePayload payload, CancellationToken cancellationToken);
+    public Task<Result<IReadOnlyList<ServiceGetPayload>>> GetAll(bool? available, CancellationToken cancellationToken);
+    public Task<Result<ServiceGetPayload>> Update(Guid Id, ServiceUpdatePayload payload, CancellationToken cancellationToken);
 }

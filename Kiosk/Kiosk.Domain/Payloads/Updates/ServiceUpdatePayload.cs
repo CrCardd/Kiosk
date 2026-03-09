@@ -1,4 +1,4 @@
-namespace Kiosk.Domain.Payloads.Models.Updates;
+namespace Kiosk.Domain.Payloads.Update;
 
 public record ServiceUpdatePayload
 (

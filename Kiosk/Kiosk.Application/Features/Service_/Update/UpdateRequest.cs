@@ -1,5 +1,5 @@
 
-using Kiosk.Domain.Payloads.Models.Updates;
+using Kiosk.Domain.Payloads.Update;
 
 namespace Kiosk.Application.Features.Service_.Update;
 

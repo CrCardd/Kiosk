@@ -18,6 +18,8 @@ public class CartController(
         )
         {
             var response = await startSessionCart.ExecuteAsync(request, cancellationToken);
+            if(!response.IsSuccess)
+                return BadRequest(response);
             return Ok(response);
         }
 }

@@ -16,6 +16,7 @@ public class KioskContext(DbContextOptions<KioskContext> options) : DbContext(op
     public DbSet<PriceHistoryVariant> PriceHistoryVariants {get;set;}
     public DbSet<Service> Services {get;set;}
     public DbSet<Variant> Variants {get;set;}
+    public DbSet<VariantIngredient> VariantIngredients {get;set;}
     //public DbSet<_> _s {get;set;}
 
     
@@ -29,6 +30,8 @@ public class KioskContext(DbContextOptions<KioskContext> options) : DbContext(op
         modelBuilder.ConfigurePriceHistoryVariantTable();
         modelBuilder.ConfigureServiceTable();
         modelBuilder.ConfigureVariantTable();
+        modelBuilder.ConfigureCombinationTable();
+        modelBuilder.ConfigureVariantIngredientTable();
         // modelBuilder.Configur();
 
         base.OnModelCreating(modelBuilder);

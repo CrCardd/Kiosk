@@ -1,4 +1,5 @@
 
+using System.Security.Authentication;
 using Kiosk.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,7 +26,8 @@ public static class IngredientClassMap
         //================MY-RELATIONS================
         builder.HasOne(i => i.Service)
             .WithMany(s => s.Ingredients)
-            .HasForeignKey(i => i.ServiceId);
+            .HasForeignKey(i => i.ServiceId)
+            .IsRequired();
         //================RELATIONS================
         builder.HasMany(i => i.PriceHistoryIngredients)
             .WithOne(phi => phi.Ingredient)
@@ -38,6 +40,10 @@ public static class IngredientClassMap
                 l => l.HasOne(typeof(Ingredient)).WithMany().HasForeignKey("IngredientsId").HasPrincipalKey(nameof(Ingredient.Id)),
                 j => j.HasKey("CartItemsId","IngredientsId")
             );
+        builder.HasMany(i => i.VariantIngredients)
+            .WithOne(vi => vi.Ingredient)
+            .HasForeignKey(vi => vi.IngredientId)
+            .IsRequired();
     
     });
 }

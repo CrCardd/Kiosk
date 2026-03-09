@@ -91,6 +91,9 @@ namespace Kiosk.Persistence.Migrations
                     b.Property<Guid>("ProductId")
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("ReferenceId")
+                        .HasColumnType("TEXT");
+
                     b.Property<decimal>("SnapShotPrice")
                         .HasPrecision(18, 2)
                         .HasColumnType("TEXT");
@@ -107,9 +110,49 @@ namespace Kiosk.Persistence.Migrations
 
                     b.HasIndex("CartId");
 
+                    b.HasIndex("ReferenceId");
+
                     b.HasIndex("VariantId");
 
                     b.ToTable("tb_cartitem", (string)null);
+                });
+
+            modelBuilder.Entity("Kiosk.Domain.Models.Combination", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("id");
+
+                    b.Property<bool>("Available")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("CombId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTime?>("DisabledAt")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("disabled_at");
+
+                    b.Property<Guid>("PartId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("Id")
+                        .HasName("combination_id");
+
+                    b.HasIndex("CombId");
+
+                    b.HasIndex("PartId");
+
+                    b.ToTable("tb_combination", (string)null);
                 });
 
             modelBuilder.Entity("Kiosk.Domain.Models.Ingredient", b =>
@@ -353,6 +396,44 @@ namespace Kiosk.Persistence.Migrations
                     b.ToTable("tb_variant", (string)null);
                 });
 
+            modelBuilder.Entity("Kiosk.Domain.Models.VariantIngredient", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("id");
+
+                    b.Property<bool>("Available")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTime?>("DisabledAt")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("disabled_at");
+
+                    b.Property<Guid>("IngredientId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("updated_at");
+
+                    b.Property<Guid>("VariantId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id")
+                        .HasName("variantingredient_id");
+
+                    b.HasIndex("IngredientId");
+
+                    b.HasIndex("VariantId");
+
+                    b.ToTable("tb_variantingredient", (string)null);
+                });
+
             modelBuilder.Entity("CartItemIngredient", b =>
                 {
                     b.HasOne("Kiosk.Domain.Models.CartItem", null)
@@ -376,6 +457,10 @@ namespace Kiosk.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Kiosk.Domain.Models.CartItem", "Reference")
+                        .WithMany("CartItems")
+                        .HasForeignKey("ReferenceId");
+
                     b.HasOne("Kiosk.Domain.Models.Variant", "Variant")
                         .WithMany("CartItems")
                         .HasForeignKey("VariantId")
@@ -384,7 +469,28 @@ namespace Kiosk.Persistence.Migrations
 
                     b.Navigation("Cart");
 
+                    b.Navigation("Reference");
+
                     b.Navigation("Variant");
+                });
+
+            modelBuilder.Entity("Kiosk.Domain.Models.Combination", b =>
+                {
+                    b.HasOne("Kiosk.Domain.Models.Variant", "Comb")
+                        .WithMany("Combs")
+                        .HasForeignKey("CombId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Kiosk.Domain.Models.Variant", "Part")
+                        .WithMany("Parts")
+                        .HasForeignKey("PartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Comb");
+
+                    b.Navigation("Part");
                 });
 
             modelBuilder.Entity("Kiosk.Domain.Models.Ingredient", b =>
@@ -442,6 +548,25 @@ namespace Kiosk.Persistence.Migrations
                     b.Navigation("Service");
                 });
 
+            modelBuilder.Entity("Kiosk.Domain.Models.VariantIngredient", b =>
+                {
+                    b.HasOne("Kiosk.Domain.Models.Ingredient", "Ingredient")
+                        .WithMany("VariantIngredients")
+                        .HasForeignKey("IngredientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Kiosk.Domain.Models.Variant", "Variant")
+                        .WithMany("VariantIngredients")
+                        .HasForeignKey("VariantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ingredient");
+
+                    b.Navigation("Variant");
+                });
+
             modelBuilder.Entity("Kiosk.Domain.Models.Cart", b =>
                 {
                     b.Navigation("CartItems");
@@ -449,9 +574,16 @@ namespace Kiosk.Persistence.Migrations
                     b.Navigation("Order");
                 });
 
+            modelBuilder.Entity("Kiosk.Domain.Models.CartItem", b =>
+                {
+                    b.Navigation("CartItems");
+                });
+
             modelBuilder.Entity("Kiosk.Domain.Models.Ingredient", b =>
                 {
                     b.Navigation("PriceHistoryIngredients");
+
+                    b.Navigation("VariantIngredients");
                 });
 
             modelBuilder.Entity("Kiosk.Domain.Models.Service", b =>
@@ -465,7 +597,13 @@ namespace Kiosk.Persistence.Migrations
                 {
                     b.Navigation("CartItems");
 
+                    b.Navigation("Combs");
+
+                    b.Navigation("Parts");
+
                     b.Navigation("PriceHistoryVariants");
+
+                    b.Navigation("VariantIngredients");
                 });
 #pragma warning restore 612, 618
         }

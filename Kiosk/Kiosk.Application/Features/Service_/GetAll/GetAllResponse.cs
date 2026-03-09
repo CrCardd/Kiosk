@@ -1,8 +1,8 @@
 
-using Kiosk.Domain.Payloads.Models;
+using Kiosk.Domain.Payloads.Get;
 
 namespace Kiosk.Application.Features.Service_.GetAll;
 
 public record GetAllResponse(
-    ICollection<ServicePayload> Services
+    IEnumerable<ServiceGetPayload> Services
 );

@@ -1,0 +1,25 @@
+
+using Kiosk.Api.Enums;
+using Kiosk.Application.Features.Ingredient_.Create;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Kiosk.Api.Controllers;
+
+[ApiController]
+[Route(APIRoutes.Ingredient)]
+public class IngredientController(
+    Create create
+) : ControllerBase
+{
+    [HttpPost]
+    public async Task<ActionResult<CreateResponse>> Create(
+        [FromBody] CreateRequest request,
+        CancellationToken cancellationToken
+    )
+    {
+        var response = await create.ExecuteAsync(request, cancellationToken);
+        if(!response.IsSuccess)
+            return BadRequest(response);
+        return Ok(response);
+    }
+}

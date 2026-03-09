@@ -7,17 +7,17 @@ public class Create(
     IServiceService serviceService
 ) : BaseFeature
 {
-    public async Task<BaseResponse<CreateResponse>> ExecuteAsync(CreateRequest request, CancellationToken cancellationToken)
+    public async Task<Result<CreateResponse>> ExecuteAsync(CreateRequest request, CancellationToken cancellationToken)
     {
         var response = await serviceService.Create(new(request.Name,request.Image,request.Available), cancellationToken);
 
-        if(response?.Id == null)
-            return BaseResponse<CreateResponse>.Fail("Invalid data");
-        return BaseResponse<CreateResponse>.Success(new(
-            (Guid)response.Id,
-            response.Name,
-            response.Image,
-            response.Available
-        ));
+        if(!response.IsSuccess)
+            return response.Message;
+        return new CreateResponse(
+            response.Value.Id,
+            response.Value.Name,
+            response.Value.Image,
+            response.Value.Available
+        );
     }
 }

@@ -1,7 +1,7 @@
-using System.Dynamic;
-using AutoMapper.Configuration.Annotations;
+
 using Kiosk.Domain.Models;
-using Kiosk.Domain.Payloads.Models;
+using Kiosk.Domain.Payloads.Create;
+using Kiosk.Domain.Payloads.Get;
 using Kiosk.Domain.Services;
 using Kiosk.Persistence.Context;
 
@@ -11,7 +11,7 @@ public class IngredientService(
     KioskContext ctx
 ) : IIngredientService
 {
-    public async Task<IngredientPayload?> Create(IngredientPayload payload, CancellationToken cancellationToken)
+    public async Task<Result<IngredientGetPayload>> Create(IngredientCreatePayload payload, CancellationToken cancellationToken)
     {
         var service = ctx.Services
             .Where(s => s.DisabledAt == null)
@@ -19,7 +19,7 @@ public class IngredientService(
             .FirstOrDefault();
 
         if(service == null)
-            return null;
+            return "Referenced Service not found";
 
         var ingredient = new Ingredient
         {
@@ -29,15 +29,25 @@ public class IngredientService(
             Service=service,
             Quantity=payload.Quantity
         };
+        var price = new PriceHistoryIngredient
+        {
+            Price=payload.Price,
+            Ingredient=ingredient,
+            IngredientId=ingredient.Id
+        };
 
         ctx.Ingredients.Add(ingredient);
+        ctx.PriceHistoryIngredients.Add(price);
+
         await ctx.SaveChangesAsync(cancellationToken);
-        return new(
-            payload.Name,
-            payload.Available,
-            payload.ServiceId,
-            payload.Quantity,
-            payload.Id
+        var value = new IngredientGetPayload(
+            ingredient.Id,
+            ingredient.Name,
+            price.Price,
+            ingredient.Available,
+            ingredient.ServiceId,
+            ingredient.Quantity
         );
+        return value;
     }
 }

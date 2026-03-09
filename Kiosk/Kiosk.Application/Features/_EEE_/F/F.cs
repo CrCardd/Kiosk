@@ -7,7 +7,7 @@
 //     IEEEService EEEService
 // ) : BaseFeature
 // {
-//     public async Task<BaseResponse<FFFResponse>> ExecuteAsync(FFFRequest request, CancellationToken cancellationToken)
+//     public async Task<Result<FFFResponse>> ExecuteAsync(FFFRequest request, CancellationToken cancellationToken)
 //     {
         
 //     }

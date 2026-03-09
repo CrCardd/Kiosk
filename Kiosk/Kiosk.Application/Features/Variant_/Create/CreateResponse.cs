@@ -4,6 +4,7 @@ namespace Kiosk.Application.Features.Variant_.Create;
 public record CreateResponse(
     Guid Id,
     string Name,
+    decimal Price,
     string Image,
     bool Available,
     int Ingredients,

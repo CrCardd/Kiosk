@@ -29,7 +29,8 @@ public static class CartClassMap
         //================RELATIONS================
         builder.HasOne(c => c.Order)
             .WithOne(o => o.Cart)
-            .HasForeignKey<Order>(o => o.CartId);
+            .HasForeignKey<Order>(o => o.CartId)
+            .IsRequired();
     
     });
 }

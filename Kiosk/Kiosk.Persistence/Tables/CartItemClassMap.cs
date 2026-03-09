@@ -1,5 +1,5 @@
 
-﻿using Kiosk.Domain.Models;
+using Kiosk.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Kiosk.Persistence.Tables;
@@ -20,11 +20,14 @@ public static class CartItemClassMap
         builder.Property(ci => ci.SnapShotPrice)
             .HasPrecision(18, 2)
             .IsRequired();
-
         //================MY-RELATIONS================
         builder.HasOne(ci => ci.Cart)
             .WithMany(c => c.CartItems)
-            .HasForeignKey(ci => ci.CartId);
+            .HasForeignKey(ci => ci.CartId)
+            .IsRequired();
+        builder.HasOne(ci => ci.Reference)
+            .WithMany(c => c.CartItems)
+            .HasForeignKey(ci => ci.ReferenceId);
         builder.HasOne(ci => ci.Variant)
             .WithMany(c => c.CartItems)
             .HasForeignKey(ci => ci.CartId);
@@ -37,6 +40,8 @@ public static class CartItemClassMap
                 l => l.HasOne(typeof(CartItem)).WithMany().HasForeignKey("CartItemsId").HasPrincipalKey(nameof(CartItem.Id)),
                 j => j.HasKey("IngredientsId", "CartItemsId")
             );
-    
+        builder.HasMany(ci => ci.CartItems)
+            .WithOne(ci => ci.Reference)
+            .HasForeignKey(ci => ci.ReferenceId);
     });
 }

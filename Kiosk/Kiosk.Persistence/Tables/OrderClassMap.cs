@@ -29,7 +29,8 @@ public static class OrderClassMap
         //================MY-RELATIONS================
         builder.HasOne(o => o.Cart)
             .WithOne(c => c.Order)
-            .HasForeignKey<Order>(o => o.CartId);
+            .HasForeignKey<Order>(o => o.CartId)
+            .IsRequired();
         //================RELATIONS================
     
     });

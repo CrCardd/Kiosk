@@ -1,6 +1,8 @@
+
 using Kiosk.Domain.Models;
-using Kiosk.Domain.Payloads.Models;
-using Kiosk.Domain.Payloads.Models.Updates;
+using Kiosk.Domain.Payloads.Create;
+using Kiosk.Domain.Payloads.Get;
+using Kiosk.Domain.Payloads.Update;
 using Kiosk.Domain.Services;
 using Kiosk.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +13,7 @@ public class ServiceService(
     KioskContext ctx
 ) : IServiceService
 {
-    public async Task<ServicePayload?> Create(ServicePayload payload, CancellationToken cancellationToken)
+    public async Task<Result<ServiceGetPayload>> Create(ServiceCreatePayload payload, CancellationToken cancellationToken)
     {
         var service = new Service
         {
@@ -23,36 +25,41 @@ public class ServiceService(
         ctx.Services.Add(service);
         await ctx.SaveChangesAsync(cancellationToken);
 
-        return new(
+        var value = new ServiceGetPayload(
+            service.Id,
             service.Name,
             service.Image,
-            service.Available,
-            service.Id
+            service.Available
         );
+
+        return value;
     }
 
-    public async Task<ICollection<ServicePayload>> GetAll(bool? available)
-    =>
-        await ctx.Services
+    public async Task<Result<IReadOnlyList<ServiceGetPayload>>> GetAll(bool? available, CancellationToken cancellationToken)
+    {
+        var value = await ctx.Services
             .Where(s => s.DisabledAt == null)
             .Where(s => available == null ? true : s.Available == available)
-            .Select(s => new ServicePayload
+            .Select(s => new ServiceGetPayload
             (
+                s.Id,
                 s.Name,
                 s.Image,
-                s.Available,
-                s.Id
+                s.Available
             ))
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
+        
+        return value;
+    }
 
-    public async Task<ServicePayload?> Update(Guid Id, ServiceUpdatePayload payload, CancellationToken cancellationToken)
+    public async Task<Result<ServiceGetPayload>> Update(Guid Id, ServiceUpdatePayload payload, CancellationToken cancellationToken)
     {
         var service = ctx.Services
             .Where(s => s.Id == Id)
             .FirstOrDefault();
         
         if(service == null)
-            return null;
+            return "Referenced Service not found";
         
         if(payload.Name != null)
             service.Name = payload.Name;
@@ -62,11 +69,12 @@ public class ServiceService(
             service.Available = (bool)payload.Available;
         
         await ctx.SaveChangesAsync(cancellationToken);
-        return new(
+        var value = new ServiceGetPayload(
+            service.Id,
             service.Name,
             service.Image,
-            service.Available,
-            service.Id
+            service.Available
         );
+        return value;
     }
 }

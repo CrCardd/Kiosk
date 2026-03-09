@@ -34,9 +34,23 @@ public static class VariantClassMap
         //================RELATIONS================
         builder.HasMany(v => v.CartItems)
             .WithOne(ci => ci.Variant)
-            .HasForeignKey(ci => ci.VariantId);        
+            .HasForeignKey(ci => ci.VariantId)
+            .IsRequired();        
         builder.HasMany(v => v.PriceHistoryVariants)
             .WithOne(phv => phv.Variant)
-            .HasForeignKey(phv => phv.VariantId);        
+            .HasForeignKey(phv => phv.VariantId)
+            .IsRequired();      
+        builder.HasMany(v => v.Combs)
+            .WithOne(c => c.Comb)
+            .HasForeignKey(c => c.CombId)
+            .IsRequired();  
+        builder.HasMany(v => v.Parts)
+            .WithOne(c => c.Part)
+            .HasForeignKey(c => c.PartId)
+            .IsRequired();
+        builder.HasMany(i => i.VariantIngredients)
+            .WithOne(vi => vi.Variant)
+            .HasForeignKey(vi => vi.VariantId)
+            .IsRequired();
     });
 }

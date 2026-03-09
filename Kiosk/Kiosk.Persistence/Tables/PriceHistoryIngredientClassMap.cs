@@ -23,7 +23,8 @@ public static class PriceHistoryIngredientClassMap
         //================MY-RELATIONS================
         builder.HasOne(phi => phi.Ingredient)
             .WithMany(i => i.PriceHistoryIngredients)
-            .HasForeignKey(phi => phi.IngredientId);
+            .HasForeignKey(phi => phi.IngredientId)
+            .IsRequired();
         //================RELATIONS================
     
     });

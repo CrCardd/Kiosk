@@ -18,8 +18,8 @@ public class VariantController(
     )
     {
         var response = await create.ExecuteAsync(request, cancellationToken);
-        if(!response.Successfull)
-            BadRequest(response);
+        if(!response.IsSuccess)
+            return BadRequest(response);
         return Ok(response);
     }
 }

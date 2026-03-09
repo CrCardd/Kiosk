@@ -1,8 +1,9 @@
+
 using Kiosk.Domain.Models;
-using Kiosk.Domain.Payloads.Models;
+using Kiosk.Domain.Payloads.Create;
+using Kiosk.Domain.Payloads.Get;
 using Kiosk.Domain.Services;
 using Kiosk.Persistence.Context;
-using Microsoft.EntityFrameworkCore;
 
 namespace Kiosk.Persistence.Services;
 
@@ -10,7 +11,7 @@ public class _Service(
     KioskContext ctx
 ) : IVariantService
 {
-    public async Task<VariantPayload?> Create(VariantPayload payload, CancellationToken cancellationToken)
+    public async Task<Result<VariantGetPayload>> Create(VariantCreatePayload payload, CancellationToken cancellationToken)
     {
         var service = ctx.Services
             .Where(s => s.DisabledAt == null)
@@ -18,7 +19,7 @@ public class _Service(
             .FirstOrDefault();
 
         if(service == null)
-            return null;
+            return "Referenced Service not found";
 
         var variant = new Variant
         {
@@ -30,16 +31,28 @@ public class _Service(
             Service=service,
             ServiceId=payload.ServiceId
         };
+        var price = new PriceHistoryVariant
+        {
+            Price=payload.Price,
+            Variant=variant,
+            VariantId=variant.Id
+        };
+
+        ctx.PriceHistoryVariants.Add(price);
         ctx.Variants.Add(variant);
         await ctx.SaveChangesAsync(cancellationToken);
-        return new(
+        
+        
+        var value = new VariantGetPayload(
+            variant.Id,
             variant.Name,
+            price.Price,
             variant.Image,
             variant.Ingredients,
             variant.Surpass,
             variant.Available,
-            variant.ServiceId,
-            variant.Id
+            variant.ServiceId
         );
+        return value;
     }
 }

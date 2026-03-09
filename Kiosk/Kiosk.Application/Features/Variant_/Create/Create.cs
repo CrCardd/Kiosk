@@ -7,11 +7,12 @@ public class Create(
     IVariantService variantService
 ) : BaseFeature
 {
-    public async Task<BaseResponse<CreateResponse>> ExecuteAsync(CreateRequest request, CancellationToken cancellationToken)
+    public async Task<Result<CreateResponse>> ExecuteAsync(CreateRequest request, CancellationToken cancellationToken)
     {
         var response = await variantService.Create(
             new(
                 request.Name, 
+                request.Price,
                 request.Image,
                 request.Ingredients ?? 1,
                 request.Surpass ?? false,
@@ -20,16 +21,17 @@ public class Create(
             ), 
             cancellationToken
         );
-        if(response?.Id == null)
-            return BaseResponse<CreateResponse>.Fail("Invalid Service Id");
-        return BaseResponse<CreateResponse>.Success(new(
-            (Guid)response.Id,
-            response.Name,
-            response.Image,
-            response.Available,
-            response.Ingredients,
-            response.Surpass,
-            response.ServiceId
-        ));
+        if(!response.IsSuccess)
+            return response.Message;
+        return new CreateResponse(
+            response.Value.Id,
+            response.Value.Name,
+            response.Value.Price,
+            response.Value.Image,
+            response.Value.Available,
+            response.Value.Ingredients,
+            response.Value.Surpass,
+            response.Value.ServiceId
+        );
     }
 }

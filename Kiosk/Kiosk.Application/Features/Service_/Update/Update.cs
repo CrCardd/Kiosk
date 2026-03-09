@@ -8,7 +8,7 @@ public class Update(
     IServiceService serviceService
 ) : BaseFeature
 {
-    public async Task<BaseResponse<UpdateResponse>> ExecuteAsync(UpdateRequest request, CancellationToken cancellationToken)
+    public async Task<Result<UpdateResponse>> ExecuteAsync(UpdateRequest request, CancellationToken cancellationToken)
     {
         var response = await serviceService.Update(
             request.Id, 
@@ -20,16 +20,13 @@ public class Update(
             cancellationToken
         );
 
-        if(response == null)
-            return BaseResponse<UpdateResponse>.Fail("Invalid Id");
-
-        return BaseResponse<UpdateResponse>.Success(
-            new(
-                (Guid)response.Id,
-                response.Name,
-                response.Image,
-                response.Available
-            )
+        if(!response.IsSuccess)
+            return response.Message;
+        return new UpdateResponse(
+            response.Value.Id,
+            response.Value.Name,
+            response.Value.Image,
+            response.Value.Available
         );
     }
 }

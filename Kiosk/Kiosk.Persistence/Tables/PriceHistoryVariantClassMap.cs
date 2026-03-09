@@ -23,7 +23,8 @@ public static class PriceHistoryVariantClassMap
         //================MY-RELATIONS================
         builder.HasOne(phv => phv.Variant)
             .WithMany(i => i.PriceHistoryVariants)
-            .HasForeignKey(phv => phv.VariantId);
+            .HasForeignKey(phv => phv.VariantId)
+            .IsRequired();
         //================RELATIONS================
     
     });

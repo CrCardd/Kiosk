@@ -22,7 +22,9 @@ public class ServiceController(
     )
     {
         var response = await create.ExecuteAsync(request, cancellationToken);
-        return Ok(response);
+        if(response.IsSuccess)
+            return Ok(response);
+        return BadRequest(response);
     }
 
     [HttpGet]
@@ -32,7 +34,9 @@ public class ServiceController(
     )
     {
         var response = await getAll.ExecuteAsync(new(available), cancellationToken);
-        return Ok(response);
+        if(response.IsSuccess)
+            return Ok(response);
+        return BadRequest(response);
     }
 
     [HttpPatch]
@@ -43,7 +47,7 @@ public class ServiceController(
     )
     {
         var response = await update.ExecuteAsync(request, cancellationToken);
-        if(response.Successfull)
+        if(response.IsSuccess)
             return Ok(response);
         return BadRequest(response);
     }
