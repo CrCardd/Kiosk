@@ -1,6 +1,5 @@
 using Kiosk.Domain.Models;
-using Kiosk.Domain.Payloads.Create;
-using Kiosk.Domain.Payloads.Get;
+using Kiosk.Domain.Payloads.VariantIngredient;
 using Kiosk.Domain.Services;
 using Kiosk.Persistence.Context;
 
@@ -10,7 +9,7 @@ public class VariantIngredientService(
     KioskContext ctx
 ) : IVariantIngredientService
 {
-    public async Task<Result<VariantIngredientGetPayload>> Create(VariantIngredientCreatePayload payload, CancellationToken cancellationToken)
+    public async Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken)
     {
         var variant = ctx.Variants
             .Where(v => v.DisabledAt == null)
@@ -35,11 +34,12 @@ public class VariantIngredientService(
             IngredientId=ingredient.Id
         };
         ctx.VariantIngredients.Add(variantIngredient);
-        return new VariantIngredientGetPayload(
+        await ctx.SaveChangesAsync(cancellationToken);
+        return new GetPayload(
             variantIngredient.Id,
             variantIngredient.Available,
-            variantIngredient.VariantId,
-            variantIngredient.IngredientId
+            new(variant.Id,variant.Name),
+            new(ingredient.Id,ingredient.Name)
         );
     }
 }

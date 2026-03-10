@@ -1,9 +1,9 @@
 
-using Kiosk.Domain.Payloads.Update;
+using Kiosk.Domain.Payloads.Service;
 
 namespace Kiosk.Application.Features.Service_.Update;
 
 public record UpdateRequest(
     Guid Id,
-    ServiceUpdatePayload Updates
+    UpdatePayload Updates
 );

@@ -1,13 +1,13 @@
-namespace Kiosk.Domain.Payloads.Get;
+namespace Kiosk.Domain.Payloads.Variant;
 
-public record VariantGetPayload
+public record CreatePayload
 (
-    Guid Id,
     string Name,
     decimal Price,
     string Image,
     int Ingredients,
     bool Surpass,
     bool Available,
-    Guid ServiceId
+    Guid ServiceId,
+    ICollection<Guid> Parts
 );

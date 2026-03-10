@@ -17,6 +17,7 @@ public class KioskContext(DbContextOptions<KioskContext> options) : DbContext(op
     public DbSet<Service> Services {get;set;}
     public DbSet<Variant> Variants {get;set;}
     public DbSet<VariantIngredient> VariantIngredients {get;set;}
+    public DbSet<Combination> Combinations {get;set;}
     //public DbSet<_> _s {get;set;}
 
     

@@ -1,8 +1,9 @@
 
-using Kiosk.Domain.Payloads.Get;
+using Kiosk.Domain.Payloads.Service;
 
 namespace Kiosk.Application.Features.Service_.GetAll;
 
 public record GetAllResponse(
-    IEnumerable<ServiceGetPayload> Services
+    int Count,
+    IReadOnlyCollection<GetPayload> Services
 );

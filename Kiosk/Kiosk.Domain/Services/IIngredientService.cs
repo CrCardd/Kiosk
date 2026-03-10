@@ -1,10 +1,9 @@
 
-using Kiosk.Domain.Payloads.Create;
-using Kiosk.Domain.Payloads.Get;
+using Kiosk.Domain.Payloads.Ingredient;
 
 namespace Kiosk.Domain.Services;
 
 public interface IIngredientService : IBaseService
 {
-    public Task<Result<IngredientGetPayload>> Create(IngredientCreatePayload payload, CancellationToken cancellationToken);
+    public Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken);
 }

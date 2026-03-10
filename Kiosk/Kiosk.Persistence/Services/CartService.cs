@@ -1,7 +1,6 @@
 
 using Kiosk.Domain.Models;
-using Kiosk.Domain.Payloads.Create;
-using Kiosk.Domain.Payloads.Get;
+using Kiosk.Domain.Payloads.Cart;
 using Kiosk.Domain.Services;
 using Kiosk.Persistence.Context;
 
@@ -11,7 +10,7 @@ public class CartService(
     KioskContext ctx
 ) : ICartService
 {
-    public async Task<Result<CartGetPayload>> Start(CartCreatePayload payload, CancellationToken cancellationToken)
+    public async Task<Result<GetPayload>> Start(CreatePayload payload, CancellationToken cancellationToken)
     {
         var cart = new Cart
         {
@@ -22,7 +21,7 @@ public class CartService(
         ctx.Carts.Add(cart);
         await ctx.SaveChangesAsync(cancellationToken);
 
-        var value = new CartGetPayload(
+        var value = new GetPayload(
             cart.Id,
             cart.Client,
             cart.SessionToken

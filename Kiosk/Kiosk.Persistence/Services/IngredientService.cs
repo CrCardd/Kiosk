@@ -1,7 +1,6 @@
 
 using Kiosk.Domain.Models;
-using Kiosk.Domain.Payloads.Create;
-using Kiosk.Domain.Payloads.Get;
+using Kiosk.Domain.Payloads.Ingredient;
 using Kiosk.Domain.Services;
 using Kiosk.Persistence.Context;
 
@@ -11,7 +10,7 @@ public class IngredientService(
     KioskContext ctx
 ) : IIngredientService
 {
-    public async Task<Result<IngredientGetPayload>> Create(IngredientCreatePayload payload, CancellationToken cancellationToken)
+    public async Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken)
     {
         var service = ctx.Services
             .Where(s => s.DisabledAt == null)
@@ -40,7 +39,7 @@ public class IngredientService(
         ctx.PriceHistoryIngredients.Add(price);
 
         await ctx.SaveChangesAsync(cancellationToken);
-        var value = new IngredientGetPayload(
+        var value = new GetPayload(
             ingredient.Id,
             ingredient.Name,
             price.Price,

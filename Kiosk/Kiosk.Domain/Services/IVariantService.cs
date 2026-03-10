@@ -1,10 +1,10 @@
 
-using Kiosk.Domain.Payloads.Create;
-using Kiosk.Domain.Payloads.Get;
+using Kiosk.Domain.Payloads.Variant;
 
 namespace Kiosk.Domain.Services;
 
 public interface IVariantService : IBaseService
 {
-    public Task<Result<VariantGetPayload>> Create(VariantCreatePayload payload, CancellationToken cancellationToken);
+    public Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken);
+    public Task<Result<IReadOnlyCollection<GetPayload>>> GetAll(bool? available, CancellationToken cancellationToken);
 }

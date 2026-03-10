@@ -7,6 +7,7 @@ public class Variant : BaseModel
     public required string Name {get;set;}
     public required string Image {get;set;}
     public int Ingredients {get;set;}
+    // public int MaxIngredients {get;set;}
     public bool Surpass {get;set;}
     public required bool Available {get;set;}
     //================MY-RELATIONS================

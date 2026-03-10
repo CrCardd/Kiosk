@@ -1,6 +1,7 @@
 
 using Kiosk.Api.Enums;
 using Kiosk.Application.Features.VariantIngredient_.Create;
+using Kiosk.Domain.Payloads.VariantIngredient;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kiosk.Api.Controllers;
@@ -12,8 +13,8 @@ public class VariantIngredientController(
 ) : ControllerBase
 {
     [HttpPost]
-    public async Task<ActionResult<CreateResponse>> Create(
-        [FromBody] CreateRequest request,
+    public async Task<ActionResult<GetPayload>> Create(
+        [FromBody] CreatePayload request,
         CancellationToken cancellationToken
     )
     {

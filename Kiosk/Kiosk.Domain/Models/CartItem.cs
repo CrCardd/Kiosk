@@ -12,7 +12,6 @@ public class CartItem : BaseModel
     public required Guid CartId {get;set;}
     public required CartItem? Reference {get;set;}
     public required Guid? ReferenceId {get;set;}
-    public required Guid ProductId {get;set;}
     public required Variant Variant {get;set;}
     public required Guid VariantId {get;set;}
 

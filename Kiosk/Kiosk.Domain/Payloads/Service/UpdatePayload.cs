@@ -1,6 +1,6 @@
-namespace Kiosk.Domain.Payloads.Update;
+namespace Kiosk.Domain.Payloads.Service;
 
-public record ServiceUpdatePayload
+public record UpdatePayload
 (
     string? Name = null,
     string? Image = null,

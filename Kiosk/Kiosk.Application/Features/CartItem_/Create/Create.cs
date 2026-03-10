@@ -1,16 +1,17 @@
 
-using Kiosk.Domain.Payloads.Variant;
+using Kiosk.Domain.Payloads.CartItem;
 using Kiosk.Domain.Services;
 
-namespace Kiosk.Application.Features.Variant_.Create;
+namespace Kiosk.Application.Features.CartItem_.Create;
 
 public class Create(
-    IVariantService variantService
+    ICartItemService cartItemService
 ) : BaseFeature
 {
     public async Task<Result<GetPayload>> ExecuteAsync(CreatePayload request, CancellationToken cancellationToken)
     {
-        var response = await variantService.Create(request,cancellationToken);
+        var response = await cartItemService.Create(request,cancellationToken);
+
         if(!response.IsSuccess)
             return response.Message;
         return response.Value;

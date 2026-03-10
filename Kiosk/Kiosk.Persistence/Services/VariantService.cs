@@ -1,9 +1,9 @@
 
 using Kiosk.Domain.Models;
-using Kiosk.Domain.Payloads.Create;
-using Kiosk.Domain.Payloads.Get;
+using Kiosk.Domain.Payloads.Variant;
 using Kiosk.Domain.Services;
 using Kiosk.Persistence.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Kiosk.Persistence.Services;
 
@@ -11,7 +11,7 @@ public class _Service(
     KioskContext ctx
 ) : IVariantService
 {
-    public async Task<Result<VariantGetPayload>> Create(VariantCreatePayload payload, CancellationToken cancellationToken)
+    public async Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken)
     {
         var service = ctx.Services
             .Where(s => s.DisabledAt == null)
@@ -37,13 +37,32 @@ public class _Service(
             Variant=variant,
             VariantId=variant.Id
         };
+        foreach(var p in payload.Parts)
+        {
+            var part = ctx.Variants
+                .Where(v => v.DisabledAt == null)
+                .FirstOrDefault(v => v.Id == p);
+            
+            if(part == null)
+                return "Invalid Referenced Variant";
+
+            ctx.Combinations.Add(
+                new Combination{
+                    Available=true, 
+                    Comb=variant, 
+                    CombId=variant.Id, 
+                    Part=part, 
+                    PartId=part.Id
+                }                
+            );
+        }
 
         ctx.PriceHistoryVariants.Add(price);
         ctx.Variants.Add(variant);
         await ctx.SaveChangesAsync(cancellationToken);
         
         
-        var value = new VariantGetPayload(
+        var value = new GetPayload(
             variant.Id,
             variant.Name,
             price.Price,
@@ -51,8 +70,36 @@ public class _Service(
             variant.Ingredients,
             variant.Surpass,
             variant.Available,
-            variant.ServiceId
+            variant.ServiceId,
+            []
         );
         return value;
+    }
+
+    public async Task<Result<IReadOnlyCollection<GetPayload>>> GetAll(bool? available, CancellationToken cancellationToken)
+    {
+        return await ctx.Variants
+        .Where(v => v.DisabledAt == null)
+        .Where(v => available == null ? true : v.Available == available)
+        .Include(v => v.VariantIngredients)
+            .ThenInclude(vi => vi.Ingredient)
+        .Include(v => v.PriceHistoryVariants)
+        .Select(v => 
+            new GetPayload(
+                    v.Id,
+                    v.Name,
+                    v.PriceHistoryVariants
+                        .Where(phv => phv.DisabledAt == null)
+                        .OrderByDescending(phv => phv.CreatedAt)
+                        .First()
+                        .Price,
+                    v.Image,
+                    v.Ingredients,
+                    v.Surpass,
+                    v.Available,
+                    v.ServiceId,
+                    new List<GetIngredient>()
+            )
+        ).ToListAsync(cancellationToken);
     }
 }

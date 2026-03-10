@@ -4,6 +4,7 @@ using Kiosk.Application.Features;
 using Kiosk.Application.Features.Service_.Create;
 using Kiosk.Application.Features.Service_.GetAll;
 using Kiosk.Application.Features.Service_.Update;
+using Kiosk.Domain.Payloads.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kiosk.Api.Controllers;
@@ -17,8 +18,8 @@ public class ServiceController(
 ) : ControllerBase
 {
     [HttpPost]
-    public async Task<ActionResult<CreateResponse>> Create(
-        CreateRequest request, CancellationToken cancellationToken
+    public async Task<ActionResult<GetPayload>> Create(
+        CreatePayload request, CancellationToken cancellationToken
     )
     {
         var response = await create.ExecuteAsync(request, cancellationToken);

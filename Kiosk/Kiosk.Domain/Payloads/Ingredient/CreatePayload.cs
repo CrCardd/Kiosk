@@ -1,6 +1,6 @@
-namespace Kiosk.Domain.Payloads.Create;
+namespace Kiosk.Domain.Payloads.Ingredient;
 
-public record IngredientCreatePayload
+public record CreatePayload
 (
     string Name,
     decimal Price,

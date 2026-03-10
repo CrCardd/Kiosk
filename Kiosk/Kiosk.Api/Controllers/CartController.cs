@@ -1,6 +1,7 @@
 
 using Kiosk.Api.Enums;
 using Kiosk.Application.Features.Cart_.StartSession;
+using Kiosk.Domain.Payloads.Cart;
 using Kiosk.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,8 +14,8 @@ public class CartController(
 ) : ControllerBase
 {   
         [HttpPost]
-        public async Task<ActionResult<StartSessionCartResponse>> Post(
-            StartSessionCartRequest request, CancellationToken cancellationToken
+        public async Task<ActionResult<GetPayload>> Post(
+            CreatePayload request, CancellationToken cancellationToken
         )
         {
             var response = await startSessionCart.ExecuteAsync(request, cancellationToken);

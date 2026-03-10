@@ -1,8 +1,6 @@
 
 using Kiosk.Domain.Models;
-using Kiosk.Domain.Payloads.Create;
-using Kiosk.Domain.Payloads.Get;
-using Kiosk.Domain.Payloads.Update;
+using Kiosk.Domain.Payloads.Service;
 using Kiosk.Domain.Services;
 using Kiosk.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +11,7 @@ public class ServiceService(
     KioskContext ctx
 ) : IServiceService
 {
-    public async Task<Result<ServiceGetPayload>> Create(ServiceCreatePayload payload, CancellationToken cancellationToken)
+    public async Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken)
     {
         var service = new Service
         {
@@ -25,7 +23,7 @@ public class ServiceService(
         ctx.Services.Add(service);
         await ctx.SaveChangesAsync(cancellationToken);
 
-        var value = new ServiceGetPayload(
+        var value = new GetPayload(
             service.Id,
             service.Name,
             service.Image,
@@ -35,12 +33,12 @@ public class ServiceService(
         return value;
     }
 
-    public async Task<Result<IReadOnlyList<ServiceGetPayload>>> GetAll(bool? available, CancellationToken cancellationToken)
+    public async Task<Result<IReadOnlyCollection<GetPayload>>> GetAll(bool? available, CancellationToken cancellationToken)
     {
         var value = await ctx.Services
             .Where(s => s.DisabledAt == null)
             .Where(s => available == null ? true : s.Available == available)
-            .Select(s => new ServiceGetPayload
+            .Select(s => new GetPayload
             (
                 s.Id,
                 s.Name,
@@ -52,7 +50,7 @@ public class ServiceService(
         return value;
     }
 
-    public async Task<Result<ServiceGetPayload>> Update(Guid Id, ServiceUpdatePayload payload, CancellationToken cancellationToken)
+    public async Task<Result<GetPayload>> Update(Guid Id, UpdatePayload payload, CancellationToken cancellationToken)
     {
         var service = ctx.Services
             .Where(s => s.Id == Id)
@@ -69,7 +67,7 @@ public class ServiceService(
             service.Available = (bool)payload.Available;
         
         await ctx.SaveChangesAsync(cancellationToken);
-        var value = new ServiceGetPayload(
+        var value = new GetPayload(
             service.Id,
             service.Name,
             service.Image,

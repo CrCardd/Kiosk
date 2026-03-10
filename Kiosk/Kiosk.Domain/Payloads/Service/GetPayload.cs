@@ -1,6 +1,6 @@
-namespace Kiosk.Domain.Payloads.Get;
+namespace Kiosk.Domain.Payloads.Service;
 
-public record ServiceGetPayload
+public record GetPayload
 (
     Guid Id,
     string Name,
