@@ -121,9 +121,6 @@ namespace Kiosk.Persistence.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("id");
 
-                    b.Property<bool>("Available")
-                        .HasColumnType("INTEGER");
-
                     b.Property<Guid>("CombId")
                         .HasColumnType("TEXT");
 
@@ -474,13 +471,13 @@ namespace Kiosk.Persistence.Migrations
             modelBuilder.Entity("Kiosk.Domain.Models.Combination", b =>
                 {
                     b.HasOne("Kiosk.Domain.Models.Variant", "Comb")
-                        .WithMany("Combs")
+                        .WithMany("Parts")
                         .HasForeignKey("CombId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Kiosk.Domain.Models.Variant", "Part")
-                        .WithMany("Parts")
+                        .WithMany("Combs")
                         .HasForeignKey("PartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

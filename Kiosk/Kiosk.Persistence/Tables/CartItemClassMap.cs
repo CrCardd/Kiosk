@@ -35,7 +35,7 @@ public static class CartItemClassMap
         builder.HasMany(ci => ci.Ingredients)
             .WithMany(i => i.CartItems)
             .UsingEntity(
-                "CartItemIngredient",
+                "tb_cartitemingredient",
                 r => r.HasOne(typeof(Ingredient)).WithMany().HasForeignKey("IngredientsId").HasPrincipalKey(nameof(Ingredient.Id)),
                 l => l.HasOne(typeof(CartItem)).WithMany().HasForeignKey("CartItemsId").HasPrincipalKey(nameof(CartItem.Id)),
                 j => j.HasKey("IngredientsId", "CartItemsId")

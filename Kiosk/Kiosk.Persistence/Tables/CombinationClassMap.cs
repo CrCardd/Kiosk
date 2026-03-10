@@ -18,15 +18,14 @@ public static class CombinationClassMap
 
         
         //================PROPERTIES================
-        builder.Property(c => c.Available)
-            .IsRequired();
+        
         //================MY-RELATIONS================
         builder.HasOne(c => c.Comb)
-            .WithMany(v => v.Combs)
+            .WithMany(v => v.Parts)
             .HasForeignKey(c => c.CombId)
             .IsRequired();
         builder.HasOne(c => c.Part)
-            .WithMany(v => v.Parts)
+            .WithMany(v => v.Combs)
             .HasForeignKey(c => c.PartId)
             .IsRequired();
         //================RELATIONS================

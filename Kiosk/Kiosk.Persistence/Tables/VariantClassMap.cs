@@ -39,14 +39,6 @@ public static class VariantClassMap
         builder.HasMany(v => v.PriceHistoryVariants)
             .WithOne(phv => phv.Variant)
             .HasForeignKey(phv => phv.VariantId)
-            .IsRequired();      
-        builder.HasMany(v => v.Combs)
-            .WithOne(c => c.Comb)
-            .HasForeignKey(c => c.CombId)
-            .IsRequired();  
-        builder.HasMany(v => v.Parts)
-            .WithOne(c => c.Part)
-            .HasForeignKey(c => c.PartId)
             .IsRequired();
         builder.HasMany(i => i.VariantIngredients)
             .WithOne(vi => vi.Variant)

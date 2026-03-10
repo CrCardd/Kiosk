@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Kiosk.Persistence.Migrations
 {
     [DbContext(typeof(KioskContext))]
-    [Migration("20260310015926_InitialMigration")]
+    [Migration("20260310223429_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -123,9 +123,6 @@ namespace Kiosk.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
                         .HasColumnName("id");
-
-                    b.Property<bool>("Available")
-                        .HasColumnType("INTEGER");
 
                     b.Property<Guid>("CombId")
                         .HasColumnType("TEXT");
@@ -477,13 +474,13 @@ namespace Kiosk.Persistence.Migrations
             modelBuilder.Entity("Kiosk.Domain.Models.Combination", b =>
                 {
                     b.HasOne("Kiosk.Domain.Models.Variant", "Comb")
-                        .WithMany("Combs")
+                        .WithMany("Parts")
                         .HasForeignKey("CombId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Kiosk.Domain.Models.Variant", "Part")
-                        .WithMany("Parts")
+                        .WithMany("Combs")
                         .HasForeignKey("PartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

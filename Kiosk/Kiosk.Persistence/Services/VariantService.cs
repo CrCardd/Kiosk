@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Kiosk.Persistence.Services;
 
-public class _Service(
+public class VariantService(
     KioskContext ctx
 ) : IVariantService
 {
@@ -44,23 +44,21 @@ public class _Service(
             var part = ctx.Variants
                 .Where(v => v.DisabledAt == null)
                 .FirstOrDefault(v => v.Id == p);
-            
             if(part == null)
                 return "Invalid Referenced Variant";
 
-            ctx.Combinations.Add(
-                new Combination{
-                    Available=true, 
-                    Comb=variant, 
-                    CombId=variant.Id, 
-                    Part=part, 
-                    PartId=part.Id
-                }                
+            variant.Parts.Add(
+                new Combination
+                {
+                    Part=part,
+                    PartId=part.Id,
+                }
             );
         }
 
         ctx.PriceHistoryVariants.Add(price);
         ctx.Variants.Add(variant);
+
         await ctx.SaveChangesAsync(cancellationToken);
         
         
@@ -110,9 +108,17 @@ public class _Service(
         return new GenericListPayload<GetPayload>(variants.Count, variants);
     }
 
-    public async Task<Result<GetPayload>> GetById(Guid id, CancellationToken cancellationToken)
+    public async Task<Result<GetPayload>> GetById(Guid id, CancellationToken cancellationToken, HashSet<Guid>? visitedIds = null)
     {
-        var variant = ctx.Variants
+        visitedIds ??= new HashSet<Guid>();
+
+        if (visitedIds.Contains(id))
+            return "Circular reference"; 
+
+        visitedIds.Add(id);
+
+
+        var variant = await ctx.Variants
             .Where(v => v.DisabledAt == null)
             .Include(v => v.Parts)
             .Include(v => v.Service)
@@ -120,14 +126,17 @@ public class _Service(
                 .ThenInclude(vi => vi.Ingredient)
                     .ThenInclude(i => i.PriceHistoryIngredients)
             .Include(v => v.PriceHistoryVariants)
-            .FirstOrDefault(v => v.Id == id);
+            .FirstOrDefaultAsync(v => v.Id == id);
         if(variant == null)
             return "Referenced variant not found";
 
-        var results = await Task.WhenAll(
-            variant.Parts.Select(p => GetById(p.Id, cancellationToken)).ToList()
-        );
-        var parts = results.Select(r => r.Value).ToList();
+        var parts = new List<GetPayload>();
+        foreach (var part in variant.Parts)
+        {
+            var result = await GetById(part.PartId, cancellationToken, visitedIds);
+            if (result.IsSuccess)
+                parts.Add(result.Value);
+        }
 
         return new GetPayload(
             variant.Id,
