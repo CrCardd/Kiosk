@@ -14,11 +14,11 @@
     }
   },
   "projectSetting": {
-    "id": "1205266",
+    "id": "1222364",
     "auth": {},
     "securityScheme": {},
     "gateway": [],
-    "language": "pt-PT",
+    "language": "pt-BR",
     "apiStatuses": [
       "developing",
       "testing",
@@ -45,7 +45,7 @@
       {
         "id": "default",
         "name": "Servidor Padrão",
-        "moduleId": 1085370
+        "moduleId": 1122553
       }
     ],
     "cloudMock": {
@@ -62,32 +62,32 @@
   "mcpClientCollection": [],
   "responseCollection": [
     {
-      "_databaseId": 1339656,
-      "updatedAt": "2026-02-22T01:25:09.000Z",
+      "_databaseId": 1380226,
+      "updatedAt": "2026-03-10T04:57:09.000Z",
       "name": "Root",
       "type": "root",
       "children": [],
-      "moduleId": 1085370,
+      "moduleId": 1122553,
       "parentId": 0,
-      "id": 1339656,
+      "id": 1380226,
       "ordering": [],
       "items": []
     }
   ],
   "schemaCollection": [
     {
-      "id": 3091473,
+      "id": 3158276,
       "name": "Root",
       "visibility": "SHARED",
-      "moduleId": 1085370,
+      "moduleId": 1122553,
       "items": [],
       "ordering": []
     }
   ],
   "securitySchemeCollection": [
     {
-      "id": 1096470,
-      "moduleId": 1085370,
+      "id": 1153071,
+      "moduleId": 1122553,
       "name": "Root",
       "items": [],
       "ordering": []
@@ -103,9 +103,9 @@
           "children": [],
           "items": [
             {
-              "id": 672112,
-              "createdAt": "2026-03-07T16:37:59.000Z",
-              "updatedAt": "2026-03-10T04:09:35.000Z",
+              "id": 673127,
+              "createdAt": "2026-03-10T04:57:10.000Z",
+              "updatedAt": "2026-03-10T04:57:10.000Z",
               "name": "StartSession",
               "method": "post",
               "path": "http://localhost:5025/api/cart",
@@ -141,8 +141,8 @@
               "postProcessors": [],
               "auth": {},
               "advancedSettings": {},
-              "folderId": 9528650,
-              "projectId": 1205209,
+              "folderId": 9531819,
+              "projectId": 1222307,
               "creatorId": 647229,
               "editorId": 647229
             }
@@ -153,9 +153,45 @@
           "children": [],
           "items": [
             {
-              "id": 672113,
-              "createdAt": "2026-03-07T16:39:37.000Z",
-              "updatedAt": "2026-03-10T02:06:31.000Z",
+              "id": 673138,
+              "createdAt": "2026-03-10T04:57:41.000Z",
+              "updatedAt": "2026-03-10T04:57:49.000Z",
+              "name": "GetById",
+              "method": "get",
+              "path": "http://localhost:5025/api/service/{id}",
+              "requestBody": {
+                "type": "none",
+                "parameters": []
+              },
+              "parameters": {
+                "path": [
+                  {
+                    "name": "id",
+                    "value": "c6eac701-79f2-40c3-8861-ae5d222ac3b9",
+                    "sampleValue": "c6eac701-79f2-40c3-8861-ae5d222ac3b9",
+                    "enable": true
+                  }
+                ]
+              },
+              "commonParameters": {
+                "query": [],
+                "body": [],
+                "header": [],
+                "cookie": []
+              },
+              "preProcessors": [],
+              "postProcessors": [],
+              "auth": {},
+              "advancedSettings": {},
+              "folderId": 9531820,
+              "projectId": 1222307,
+              "creatorId": 647229,
+              "editorId": 647229
+            },
+            {
+              "id": 673128,
+              "createdAt": "2026-03-10T04:57:10.000Z",
+              "updatedAt": "2026-03-10T04:57:10.000Z",
               "name": "Create",
               "method": "post",
               "path": "http://localhost:5025/api/service",
@@ -191,15 +227,15 @@
               "postProcessors": [],
               "auth": {},
               "advancedSettings": {},
-              "folderId": 9528651,
-              "projectId": 1205209,
+              "folderId": 9531820,
+              "projectId": 1222307,
               "creatorId": 647229,
               "editorId": 647229
             },
             {
-              "id": 672120,
-              "createdAt": "2026-03-07T18:05:12.000Z",
-              "updatedAt": "2026-03-07T20:45:42.000Z",
+              "id": 673129,
+              "createdAt": "2026-03-10T04:57:10.000Z",
+              "updatedAt": "2026-03-10T04:57:10.000Z",
               "name": "GetAll",
               "method": "get",
               "path": "http://localhost:5025/api/service",
@@ -218,15 +254,15 @@
               "postProcessors": [],
               "auth": {},
               "advancedSettings": {},
-              "folderId": 9528651,
-              "projectId": 1205209,
+              "folderId": 9531820,
+              "projectId": 1222307,
               "creatorId": 647229,
               "editorId": 647229
             },
             {
-              "id": 672121,
-              "createdAt": "2026-03-07T18:07:26.000Z",
-              "updatedAt": "2026-03-10T02:06:36.000Z",
+              "id": 673130,
+              "createdAt": "2026-03-10T04:57:10.000Z",
+              "updatedAt": "2026-03-10T04:57:10.000Z",
               "name": "Update",
               "method": "patch",
               "path": "http://localhost:5025/api/service",
@@ -278,8 +314,8 @@
               "postProcessors": [],
               "auth": {},
               "advancedSettings": {},
-              "folderId": 9528651,
-              "projectId": 1205209,
+              "folderId": 9531820,
+              "projectId": 1222307,
               "creatorId": 647229,
               "editorId": 647229
             }
@@ -290,9 +326,9 @@
           "children": [],
           "items": [
             {
-              "id": 672131,
-              "createdAt": "2026-03-07T20:45:35.000Z",
-              "updatedAt": "2026-03-10T02:13:40.000Z",
+              "id": 673131,
+              "createdAt": "2026-03-10T04:57:10.000Z",
+              "updatedAt": "2026-03-10T04:57:10.000Z",
               "name": "Create",
               "method": "post",
               "path": "http://localhost:5025/api/variant",
@@ -348,15 +384,15 @@
               "postProcessors": [],
               "auth": {},
               "advancedSettings": {},
-              "folderId": 9528797,
-              "projectId": 1205209,
+              "folderId": 9531821,
+              "projectId": 1222307,
               "creatorId": 647229,
               "editorId": 647229
             },
             {
-              "id": 673075,
-              "createdAt": "2026-03-10T02:42:22.000Z",
-              "updatedAt": "2026-03-10T02:42:22.000Z",
+              "id": 673132,
+              "createdAt": "2026-03-10T04:57:10.000Z",
+              "updatedAt": "2026-03-10T04:57:10.000Z",
               "name": "GetAll",
               "method": "get",
               "path": "http://localhost:5025/api/variant",
@@ -374,15 +410,15 @@
               "postProcessors": [],
               "auth": {},
               "advancedSettings": {},
-              "folderId": 9528797,
-              "projectId": 1205209,
+              "folderId": 9531821,
+              "projectId": 1222307,
               "creatorId": 647229,
               "editorId": 647229
             },
             {
-              "id": 673092,
-              "createdAt": "2026-03-10T03:09:20.000Z",
-              "updatedAt": "2026-03-10T03:56:15.000Z",
+              "id": 673133,
+              "createdAt": "2026-03-10T04:57:10.000Z",
+              "updatedAt": "2026-03-10T04:57:10.000Z",
               "name": "GetById",
               "method": "get",
               "path": "http://localhost:5025/api/variant/{id}",
@@ -410,15 +446,15 @@
               "postProcessors": [],
               "auth": {},
               "advancedSettings": {},
-              "folderId": 9528797,
-              "projectId": 1205209,
+              "folderId": 9531821,
+              "projectId": 1222307,
               "creatorId": 647229,
               "editorId": 647229
             },
             {
-              "id": 673093,
-              "createdAt": "2026-03-10T03:09:28.000Z",
-              "updatedAt": "2026-03-10T03:14:46.000Z",
+              "id": 673134,
+              "createdAt": "2026-03-10T04:57:10.000Z",
+              "updatedAt": "2026-03-10T04:57:10.000Z",
               "name": "GetByService",
               "method": "get",
               "path": "http://localhost:5025/api/variant/service/{serviceId}",
@@ -446,8 +482,8 @@
               "postProcessors": [],
               "auth": {},
               "advancedSettings": {},
-              "folderId": 9528797,
-              "projectId": 1205209,
+              "folderId": 9531821,
+              "projectId": 1222307,
               "creatorId": 647229,
               "editorId": 647229
             }
@@ -458,9 +494,9 @@
           "children": [],
           "items": [
             {
-              "id": 672257,
-              "createdAt": "2026-03-08T19:48:09.000Z",
-              "updatedAt": "2026-03-10T02:09:03.000Z",
+              "id": 673135,
+              "createdAt": "2026-03-10T04:57:10.000Z",
+              "updatedAt": "2026-03-10T04:57:10.000Z",
               "name": "Create",
               "method": "post",
               "path": "http://localhost:5025/api/ingredient",
@@ -508,8 +544,8 @@
               "postProcessors": [],
               "auth": {},
               "advancedSettings": {},
-              "folderId": 9529607,
-              "projectId": 1205209,
+              "folderId": 9531822,
+              "projectId": 1222307,
               "creatorId": 647229,
               "editorId": 647229
             }
@@ -520,9 +556,9 @@
           "children": [],
           "items": [
             {
-              "id": 672284,
-              "createdAt": "2026-03-08T22:05:51.000Z",
-              "updatedAt": "2026-03-10T04:09:37.000Z",
+              "id": 673136,
+              "createdAt": "2026-03-10T04:57:10.000Z",
+              "updatedAt": "2026-03-10T04:57:10.000Z",
               "name": "Create",
               "method": "post",
               "path": "http://localhost:5025/api/variantingredient",
@@ -562,8 +598,8 @@
               "postProcessors": [],
               "auth": {},
               "advancedSettings": {},
-              "folderId": 9529702,
-              "projectId": 1205209,
+              "folderId": 9531823,
+              "projectId": 1222307,
               "creatorId": 647229,
               "editorId": 647229
             }
@@ -574,9 +610,9 @@
           "children": [],
           "items": [
             {
-              "id": 673115,
-              "createdAt": "2026-03-10T04:12:27.000Z",
-              "updatedAt": "2026-03-10T04:25:40.000Z",
+              "id": 673137,
+              "createdAt": "2026-03-10T04:57:10.000Z",
+              "updatedAt": "2026-03-10T04:57:10.000Z",
               "name": "Create",
               "method": "post",
               "path": "http://localhost:5025/api/cartitem",
@@ -623,8 +659,8 @@
               "postProcessors": [],
               "auth": {},
               "advancedSettings": {},
-              "folderId": 9531769,
-              "projectId": 1205209,
+              "folderId": 9531824,
+              "projectId": 1222307,
               "creatorId": 647229,
               "editorId": 647229
             }
@@ -651,182 +687,222 @@
   "customFunctions": [],
   "projectTestCaseCategories": [
     {
-      "id": 1004244,
+      "id": 1019083,
       "name": "Positivo",
       "description": "Entradas válidas e resultados esperados corretos, representando um uso típico."
     },
     {
-      "id": 1004245,
+      "id": 1019084,
       "name": "Negativo",
-      "description": "Entradas negativas ou inválidas, como campos em falta, tipos incorretos, métodos não suportados, etc."
+      "description": "Entradas negativas ou inválidas, como campos ausentes, tipos incorretos, métodos não suportados etc."
     },
     {
-      "id": 1004246,
+      "id": 1019085,
       "name": "Limite",
-      "description": "Condições extremas ou de limite, como comprimento máximo de string, valores vazios, zero, null, etc."
+      "description": "Condições extremas ou de limite, como comprimento máximo de string, valores vazios, zero, null etc."
     },
     {
-      "id": 1004247,
+      "id": 1019086,
       "name": "Segurança",
       "description": "Casos que podem expor riscos de segurança da API."
     },
     {
-      "id": 1004248,
+      "id": 1019087,
       "name": "Outros",
       "description": "Casos não classificados nas categorias existentes."
     }
   ],
   "projectTestCaseTags": [
     {
-      "id": 3919668,
-      "name": "Apenas campos obrigatórios",
-      "description": "Enviar apenas os campos obrigatórios com valores válidos, omitindo todos os opcionais, para testar o pedido mínimo válido."
+      "id": 4006017,
+      "name": "Somente campos obrigatórios",
+      "description": "Enviar apenas os campos obrigatórios com valores válidos, omitindo todos os opcionais, para testar a requisição mínima válida."
     },
     {
-      "id": 3919669,
+      "id": 4006018,
       "name": "Semântica válida",
       "description": "Usar valores sintaticamente corretos que também façam sentido na lógica de negócio ou no contexto do domínio."
     },
     {
-      "id": 3919670,
+      "id": 4006019,
       "name": "Cobertura de combinações de enum",
-      "description": "Para todos os parâmetros do tipo enum, aplicar design ortogonal para construir sistematicamente combinações de casos de teste dos parâmetros e dos seus valores de enum, dedicadas a testar a cobertura de enums."
+      "description": "Para todos os parâmetros do tipo enum, aplicar design ortogonal para construir sistematicamente combinações de casos de teste dos parâmetros e de seus valores de enum, dedicadas a testar a cobertura de enums."
     },
     {
-      "id": 3919671,
+      "id": 4006020,
       "name": "Outro caso positivo",
-      "description": "Fornecer entradas realistas e válidas que cumpram a especificação da API, produzindo o resultado correto e esperado."
+      "description": "Fornecer entradas realistas e válidas que atendam à especificação da API, produzindo o resultado correto e esperado."
     },
     {
-      "id": 3919672,
-      "name": "Campos obrigatórios em falta",
-      "description": "Omitir um ou mais campos obrigatórios no corpo ou nos parâmetros do pedido."
+      "id": 4006021,
+      "name": "Campos obrigatórios ausentes",
+      "description": "Omitir um ou mais campos obrigatórios no corpo ou nos parâmetros da requisição."
     },
     {
-      "id": 3919673,
+      "id": 4006022,
       "name": "Valores inválidos",
       "description": "Fornecer valores com tipo e formato corretos, mas logicamente inválidos para o campo."
     },
     {
-      "id": 3919674,
+      "id": 4006023,
       "name": "Erros de tipo",
       "description": "Usar valores com tipos de dados incorretos, como enviar uma string em vez de um inteiro."
     },
     {
-      "id": 3919675,
+      "id": 4006024,
       "name": "Erros de formato",
-      "description": "Fornecer valores num formato incorreto, p.ex., padrão de data errado, endereço de e-mail malformado."
+      "description": "Fornecer valores em formato incorreto, por exemplo, padrão de data errado ou endereço de e-mail malformado."
     },
     {
-      "id": 3919676,
+      "id": 4006025,
       "name": "Erros semânticos",
-      "description": "Usar valores sintática e formalmente corretos que sejam logicamente impossíveis ou violem as regras do domínio."
+      "description": "Usar valores sintática e formalmente corretos que sejam logicamente impossíveis ou violem regras do domínio."
     },
     {
-      "id": 3919677,
+      "id": 4006026,
       "name": "Outro caso negativo",
       "description": "Fornecer entradas inválidas ou inesperadas que devem acionar o tratamento de erros ou a rejeição pela API."
     },
     {
-      "id": 3919678,
+      "id": 4006027,
       "name": "Nulo",
       "description": "Deve ser o literal JSON `null` (não vazio, não \"null\")."
     },
     {
-      "id": 3919679,
+      "id": 4006028,
       "name": "Zero",
       "description": "Deve ser o literal numérico 0."
     },
     {
-      "id": 3919680,
+      "id": 4006029,
       "name": "Valores vazios",
       "description": "Deve ser \"\"."
     },
     {
-      "id": 3919681,
+      "id": 4006030,
       "name": "Valores máximos",
       "description": "Fornecer os valores mínimo e máximo permitidos exatos para campos numéricos ou de data."
     },
     {
-      "id": 3919682,
+      "id": 4006031,
       "name": "Valores mínimos",
       "description": "Fornecer os valores mínimo e máximo permitidos exatos para campos numéricos ou de data."
     },
     {
-      "id": 3919683,
-      "name": "Overflow",
+      "id": 4006032,
+      "name": "Estouro",
       "description": "Fornecer valores logo além dos limites mínimo ou máximo permitidos."
     },
     {
-      "id": 3919684,
-      "name": "Underflow",
+      "id": 4006033,
+      "name": "Subfluxo",
       "description": "Fornecer valores logo além dos limites mínimo ou máximo permitidos."
     },
     {
-      "id": 3919685,
-      "name": "Strings demasiado longas",
-      "description": "Fornecer strings mais longas do que o comprimento máximo permitido, ou mais curtas do que o comprimento mínimo exigido."
+      "id": 4006034,
+      "name": "Strings muito longas",
+      "description": "Fornecer strings mais longas que o comprimento máximo permitido ou mais curtas que o comprimento mínimo exigido."
     },
     {
-      "id": 3919686,
-      "name": "Strings demasiado curtas",
-      "description": "Fornecer strings mais longas do que o comprimento máximo permitido, ou mais curtas do que o comprimento mínimo exigido."
+      "id": 4006035,
+      "name": "Strings muito curtas",
+      "description": "Fornecer strings mais longas que o comprimento máximo permitido ou mais curtas que o comprimento mínimo exigido."
     },
     {
-      "id": 3919687,
-      "name": "Quebra de autorização ao nível do objeto",
-      "description": "Os utilizadores acedem ou manipulam objetos de dados sem a devida autorização."
+      "id": 4006036,
+      "name": "Autorização em nível de objeto comprometida",
+      "description": "Usuários acessam ou manipulam objetos de dados sem a devida autorização."
     },
     {
-      "id": 3919688,
-      "name": "Controlo de acesso",
-      "description": "Restringir os recursos e ações a que os utilizadores podem aceder com base em papéis, permissões ou atributos."
+      "id": 4006037,
+      "name": "Controle de acesso",
+      "description": "Restringir os recursos e as ações que os usuários podem acessar com base em papéis, permissões ou atributos."
     },
     {
-      "id": 3919689,
+      "id": 4006038,
       "name": "Falhas de autenticação",
       "description": "A autenticação é fraca, está mal configurada ou foi contornada, permitindo acesso não autorizado."
     },
     {
-      "id": 3919690,
+      "id": 4006039,
       "name": "Injeção SQL",
       "description": "Inserir código SQL malicioso nas entradas para testar vulnerabilidades de injeção SQL."
     },
     {
-      "id": 3919691,
+      "id": 4006040,
       "name": "Injeção XSS",
-      "description": "Injetar JavaScript ou etiquetas HTML para testar vulnerabilidades de XSS."
+      "description": "Injetar JavaScript ou tags HTML para testar vulnerabilidades de XSS."
     },
     {
-      "id": 3919692,
+      "id": 4006041,
       "name": "Entrada fuzz",
-      "description": "Enviar cargas úteis grandes ou geradas aleatoriamente para testar a validação de entrada e a estabilidade."
+      "description": "Enviar cargas úteis grandes ou geradas aleatoriamente para testar validação de entrada e estabilidade."
     },
     {
-      "id": 3919693,
+      "id": 4006042,
       "name": "Injeção de comandos",
       "description": "Inserir comandos de shell nas entradas para testar vulnerabilidades de execução de comandos."
     },
     {
-      "id": 3919694,
+      "id": 4006043,
       "name": "Injeção JSON",
-      "description": "Inserir estruturas JSON maliciosas ou inesperadas para testar a análise e validação."
+      "description": "Inserir estruturas JSON maliciosas ou inesperadas para testar análise e validação."
     },
     {
-      "id": 3919695,
+      "id": 4006044,
       "name": "Injeção NoSQL",
       "description": "Fornecer consultas ou operadores específicos de NoSQL para testar injeção."
     },
     {
-      "id": 3919696,
+      "id": 4006045,
       "name": "Outros",
       "description": "Casos não classificados nas categorias existentes."
+    },
+    {
+      "id": 4006046,
+      "name": "Apenas campos obrigatórios",
+      "description": "Enviar apenas os campos obrigatórios com valores válidos, omitindo todos os opcionais, para testar o pedido mínimo válido."
+    },
+    {
+      "id": 4006047,
+      "name": "Campos obrigatórios em falta",
+      "description": "Omitir um ou mais campos obrigatórios no corpo ou nos parâmetros do pedido."
+    },
+    {
+      "id": 4006048,
+      "name": "Overflow",
+      "description": "Fornecer valores logo além dos limites mínimo ou máximo permitidos."
+    },
+    {
+      "id": 4006049,
+      "name": "Underflow",
+      "description": "Fornecer valores logo além dos limites mínimo ou máximo permitidos."
+    },
+    {
+      "id": 4006050,
+      "name": "Strings demasiado longas",
+      "description": "Fornecer strings mais longas do que o comprimento máximo permitido, ou mais curtas do que o comprimento mínimo exigido."
+    },
+    {
+      "id": 4006051,
+      "name": "Strings demasiado curtas",
+      "description": "Fornecer strings mais longas do que o comprimento máximo permitido, ou mais curtas do que o comprimento mínimo exigido."
+    },
+    {
+      "id": 4006052,
+      "name": "Quebra de autorização ao nível do objeto",
+      "description": "Os utilizadores acedem ou manipulam objetos de dados sem a devida autorização."
+    },
+    {
+      "id": 4006053,
+      "name": "Controlo de acesso",
+      "description": "Restringir os recursos e ações a que os utilizadores podem aceder com base em papéis, permissões ou atributos."
     }
   ],
   "projectAssociations": [],
   "moduleSettings": [
     {
-      "id": "1085370",
+      "id": "1122553",
       "name": "Módulo predefinido",
       "description": "",
       "moduleVariables": [],
