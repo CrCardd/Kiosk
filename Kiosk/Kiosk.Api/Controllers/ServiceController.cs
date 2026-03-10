@@ -4,6 +4,7 @@ using Kiosk.Application.Features;
 using Kiosk.Application.Features.Service_.Create;
 using Kiosk.Application.Features.Service_.GetAll;
 using Kiosk.Application.Features.Service_.Update;
+using Kiosk.Domain.Payloads._Misc;
 using Kiosk.Domain.Payloads.Service;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,12 +30,12 @@ public class ServiceController(
     }
 
     [HttpGet]
-    public async Task<ActionResult<GetAllResponse>> GetAll
+    public async Task<ActionResult<GenericListPayload<GetPayload>>> GetAll
     (
         [FromQuery] bool? available, CancellationToken cancellationToken
     )
     {
-        var response = await getAll.ExecuteAsync(new(available), cancellationToken);
+        var response = await getAll.ExecuteAsync(available, cancellationToken);
         if(response.IsSuccess)
             return Ok(response);
         return BadRequest(response);

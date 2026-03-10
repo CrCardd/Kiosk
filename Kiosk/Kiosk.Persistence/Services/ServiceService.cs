@@ -1,5 +1,6 @@
 
 using Kiosk.Domain.Models;
+using Kiosk.Domain.Payloads._Misc;
 using Kiosk.Domain.Payloads.Service;
 using Kiosk.Domain.Services;
 using Kiosk.Persistence.Context;
@@ -33,7 +34,7 @@ public class ServiceService(
         return value;
     }
 
-    public async Task<Result<IReadOnlyCollection<GetPayload>>> GetAll(bool? available, CancellationToken cancellationToken)
+    public async Task<Result<GenericListPayload<GetPayload>>> GetAll(bool? available, CancellationToken cancellationToken)
     {
         var value = await ctx.Services
             .Where(s => s.DisabledAt == null)
@@ -47,7 +48,7 @@ public class ServiceService(
             ))
             .ToListAsync(cancellationToken);
         
-        return value;
+        return new GenericListPayload<GetPayload>(value.Count, value);
     }
 
     public async Task<Result<GetPayload>> Update(Guid Id, UpdatePayload payload, CancellationToken cancellationToken)

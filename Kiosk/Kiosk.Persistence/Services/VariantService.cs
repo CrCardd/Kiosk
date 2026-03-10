@@ -1,5 +1,7 @@
 
+using System.IO.Pipes;
 using Kiosk.Domain.Models;
+using Kiosk.Domain.Payloads._Misc;
 using Kiosk.Domain.Payloads.Variant;
 using Kiosk.Domain.Services;
 using Kiosk.Persistence.Context;
@@ -70,17 +72,18 @@ public class _Service(
             variant.Ingredients,
             variant.Surpass,
             variant.Available,
-            variant.ServiceId,
+            new(variant.Service.Id,variant.Service.Name,variant.Service.Image),
             []
         );
         return value;
     }
 
-    public async Task<Result<IReadOnlyCollection<GetPayload>>> GetAll(bool? available, CancellationToken cancellationToken)
+    public async Task<Result<GenericListPayload<GetPayload>>> GetAll(bool? available, CancellationToken cancellationToken)
     {
-        return await ctx.Variants
+        var variants = await ctx.Variants
         .Where(v => v.DisabledAt == null)
         .Where(v => available == null ? true : v.Available == available)
+        .Include(v => v.Service)
         .Include(v => v.VariantIngredients)
             .ThenInclude(vi => vi.Ingredient)
         .Include(v => v.PriceHistoryVariants)
@@ -97,9 +100,41 @@ public class _Service(
                     v.Ingredients,
                     v.Surpass,
                     v.Available,
-                    v.ServiceId,
+                    new(v.Service.Id,v.Service.Name,v.Service.Image),
                     new List<GetIngredient>()
             )
         ).ToListAsync(cancellationToken);
+
+        return new GenericListPayload<GetPayload>(variants.Count, variants);
+    }
+
+    public async Task<Result<GenericListPayload<GetPayload>>> GetByService(Guid serviceId, CancellationToken cancellationToken)
+    {
+        if(!ctx.Services.Any(s => s.Id == serviceId))
+            return "Referenced service not found";
+
+        var variants = await ctx.Variants
+            .Where(v => v.DisabledAt == null)
+            .Include(v => v.PriceHistoryVariants)
+            .Include(v => v.Service)
+            .Select(v =>
+                    new GetPayload(
+                        v.Id,
+                        v.Name,
+                        v.PriceHistoryVariants
+                            .Where(phv => phv.DisabledAt == null)
+                            .OrderByDescending(phv => phv.CreatedAt)
+                            .First()
+                            .Price,
+                        v.Image,
+                        v.Ingredients,
+                        v.Surpass,
+                        v.Available,
+                        new(v.Service.Id,v.Service.Name,v.Service.Image),
+                        new List<GetIngredient>()
+                )
+            )
+            .ToListAsync(cancellationToken);
+        return new GenericListPayload<GetPayload>(variants.Count, variants);
     }
 }

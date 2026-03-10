@@ -9,7 +9,7 @@ public record GetPayload
     int Ingredients,
     bool Surpass,
     bool Available,
-    Guid ServiceId,
+    GetService Service,
     ICollection<GetIngredient> VariantIngredients
 );
 
@@ -20,4 +20,10 @@ public record GetIngredient
     bool Available,
     string Name,
     decimal Price
+);
+
+public record GetService(
+    Guid Id,
+    string Name,
+    string Image
 );
