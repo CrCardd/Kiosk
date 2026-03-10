@@ -12,8 +12,6 @@ public class GetByService(
     public async Task<Result<GenericListPayload<GetPayload>>> ExecuteAsync(Guid serviceId, CancellationToken cancellationToken)
     {
         var response = await variantService.GetByService(serviceId, cancellationToken);
-        if(!response.IsSuccess)
-            return response.Message;
-        return response.Value;
+        return response;
     }
 }

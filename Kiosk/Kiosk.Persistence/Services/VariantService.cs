@@ -73,6 +73,7 @@ public class _Service(
             variant.Surpass,
             variant.Available,
             new(variant.Service.Id,variant.Service.Name,variant.Service.Image),
+            [],
             []
         );
         return value;
@@ -101,11 +102,57 @@ public class _Service(
                     v.Surpass,
                     v.Available,
                     new(v.Service.Id,v.Service.Name,v.Service.Image),
-                    new List<GetIngredient>()
+                    new List<GetPayload>(),
+                    new List<GetVariantIngredient>()
             )
         ).ToListAsync(cancellationToken);
 
         return new GenericListPayload<GetPayload>(variants.Count, variants);
+    }
+
+    public async Task<Result<GetPayload>> GetById(Guid id, CancellationToken cancellationToken)
+    {
+        var variant = ctx.Variants
+            .Where(v => v.DisabledAt == null)
+            .Include(v => v.Parts)
+            .Include(v => v.Service)
+            .Include(v => v.VariantIngredients)
+                .ThenInclude(vi => vi.Ingredient)
+                    .ThenInclude(i => i.PriceHistoryIngredients)
+            .Include(v => v.PriceHistoryVariants)
+            .FirstOrDefault(v => v.Id == id);
+        if(variant == null)
+            return "Referenced variant not found";
+
+        var results = await Task.WhenAll(
+            variant.Parts.Select(p => GetById(p.Id, cancellationToken)).ToList()
+        );
+        var parts = results.Select(r => r.Value).ToList();
+
+        return new GetPayload(
+            variant.Id,
+            variant.Name,
+            variant.PriceHistoryVariants.Where(phv => phv.DisabledAt == null).OrderByDescending(phv => phv.CreatedAt).First().Price,
+            variant.Image,
+            variant.Ingredients,
+            variant.Surpass,
+            variant.Available,
+            new(variant.Service.Id, variant.Service.Name, variant.Service.Image),
+            parts!,
+            variant.VariantIngredients
+                .Where(vi => vi.DisabledAt == null)
+                .Select(vi => new GetVariantIngredient(
+                    vi.Id,
+                    vi.Available, 
+                    new GetIngredient(
+                        vi.Ingredient.Id,
+                        vi.Ingredient.Available, 
+                        vi.Ingredient.Name,
+                        vi.Ingredient.PriceHistoryIngredients.Where(phi => phi.DisabledAt == null).OrderByDescending(phi => phi.CreatedAt).First().Price
+                    )
+                ))
+                .ToList()
+        );
     }
 
     public async Task<Result<GenericListPayload<GetPayload>>> GetByService(Guid serviceId, CancellationToken cancellationToken)
@@ -131,7 +178,8 @@ public class _Service(
                         v.Surpass,
                         v.Available,
                         new(v.Service.Id,v.Service.Name,v.Service.Image),
-                        new List<GetIngredient>()
+                        new List<GetPayload>(),
+                        new List<GetVariantIngredient>()
                 )
             )
             .ToListAsync(cancellationToken);

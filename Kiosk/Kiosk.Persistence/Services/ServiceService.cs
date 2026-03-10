@@ -28,7 +28,8 @@ public class ServiceService(
             service.Id,
             service.Name,
             service.Image,
-            service.Available
+            service.Available,
+            new List<GetVariant>()
         );
 
         return value;
@@ -44,17 +45,56 @@ public class ServiceService(
                 s.Id,
                 s.Name,
                 s.Image,
-                s.Available
+                s.Available,
+                new List<GetVariant>()
             ))
             .ToListAsync(cancellationToken);
         
         return new GenericListPayload<GetPayload>(value.Count, value);
     }
 
-    public async Task<Result<GetPayload>> Update(Guid Id, UpdatePayload payload, CancellationToken cancellationToken)
+    public async Task<Result<GetPayload>> GetById(Guid id, CancellationToken cancellationToken)
+    {
+        var service = await ctx.Services
+            .Where(s => s.DisabledAt == null)
+            .Include(s => s.Variants)    
+                .ThenInclude(v => v.PriceHistoryVariants)
+            .FirstOrDefaultAsync(s => s.Id == id);
+        if(service == null)
+            return "Referenced service not found";
+        
+        return new GetPayload(
+            service.Id,
+            service.Name,
+            service.Image,
+            service.Available,
+            service.Variants
+            .Where(v => v.DisabledAt == null)
+            .Select(v =>
+                new GetVariant(
+                    v.Id,
+                    v.Name,
+                    v.PriceHistoryVariants
+                        .Where(phv => phv.DisabledAt == null)
+                        .OrderByDescending(phv => phv.CreatedAt)
+                        .First()
+                        .Price,
+                    v.Image,
+                    v.Ingredients,
+                    v.Surpass,
+                    v.Available,
+                    new List<GetVariant>(),
+                    new List<GetVariantIngredient>()
+                )
+            )
+            .ToList()
+        );
+    }
+
+    public async Task<Result<GetPayload>> Update(Guid id, UpdatePayload payload, CancellationToken cancellationToken)
     {
         var service = ctx.Services
-            .Where(s => s.Id == Id)
+            .Where(s => s.Id == id)
             .FirstOrDefault();
         
         if(service == null)
@@ -72,7 +112,8 @@ public class ServiceService(
             service.Id,
             service.Name,
             service.Image,
-            service.Available
+            service.Available,
+            new List<GetVariant>()
         );
         return value;
     }

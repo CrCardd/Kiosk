@@ -11,8 +11,6 @@ public class Create(
     public async Task<Result<GetPayload>> ExecuteAsync(CreatePayload request, CancellationToken cancellationToken)
     {
         var response = await variantService.Create(request,cancellationToken);
-        if(!response.IsSuccess)
-            return response.Message;
-        return response.Value;
+        return response;
     }
 }

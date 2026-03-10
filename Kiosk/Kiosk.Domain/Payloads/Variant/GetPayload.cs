@@ -10,18 +10,23 @@ public record GetPayload
     bool Surpass,
     bool Available,
     GetService Service,
-    ICollection<GetIngredient> VariantIngredients
+    ICollection<GetPayload> Parts,
+    ICollection<GetVariantIngredient> VariantIngredients
 );
 
+public record GetVariantIngredient
+(
+    Guid Id,
+    bool Available,
+    GetIngredient Ingredient
+);
 public record GetIngredient
 (
     Guid Id,
-    bool InStock,
     bool Available,
     string Name,
     decimal Price
 );
-
 public record GetService(
     Guid Id,
     string Name,

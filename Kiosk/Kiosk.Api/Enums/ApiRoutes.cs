@@ -10,4 +10,5 @@ public static class APIRoutes
     public const string Variant = "api/variant";
     public const string Ingredient = "api/ingredient";
     public const string VariantIngredient = "api/variantingredient";
+    public const string CartItem = "api/cartitem";
 }

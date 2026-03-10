@@ -1,0 +1,836 @@
+{
+  "apidogProject": "1.0.0",
+  "$schema": {
+    "app": "apidog",
+    "type": "project",
+    "version": "1.2.0"
+  },
+  "info": {
+    "name": "Kiosk",
+    "description": "",
+    "mockRule": {
+      "rules": [],
+      "enableSystemRule": true
+    }
+  },
+  "projectSetting": {
+    "id": "1205266",
+    "auth": {},
+    "securityScheme": {},
+    "gateway": [],
+    "language": "pt-PT",
+    "apiStatuses": [
+      "developing",
+      "testing",
+      "released",
+      "deprecated"
+    ],
+    "mockSettings": {},
+    "preProcessors": [],
+    "postProcessors": [],
+    "advancedSettings": {
+      "enableJsonc": false,
+      "enableBigint": false,
+      "responseValidate": true,
+      "enableTestScenarioSetting": false,
+      "enableYAPICompatScript": false,
+      "isDefaultUrlEncoding": 3,
+      "publishedDocUrlRules": {
+        "defaultRule": "SLUGIFY_WITH_RESOURCE_KEY",
+        "resourceKeyStandard": "NEW"
+      }
+    },
+    "initialDisabledMockIds": [],
+    "servers": [
+      {
+        "id": "default",
+        "name": "Servidor Padrão",
+        "moduleId": 1085370
+      }
+    ],
+    "cloudMock": {
+      "security": "free",
+      "enable": false,
+      "tokenKey": "apidogToken"
+    }
+  },
+  "apiCollection": [],
+  "socketCollection": [],
+  "docCollection": [],
+  "webSocketCollection": [],
+  "socketIOCollection": [],
+  "mcpClientCollection": [],
+  "responseCollection": [
+    {
+      "_databaseId": 1339656,
+      "updatedAt": "2026-02-22T01:25:09.000Z",
+      "name": "Root",
+      "type": "root",
+      "children": [],
+      "moduleId": 1085370,
+      "parentId": 0,
+      "id": 1339656,
+      "ordering": [],
+      "items": []
+    }
+  ],
+  "schemaCollection": [
+    {
+      "id": 3091473,
+      "name": "Root",
+      "visibility": "SHARED",
+      "moduleId": 1085370,
+      "items": [],
+      "ordering": []
+    }
+  ],
+  "securitySchemeCollection": [
+    {
+      "id": 1096470,
+      "moduleId": 1085370,
+      "name": "Root",
+      "items": [],
+      "ordering": []
+    }
+  ],
+  "oasComponentCollection": [],
+  "requestCollection": [
+    {
+      "name": "Root",
+      "children": [
+        {
+          "name": "Cart",
+          "children": [],
+          "items": [
+            {
+              "id": 672112,
+              "createdAt": "2026-03-07T16:37:59.000Z",
+              "updatedAt": "2026-03-10T04:09:35.000Z",
+              "name": "StartSession",
+              "method": "post",
+              "path": "http://localhost:5025/api/cart",
+              "requestBody": {
+                "type": "application/json",
+                "parameters": [],
+                "jsonSchema": {
+                  "type": "object",
+                  "properties": {
+                    "SessionToken": {
+                      "type": "string"
+                    },
+                    "Client": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "SessionToken",
+                    "Client"
+                  ]
+                },
+                "example": "{\r\n    \"SessionToken\" : \"KP1S-H03#\",\r\n    \"Client\" : \"Cr\"\r\n}",
+                "data": "{\r\n    \"SessionToken\" : \"KP1S-H03#\",\r\n    \"Client\" : \"Cr\"\r\n}"
+              },
+              "parameters": {},
+              "commonParameters": {
+                "query": [],
+                "body": [],
+                "header": [],
+                "cookie": []
+              },
+              "preProcessors": [],
+              "postProcessors": [],
+              "auth": {},
+              "advancedSettings": {},
+              "folderId": 9528650,
+              "projectId": 1205209,
+              "creatorId": 647229,
+              "editorId": 647229
+            }
+          ]
+        },
+        {
+          "name": "Service",
+          "children": [],
+          "items": [
+            {
+              "id": 672113,
+              "createdAt": "2026-03-07T16:39:37.000Z",
+              "updatedAt": "2026-03-10T02:06:31.000Z",
+              "name": "Create",
+              "method": "post",
+              "path": "http://localhost:5025/api/service",
+              "requestBody": {
+                "type": "application/json",
+                "parameters": [],
+                "jsonSchema": {
+                  "type": "object",
+                  "properties": {
+                    "Name": {
+                      "type": "string"
+                    },
+                    "Image": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "Name",
+                    "Image"
+                  ]
+                },
+                "example": "{\r\n    \"Name\" : \"Refrigerante\",\r\n    \"Image\" : \"http://image\"\r\n}",
+                "data": "{\r\n    \"Name\" : \"Refrigerante\",\r\n    \"Image\" : \"http://image\"\r\n}"
+              },
+              "parameters": {},
+              "commonParameters": {
+                "query": [],
+                "body": [],
+                "header": [],
+                "cookie": []
+              },
+              "preProcessors": [],
+              "postProcessors": [],
+              "auth": {},
+              "advancedSettings": {},
+              "folderId": 9528651,
+              "projectId": 1205209,
+              "creatorId": 647229,
+              "editorId": 647229
+            },
+            {
+              "id": 672120,
+              "createdAt": "2026-03-07T18:05:12.000Z",
+              "updatedAt": "2026-03-07T20:45:42.000Z",
+              "name": "GetAll",
+              "method": "get",
+              "path": "http://localhost:5025/api/service",
+              "requestBody": {
+                "type": "none",
+                "parameters": []
+              },
+              "parameters": {},
+              "commonParameters": {
+                "query": [],
+                "body": [],
+                "header": [],
+                "cookie": []
+              },
+              "preProcessors": [],
+              "postProcessors": [],
+              "auth": {},
+              "advancedSettings": {},
+              "folderId": 9528651,
+              "projectId": 1205209,
+              "creatorId": 647229,
+              "editorId": 647229
+            },
+            {
+              "id": 672121,
+              "createdAt": "2026-03-07T18:07:26.000Z",
+              "updatedAt": "2026-03-10T02:06:36.000Z",
+              "name": "Update",
+              "method": "patch",
+              "path": "http://localhost:5025/api/service",
+              "requestBody": {
+                "type": "application/json",
+                "parameters": [],
+                "jsonSchema": {
+                  "type": "object",
+                  "properties": {
+                    "Id": {
+                      "type": "string"
+                    },
+                    "Updates": {
+                      "type": "object",
+                      "properties": {
+                        "Name": {
+                          "type": "null"
+                        },
+                        "Image": {
+                          "type": "null"
+                        },
+                        "Available": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "Name",
+                        "Image",
+                        "Available"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "Id",
+                    "Updates"
+                  ]
+                },
+                "example": "{\r\n    \"Id\" : \"c6eac701-79f2-40c3-8861-ae5d222ac3b9\",\r\n    \"Updates\" : {\r\n        \"Name\" : null,\r\n        \"Image\" : null,\r\n        \"Available\" : true\r\n    }\r\n}",
+                "data": "{\r\n    \"Id\" : \"c6eac701-79f2-40c3-8861-ae5d222ac3b9\",\r\n    \"Updates\" : {\r\n        \"Name\" : null,\r\n        \"Image\" : null,\r\n        \"Available\" : true\r\n    }\r\n}"
+              },
+              "parameters": {},
+              "commonParameters": {
+                "query": [],
+                "body": [],
+                "header": [],
+                "cookie": []
+              },
+              "preProcessors": [],
+              "postProcessors": [],
+              "auth": {},
+              "advancedSettings": {},
+              "folderId": 9528651,
+              "projectId": 1205209,
+              "creatorId": 647229,
+              "editorId": 647229
+            }
+          ]
+        },
+        {
+          "name": "Variant",
+          "children": [],
+          "items": [
+            {
+              "id": 672131,
+              "createdAt": "2026-03-07T20:45:35.000Z",
+              "updatedAt": "2026-03-10T02:13:40.000Z",
+              "name": "Create",
+              "method": "post",
+              "path": "http://localhost:5025/api/variant",
+              "requestBody": {
+                "type": "application/json",
+                "parameters": [],
+                "jsonSchema": {
+                  "type": "object",
+                  "properties": {
+                    "Name": {
+                      "type": "string"
+                    },
+                    "Price": {
+                      "type": "integer"
+                    },
+                    "Image": {
+                      "type": "string"
+                    },
+                    "Ingredients": {
+                      "type": "null"
+                    },
+                    "Surpass": {
+                      "type": "null"
+                    },
+                    "Available": {
+                      "type": "null"
+                    },
+                    "ServiceId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "Name",
+                    "Price",
+                    "Image",
+                    "Ingredients",
+                    "Surpass",
+                    "Available",
+                    "ServiceId"
+                  ]
+                },
+                "example": "{\r\n    \"Name\" : \"Grande\",\r\n    \"Price\" : 10.0,\r\n    \"Image\" : \"https://imagem.com\",\r\n    \"Ingredients\" : null,\r\n    \"Surpass\" : null,\r\n    \"Available\" : null,\r\n    \"ServiceId\" : \"c6eac701-79f2-40c3-8861-ae5d222ac3b9\"\r\n}",
+                "data": "{\r\n    \"Name\" : \"Grande\",\r\n    \"Price\" : 10.0,\r\n    \"Image\" : \"https://imagem.com\",\r\n    \"Ingredients\" : null,\r\n    \"Surpass\" : null,\r\n    \"Available\" : null,\r\n    \"ServiceId\" : \"c6eac701-79f2-40c3-8861-ae5d222ac3b9\"\r\n}"
+              },
+              "parameters": {},
+              "commonParameters": {
+                "query": [],
+                "body": [],
+                "header": [],
+                "cookie": []
+              },
+              "preProcessors": [],
+              "postProcessors": [],
+              "auth": {},
+              "advancedSettings": {},
+              "folderId": 9528797,
+              "projectId": 1205209,
+              "creatorId": 647229,
+              "editorId": 647229
+            },
+            {
+              "id": 673075,
+              "createdAt": "2026-03-10T02:42:22.000Z",
+              "updatedAt": "2026-03-10T02:42:22.000Z",
+              "name": "GetAll",
+              "method": "get",
+              "path": "http://localhost:5025/api/variant",
+              "requestBody": {
+                "type": "none"
+              },
+              "parameters": {},
+              "commonParameters": {
+                "query": [],
+                "body": [],
+                "header": [],
+                "cookie": []
+              },
+              "preProcessors": [],
+              "postProcessors": [],
+              "auth": {},
+              "advancedSettings": {},
+              "folderId": 9528797,
+              "projectId": 1205209,
+              "creatorId": 647229,
+              "editorId": 647229
+            },
+            {
+              "id": 673092,
+              "createdAt": "2026-03-10T03:09:20.000Z",
+              "updatedAt": "2026-03-10T03:56:15.000Z",
+              "name": "GetById",
+              "method": "get",
+              "path": "http://localhost:5025/api/variant/{id}",
+              "requestBody": {
+                "type": "none",
+                "parameters": []
+              },
+              "parameters": {
+                "path": [
+                  {
+                    "name": "id",
+                    "value": "c38cdbd5-9374-436f-9efa-85d01a2630f7",
+                    "sampleValue": "c38cdbd5-9374-436f-9efa-85d01a2630f7",
+                    "enable": true
+                  }
+                ]
+              },
+              "commonParameters": {
+                "query": [],
+                "body": [],
+                "header": [],
+                "cookie": []
+              },
+              "preProcessors": [],
+              "postProcessors": [],
+              "auth": {},
+              "advancedSettings": {},
+              "folderId": 9528797,
+              "projectId": 1205209,
+              "creatorId": 647229,
+              "editorId": 647229
+            },
+            {
+              "id": 673093,
+              "createdAt": "2026-03-10T03:09:28.000Z",
+              "updatedAt": "2026-03-10T03:14:46.000Z",
+              "name": "GetByService",
+              "method": "get",
+              "path": "http://localhost:5025/api/variant/service/{serviceId}",
+              "requestBody": {
+                "type": "none",
+                "parameters": []
+              },
+              "parameters": {
+                "path": [
+                  {
+                    "name": "serviceId",
+                    "value": "c6eac701-79f2-40c3-8861-ae5d222ac3b9",
+                    "sampleValue": "c6eac701-79f2-40c3-8861-ae5d222ac3b9",
+                    "enable": true
+                  }
+                ]
+              },
+              "commonParameters": {
+                "query": [],
+                "body": [],
+                "header": [],
+                "cookie": []
+              },
+              "preProcessors": [],
+              "postProcessors": [],
+              "auth": {},
+              "advancedSettings": {},
+              "folderId": 9528797,
+              "projectId": 1205209,
+              "creatorId": 647229,
+              "editorId": 647229
+            }
+          ]
+        },
+        {
+          "name": "Ingredient",
+          "children": [],
+          "items": [
+            {
+              "id": 672257,
+              "createdAt": "2026-03-08T19:48:09.000Z",
+              "updatedAt": "2026-03-10T02:09:03.000Z",
+              "name": "Create",
+              "method": "post",
+              "path": "http://localhost:5025/api/ingredient",
+              "requestBody": {
+                "type": "application/json",
+                "parameters": [],
+                "jsonSchema": {
+                  "type": "object",
+                  "properties": {
+                    "Name": {
+                      "type": "string"
+                    },
+                    "Price": {
+                      "type": "integer"
+                    },
+                    "ServiceId": {
+                      "type": "string"
+                    },
+                    "Available": {
+                      "type": "null"
+                    },
+                    "Quantity": {
+                      "type": "null"
+                    }
+                  },
+                  "required": [
+                    "Name",
+                    "Price",
+                    "ServiceId",
+                    "Available",
+                    "Quantity"
+                  ]
+                },
+                "example": "{\r\n    \"Name\" : \"Pizza\",\r\n    \"Price\" : 2.0,\r\n    \"ServiceId\" : \"c6eac701-79f2-40c3-8861-ae5d222ac3b9\",\r\n    \"Available\" : null,\r\n    \"Quantity\" : null\r\n}",
+                "data": "{\r\n    \"Name\" : \"Pizza\",\r\n    \"Price\" : 2.0,\r\n    \"ServiceId\" : \"c6eac701-79f2-40c3-8861-ae5d222ac3b9\",\r\n    \"Available\" : null,\r\n    \"Quantity\" : null\r\n}"
+              },
+              "parameters": {},
+              "commonParameters": {
+                "query": [],
+                "body": [],
+                "header": [],
+                "cookie": []
+              },
+              "preProcessors": [],
+              "postProcessors": [],
+              "auth": {},
+              "advancedSettings": {},
+              "folderId": 9529607,
+              "projectId": 1205209,
+              "creatorId": 647229,
+              "editorId": 647229
+            }
+          ]
+        },
+        {
+          "name": "VariantIngredient",
+          "children": [],
+          "items": [
+            {
+              "id": 672284,
+              "createdAt": "2026-03-08T22:05:51.000Z",
+              "updatedAt": "2026-03-10T04:09:37.000Z",
+              "name": "Create",
+              "method": "post",
+              "path": "http://localhost:5025/api/variantingredient",
+              "requestBody": {
+                "type": "application/json",
+                "parameters": [],
+                "jsonSchema": {
+                  "type": "object",
+                  "properties": {
+                    "Available": {
+                      "type": "null"
+                    },
+                    "VariantId": {
+                      "type": "string"
+                    },
+                    "IngredientId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "Available",
+                    "VariantId",
+                    "IngredientId"
+                  ]
+                },
+                "example": "{\r\n    \"Available\" : null,\r\n    \"VariantId\" : \"c38cdbd5-9374-436f-9efa-85d01a2630f7\",\r\n    \"IngredientId\" : \"93F7C461-4A84-4E0B-BEA4-122D7346F948\"\r\n}",
+                "data": "{\r\n    \"Available\" : null,\r\n    \"VariantId\" : \"c38cdbd5-9374-436f-9efa-85d01a2630f7\",\r\n    \"IngredientId\" : \"93F7C461-4A84-4E0B-BEA4-122D7346F948\"\r\n}"
+              },
+              "parameters": {},
+              "commonParameters": {
+                "query": [],
+                "body": [],
+                "header": [],
+                "cookie": []
+              },
+              "preProcessors": [],
+              "postProcessors": [],
+              "auth": {},
+              "advancedSettings": {},
+              "folderId": 9529702,
+              "projectId": 1205209,
+              "creatorId": 647229,
+              "editorId": 647229
+            }
+          ]
+        },
+        {
+          "name": "CartItem",
+          "children": [],
+          "items": [
+            {
+              "id": 673115,
+              "createdAt": "2026-03-10T04:12:27.000Z",
+              "updatedAt": "2026-03-10T04:25:40.000Z",
+              "name": "Create",
+              "method": "post",
+              "path": "http://localhost:5025/api/cartitem",
+              "requestBody": {
+                "type": "application/json",
+                "parameters": [],
+                "jsonSchema": {
+                  "type": "object",
+                  "properties": {
+                    "CartId": {
+                      "type": "string"
+                    },
+                    "VariantId": {
+                      "type": "string"
+                    },
+                    "ReferenceId": {
+                      "type": "null"
+                    },
+                    "Ingredients": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "CartId",
+                    "VariantId",
+                    "ReferenceId",
+                    "Ingredients"
+                  ]
+                },
+                "example": "{\r\n    \"CartId\" : \"2cbc4f6c-553f-40f6-bd82-d77891fc5b5d\",\r\n    \"VariantId\" : \"c38cdbd5-9374-436f-9efa-85d01a2630f7\",\r\n    \"ReferenceId\" : null,\r\n    \"Ingredients\" : [\r\n        \"93f7c461-4a84-4e0b-bea4-122d7346f948\",\r\n        \"106adb1a-2b7e-415b-9471-f7b8aa99d0e5\"\r\n    ]\r\n}",
+                "data": "{\r\n    \"CartId\" : \"2cbc4f6c-553f-40f6-bd82-d77891fc5b5d\",\r\n    \"VariantId\" : \"c38cdbd5-9374-436f-9efa-85d01a2630f7\",\r\n    \"ReferenceId\" : null,\r\n    \"Ingredients\" : [\r\n        \"93f7c461-4a84-4e0b-bea4-122d7346f948\",\r\n        \"106adb1a-2b7e-415b-9471-f7b8aa99d0e5\"\r\n    ]\r\n}"
+              },
+              "parameters": {},
+              "commonParameters": {
+                "query": [],
+                "body": [],
+                "header": [],
+                "cookie": []
+              },
+              "preProcessors": [],
+              "postProcessors": [],
+              "auth": {},
+              "advancedSettings": {},
+              "folderId": 9531769,
+              "projectId": 1205209,
+              "creatorId": 647229,
+              "editorId": 647229
+            }
+          ]
+        }
+      ],
+      "items": []
+    }
+  ],
+  "apiTestCaseCollection": [
+    {
+      "id": 0,
+      "name": "Root",
+      "children": [],
+      "items": []
+    }
+  ],
+  "testCaseReferences": [],
+  "environments": [],
+  "commonScripts": [],
+  "databaseConnections": [],
+  "globalVariables": [],
+  "commonParameters": null,
+  "customFunctions": [],
+  "projectTestCaseCategories": [
+    {
+      "id": 1004244,
+      "name": "Positivo",
+      "description": "Entradas válidas e resultados esperados corretos, representando um uso típico."
+    },
+    {
+      "id": 1004245,
+      "name": "Negativo",
+      "description": "Entradas negativas ou inválidas, como campos em falta, tipos incorretos, métodos não suportados, etc."
+    },
+    {
+      "id": 1004246,
+      "name": "Limite",
+      "description": "Condições extremas ou de limite, como comprimento máximo de string, valores vazios, zero, null, etc."
+    },
+    {
+      "id": 1004247,
+      "name": "Segurança",
+      "description": "Casos que podem expor riscos de segurança da API."
+    },
+    {
+      "id": 1004248,
+      "name": "Outros",
+      "description": "Casos não classificados nas categorias existentes."
+    }
+  ],
+  "projectTestCaseTags": [
+    {
+      "id": 3919668,
+      "name": "Apenas campos obrigatórios",
+      "description": "Enviar apenas os campos obrigatórios com valores válidos, omitindo todos os opcionais, para testar o pedido mínimo válido."
+    },
+    {
+      "id": 3919669,
+      "name": "Semântica válida",
+      "description": "Usar valores sintaticamente corretos que também façam sentido na lógica de negócio ou no contexto do domínio."
+    },
+    {
+      "id": 3919670,
+      "name": "Cobertura de combinações de enum",
+      "description": "Para todos os parâmetros do tipo enum, aplicar design ortogonal para construir sistematicamente combinações de casos de teste dos parâmetros e dos seus valores de enum, dedicadas a testar a cobertura de enums."
+    },
+    {
+      "id": 3919671,
+      "name": "Outro caso positivo",
+      "description": "Fornecer entradas realistas e válidas que cumpram a especificação da API, produzindo o resultado correto e esperado."
+    },
+    {
+      "id": 3919672,
+      "name": "Campos obrigatórios em falta",
+      "description": "Omitir um ou mais campos obrigatórios no corpo ou nos parâmetros do pedido."
+    },
+    {
+      "id": 3919673,
+      "name": "Valores inválidos",
+      "description": "Fornecer valores com tipo e formato corretos, mas logicamente inválidos para o campo."
+    },
+    {
+      "id": 3919674,
+      "name": "Erros de tipo",
+      "description": "Usar valores com tipos de dados incorretos, como enviar uma string em vez de um inteiro."
+    },
+    {
+      "id": 3919675,
+      "name": "Erros de formato",
+      "description": "Fornecer valores num formato incorreto, p.ex., padrão de data errado, endereço de e-mail malformado."
+    },
+    {
+      "id": 3919676,
+      "name": "Erros semânticos",
+      "description": "Usar valores sintática e formalmente corretos que sejam logicamente impossíveis ou violem as regras do domínio."
+    },
+    {
+      "id": 3919677,
+      "name": "Outro caso negativo",
+      "description": "Fornecer entradas inválidas ou inesperadas que devem acionar o tratamento de erros ou a rejeição pela API."
+    },
+    {
+      "id": 3919678,
+      "name": "Nulo",
+      "description": "Deve ser o literal JSON `null` (não vazio, não \"null\")."
+    },
+    {
+      "id": 3919679,
+      "name": "Zero",
+      "description": "Deve ser o literal numérico 0."
+    },
+    {
+      "id": 3919680,
+      "name": "Valores vazios",
+      "description": "Deve ser \"\"."
+    },
+    {
+      "id": 3919681,
+      "name": "Valores máximos",
+      "description": "Fornecer os valores mínimo e máximo permitidos exatos para campos numéricos ou de data."
+    },
+    {
+      "id": 3919682,
+      "name": "Valores mínimos",
+      "description": "Fornecer os valores mínimo e máximo permitidos exatos para campos numéricos ou de data."
+    },
+    {
+      "id": 3919683,
+      "name": "Overflow",
+      "description": "Fornecer valores logo além dos limites mínimo ou máximo permitidos."
+    },
+    {
+      "id": 3919684,
+      "name": "Underflow",
+      "description": "Fornecer valores logo além dos limites mínimo ou máximo permitidos."
+    },
+    {
+      "id": 3919685,
+      "name": "Strings demasiado longas",
+      "description": "Fornecer strings mais longas do que o comprimento máximo permitido, ou mais curtas do que o comprimento mínimo exigido."
+    },
+    {
+      "id": 3919686,
+      "name": "Strings demasiado curtas",
+      "description": "Fornecer strings mais longas do que o comprimento máximo permitido, ou mais curtas do que o comprimento mínimo exigido."
+    },
+    {
+      "id": 3919687,
+      "name": "Quebra de autorização ao nível do objeto",
+      "description": "Os utilizadores acedem ou manipulam objetos de dados sem a devida autorização."
+    },
+    {
+      "id": 3919688,
+      "name": "Controlo de acesso",
+      "description": "Restringir os recursos e ações a que os utilizadores podem aceder com base em papéis, permissões ou atributos."
+    },
+    {
+      "id": 3919689,
+      "name": "Falhas de autenticação",
+      "description": "A autenticação é fraca, está mal configurada ou foi contornada, permitindo acesso não autorizado."
+    },
+    {
+      "id": 3919690,
+      "name": "Injeção SQL",
+      "description": "Inserir código SQL malicioso nas entradas para testar vulnerabilidades de injeção SQL."
+    },
+    {
+      "id": 3919691,
+      "name": "Injeção XSS",
+      "description": "Injetar JavaScript ou etiquetas HTML para testar vulnerabilidades de XSS."
+    },
+    {
+      "id": 3919692,
+      "name": "Entrada fuzz",
+      "description": "Enviar cargas úteis grandes ou geradas aleatoriamente para testar a validação de entrada e a estabilidade."
+    },
+    {
+      "id": 3919693,
+      "name": "Injeção de comandos",
+      "description": "Inserir comandos de shell nas entradas para testar vulnerabilidades de execução de comandos."
+    },
+    {
+      "id": 3919694,
+      "name": "Injeção JSON",
+      "description": "Inserir estruturas JSON maliciosas ou inesperadas para testar a análise e validação."
+    },
+    {
+      "id": 3919695,
+      "name": "Injeção NoSQL",
+      "description": "Fornecer consultas ou operadores específicos de NoSQL para testar injeção."
+    },
+    {
+      "id": 3919696,
+      "name": "Outros",
+      "description": "Casos não classificados nas categorias existentes."
+    }
+  ],
+  "projectAssociations": [],
+  "moduleSettings": [
+    {
+      "id": "1085370",
+      "name": "Módulo predefinido",
+      "description": "",
+      "moduleVariables": [],
+      "openApiInfo": {}
+    }
+  ]
+}

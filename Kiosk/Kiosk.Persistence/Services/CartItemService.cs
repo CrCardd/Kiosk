@@ -3,6 +3,7 @@ using Kiosk.Domain.Payloads.CartItem;
 using Kiosk.Domain.Services;
 using Kiosk.Persistence.Context;
 using Kiosk.Persistence.Tables;
+using Microsoft.EntityFrameworkCore;
 
 namespace Kiosk.Persistence.Services;
 
@@ -23,8 +24,11 @@ public class CartItemService(
             return "Cart referenced not found";
 
         var variant = ctx.Variants
+            .Include(v => v.PriceHistoryVariants)
+            .Include(v => v.Service)
             .Where(v => v.DisabledAt == null)
             .FirstOrDefault(v => v.Id == payload.VariantId);
+
         if(variant == null)
             return "Variant referenced not found";
         
@@ -52,6 +56,7 @@ public class CartItemService(
         {
             var ingredient = ctx.Ingredients
                 .Where(i => i.DisabledAt == null)
+                .Include(i => i.PriceHistoryIngredients)
                 .FirstOrDefault(i => i.Id == ing);
             if(ingredient == null)
                 return "Ingredient referenced not found";
@@ -68,6 +73,8 @@ public class CartItemService(
             }
             cartItem.Ingredients.Add(ingredient);
         }
+
+        ctx.CartItems.Add(cartItem);
         await ctx.SaveChangesAsync(cancellationToken);
 
         return new GetPayload(

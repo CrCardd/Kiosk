@@ -2,6 +2,7 @@
 using Kiosk.Api.Enums;
 using Kiosk.Application.Features.Variant_.Create;
 using Kiosk.Application.Features.Variant_.GetAll;
+using Kiosk.Application.Features.Variant_.GetById;
 using Kiosk.Application.Features.Variant_.GetByService;
 using Kiosk.Domain.Payloads._Misc;
 using Kiosk.Domain.Payloads.Variant;
@@ -14,7 +15,8 @@ namespace Kiosk.Api.Controllers;
 public class VariantController(
     Create create,
     GetAll getAll,
-    GetByService getByService
+    GetByService getByService,
+    GetById getById
 ) : ControllerBase
 {
     [HttpPost]
@@ -49,5 +51,17 @@ public class VariantController(
         if(!response.IsSuccess)
             return BadRequest(response);
         return Ok(response);
+    }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<GenericListPayload<GetPayload>>> GetById
+    (
+        [FromRoute] Guid id, CancellationToken cancellationToken
+    )
+    {
+        var response = await getById.ExecuteAsync(id, cancellationToken);
+        if(response.IsSuccess)
+            return Ok(response);
+        return BadRequest(response);
     }
 }

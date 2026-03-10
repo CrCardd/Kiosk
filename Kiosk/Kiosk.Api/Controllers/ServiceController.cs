@@ -1,9 +1,9 @@
 
 using Kiosk.Api.Enums;
-using Kiosk.Application.Features;
 using Kiosk.Application.Features.Service_.Create;
 using Kiosk.Application.Features.Service_.GetAll;
 using Kiosk.Application.Features.Service_.Update;
+using Kiosk.Application.Features.Service_.GetById;
 using Kiosk.Domain.Payloads._Misc;
 using Kiosk.Domain.Payloads.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +15,7 @@ namespace Kiosk.Api.Controllers;
 public class ServiceController(
     Create create,
     GetAll getAll,
+    GetById getById,
     Update update
 ) : ControllerBase
 {
@@ -40,15 +41,27 @@ public class ServiceController(
             return Ok(response);
         return BadRequest(response);
     }
+    [HttpGet("{id}")]
+    public async Task<ActionResult<GenericListPayload<GetPayload>>> GetAll
+    (
+        [FromRoute] Guid id, CancellationToken cancellationToken
+    )
+    {
+        var response = await getById.ExecuteAsync(id, cancellationToken);
+        if(response.IsSuccess)
+            return Ok(response);
+        return BadRequest(response);
+    }
 
-    [HttpPatch]
+    [HttpPatch("{id}")]
     public async Task<ActionResult<UpdateResponse>> Update
     (
-        [FromBody] UpdateRequest request,
+        [FromRoute] Guid id,
+        [FromBody] UpdatePayload request,
         CancellationToken cancellationToken
     )
     {
-        var response = await update.ExecuteAsync(request, cancellationToken);
+        var response = await update.ExecuteAsync(id, request, cancellationToken);
         if(response.IsSuccess)
             return Ok(response);
         return BadRequest(response);

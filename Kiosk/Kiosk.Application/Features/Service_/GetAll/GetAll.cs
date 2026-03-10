@@ -12,8 +12,6 @@ public class GetAll(
     public async Task<Result<GenericListPayload<GetPayload>>> ExecuteAsync(bool? available, CancellationToken cancellationToken)
     {
         var response = await serviceService.GetAll(available, cancellationToken);
-        if(!response.IsSuccess)
-            return response.Message;
-        return response.Value;
+        return response;
     }
 }
