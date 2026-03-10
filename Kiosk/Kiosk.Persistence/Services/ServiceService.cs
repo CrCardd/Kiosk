@@ -17,7 +17,7 @@ public class ServiceService(
         {
             Name=payload.Name,
             Image=payload.Image,
-            Available=payload.Available
+            Available=payload.Available ?? true
         };
 
         ctx.Services.Add(service);

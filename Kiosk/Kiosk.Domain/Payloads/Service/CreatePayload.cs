@@ -4,5 +4,5 @@ public record CreatePayload
 (
     string Name,
     string Image,
-    bool Available
+    bool? Available
 );

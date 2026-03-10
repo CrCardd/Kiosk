@@ -149,7 +149,6 @@ namespace Kiosk.Persistence.Migrations
                     SnapShotPrice = table.Column<decimal>(type: "TEXT", precision: 18, scale: 2, nullable: false),
                     CartId = table.Column<Guid>(type: "TEXT", nullable: false),
                     ReferenceId = table.Column<Guid>(type: "TEXT", nullable: true),
-                    ProductId = table.Column<Guid>(type: "TEXT", nullable: false),
                     VariantId = table.Column<Guid>(type: "TEXT", nullable: false),
                     created_at = table.Column<DateTime>(type: "TEXT", nullable: false),
                     updated_at = table.Column<DateTime>(type: "TEXT", nullable: false),

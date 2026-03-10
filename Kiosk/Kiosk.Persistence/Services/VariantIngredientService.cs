@@ -27,7 +27,7 @@ public class VariantIngredientService(
 
         var variantIngredient = new VariantIngredient
         {
-            Available=payload.Available,
+            Available=payload.Available ?? true,
             Variant=variant,
             VariantId=variant.Id,
             Ingredient=ingredient,

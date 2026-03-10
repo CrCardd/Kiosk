@@ -4,7 +4,7 @@ public record CreatePayload
 (
     string Name,
     decimal Price,
-    bool Available,
+    bool? Available,
     Guid ServiceId,
-    int? Quantity = null
+    int? Quantity
 );

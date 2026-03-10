@@ -25,9 +25,9 @@ public class _Service(
         {
             Name=payload.Name,
             Image=payload.Image,
-            Ingredients=payload.Ingredients,
-            Surpass=payload.Surpass,
-            Available=payload.Available,
+            Ingredients=payload.Ingredients ?? 1,
+            Surpass=payload.Surpass ?? false,
+            Available=payload.Available ?? true,
             Service=service,
             ServiceId=payload.ServiceId
         };
@@ -37,7 +37,7 @@ public class _Service(
             Variant=variant,
             VariantId=variant.Id
         };
-        foreach(var p in payload.Parts)
+        foreach(var p in payload.Parts ?? [])
         {
             var part = ctx.Variants
                 .Where(v => v.DisabledAt == null)

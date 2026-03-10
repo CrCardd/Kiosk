@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Kiosk.Persistence.Migrations
 {
     [DbContext(typeof(KioskContext))]
-    [Migration("20260308203601_InitialMigration")]
+    [Migration("20260310015926_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -90,9 +90,6 @@ namespace Kiosk.Persistence.Migrations
                     b.Property<DateTime?>("DisabledAt")
                         .HasColumnType("TEXT")
                         .HasColumnName("disabled_at");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("TEXT");
 
                     b.Property<Guid?>("ReferenceId")
                         .HasColumnType("TEXT");

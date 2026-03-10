@@ -23,7 +23,7 @@ public class IngredientService(
         var ingredient = new Ingredient
         {
             Name=payload.Name,
-            Available=payload.Available,
+            Available=payload.Available ?? true,
             ServiceId=payload.ServiceId,
             Service=service,
             Quantity=payload.Quantity

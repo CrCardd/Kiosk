@@ -88,9 +88,6 @@ namespace Kiosk.Persistence.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("disabled_at");
 
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("TEXT");
-
                     b.Property<Guid?>("ReferenceId")
                         .HasColumnType("TEXT");
 
