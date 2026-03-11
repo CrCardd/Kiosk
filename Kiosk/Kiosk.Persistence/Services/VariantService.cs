@@ -108,14 +108,8 @@ public class VariantService(
         return new GenericListPayload<GetPayload>(variants.Count, variants);
     }
 
-    public async Task<Result<GetPayload>> GetById(Guid id, CancellationToken cancellationToken, HashSet<Guid>? visitedIds = null)
+    public async Task<Result<GetPayload>> GetById(Guid id, CancellationToken cancellationToken)
     {
-        visitedIds ??= new HashSet<Guid>();
-
-        if (visitedIds.Contains(id))
-            return "Circular reference"; 
-
-        visitedIds.Add(id);
 
 
         var variant = await ctx.Variants
@@ -133,7 +127,7 @@ public class VariantService(
         var parts = new List<GetPayload>();
         foreach (var part in variant.Parts)
         {
-            var result = await GetById(part.PartId, cancellationToken, visitedIds);
+            var result = await GetById(part.PartId, cancellationToken);
             if (result.IsSuccess)
                 parts.Add(result.Value);
         }

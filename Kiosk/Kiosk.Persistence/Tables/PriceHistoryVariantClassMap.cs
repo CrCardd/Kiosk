@@ -9,15 +9,16 @@ public static class PriceHistoryVariantClassMap
     public static void ConfigurePriceHistoryVariantTable(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<PriceHistoryVariant>(builder =>
     {
-        builder.ConfigurBaseTableProps();
+        builder.ConfigureBaseTableProps();
 
         builder.HasKey(pricehistoryvariant => pricehistoryvariant.Id)
-            .HasName("pricehistoryvariant_id");
+            .HasName("price_history_variant_id");
 
-        builder.ToTable("tb_pricehistoryvariant");
+        builder.ToTable("tb_price_history_variant");
 
         //================PROPERTIES================
         builder.Property(phi => phi.Price)
+            .HasColumnName("price")
             .HasPrecision(18,2)
             .IsRequired();
         //================MY-RELATIONS================

@@ -9,7 +9,7 @@ public static class ServiceClassMap
     public static void ConfigureServiceTable(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<Service>(builder =>
     {
-        builder.ConfigurBaseTableProps();
+        builder.ConfigureBaseTableProps();
 
         builder.HasKey(service => service.Id)
             .HasName("service_id");
@@ -18,12 +18,15 @@ public static class ServiceClassMap
 
         //================PROPERTIES================
         builder.Property(s => s.Name)
+            .HasColumnName("name")
             .HasMaxLength(255)
             .IsRequired();
         builder.Property(s => s.Image)
+            .HasColumnName("image")
             .HasMaxLength(255)
             .IsRequired();
         builder.Property(s => s.Available)
+            .HasColumnName("available")
             .IsRequired();
         //================MY-RELATIONS================
         

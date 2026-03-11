@@ -9,7 +9,7 @@ public static class OrderClassMap
     public static void ConfigureOrderTable(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<Order>(builder =>
     {
-        builder.ConfigurBaseTableProps();
+        builder.ConfigureBaseTableProps();
 
         builder.HasKey(order => order.Id)
             .HasName("order_id");
@@ -19,11 +19,14 @@ public static class OrderClassMap
         //================PROPERTIES================
         builder.Property(o => o.Code)
             .HasMaxLength(255)
+            .HasColumnName("code")
             .IsRequired();
         builder.Property(o => o.Index)
+            .HasColumnName("index")
             .HasMaxLength(255)
             .IsRequired();
         builder.Property(o => o.Total)
+            .HasColumnName("total")
             .HasPrecision(18,2)
             .IsRequired();
         //================MY-RELATIONS================

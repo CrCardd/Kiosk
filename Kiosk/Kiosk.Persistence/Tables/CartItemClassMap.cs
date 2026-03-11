@@ -9,16 +9,17 @@ public static class CartItemClassMap
     public static void ConfigureCartItemTable(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<CartItem>(builder =>
     {
-        builder.ConfigurBaseTableProps();
+        builder.ConfigureBaseTableProps();
 
         builder.HasKey(cartitem => cartitem.Id)
-            .HasName("cartitem_id");
+            .HasName("cart_item_id");
 
-        builder.ToTable("tb_cartitem");
+        builder.ToTable("tb_cart_item");
 
         //================PROPERTIES================
         builder.Property(ci => ci.SnapShotPrice)
             .HasPrecision(18, 2)
+            .HasColumnName("snapshot_price")
             .IsRequired();
         //================MY-RELATIONS================
         builder.HasOne(ci => ci.Cart)
@@ -30,12 +31,12 @@ public static class CartItemClassMap
             .HasForeignKey(ci => ci.ReferenceId);
         builder.HasOne(ci => ci.Variant)
             .WithMany(c => c.CartItems)
-            .HasForeignKey(ci => ci.CartId);
+            .HasForeignKey(ci => ci.VariantId);
         //================RELATIONS================
         builder.HasMany(ci => ci.Ingredients)
             .WithMany(i => i.CartItems)
             .UsingEntity(
-                "tb_cartitemingredient",
+                "tb_cart_item_ingredient",
                 r => r.HasOne(typeof(Ingredient)).WithMany().HasForeignKey("IngredientsId").HasPrincipalKey(nameof(Ingredient.Id)),
                 l => l.HasOne(typeof(CartItem)).WithMany().HasForeignKey("CartItemsId").HasPrincipalKey(nameof(CartItem.Id)),
                 j => j.HasKey("IngredientsId", "CartItemsId")

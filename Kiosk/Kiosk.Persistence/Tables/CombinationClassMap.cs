@@ -9,7 +9,7 @@ public static class CombinationClassMap
     public static void ConfigureCombinationTable(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<Combination>(builder =>
     {
-        builder.ConfigurBaseTableProps();
+        builder.ConfigureBaseTableProps();
 
         builder.HasKey(combination => combination.Id)
             .HasName("combination_id");

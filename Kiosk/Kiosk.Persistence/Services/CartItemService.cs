@@ -51,7 +51,8 @@ public class CartItemService(
             Variant=variant,
             VariantId=variant.Id
         };
-
+        if(!variant.Surpass)
+            return "This Variant may not surpass it's limit";
         foreach(var ing in payload.Ingredients)
         {
             var ingredient = ctx.Ingredients

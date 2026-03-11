@@ -6,7 +6,7 @@ namespace Kiosk.Persistence.Tables;
 
 public static class BaseTableConfigurationExtensios
 {
-    public static void ConfigurBaseTableProps<T>(this EntityTypeBuilder<T> builder)
+    public static void ConfigureBaseTableProps<T>(this EntityTypeBuilder<T> builder)
         where T : BaseModel
     {
         builder.HasKey(t => t.Id);

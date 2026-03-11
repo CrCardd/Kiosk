@@ -9,15 +9,16 @@ public static class VariantIngredientClassMap
     public static void ConfigureVariantIngredientTable(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<VariantIngredient>(builder =>
     {
-        builder.ConfigurBaseTableProps();
+        builder.ConfigureBaseTableProps();
 
         builder.HasKey(order => order.Id)
-            .HasName("variantingredient_id");
+            .HasName("variant_ingredient_id");
 
-        builder.ToTable("tb_variantingredient");
+        builder.ToTable("tb_variant_ingredient");
 
         //================PROPERTIES================
         builder.Property(vi => vi.Available)
+            .HasColumnName("available")
             .IsRequired();
         //================MY-RELATIONS================
         builder.HasOne(vi => vi.Ingredient)

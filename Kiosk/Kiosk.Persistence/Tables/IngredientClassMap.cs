@@ -10,7 +10,7 @@ public static class IngredientClassMap
     public static void ConfigureIngredientTable(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<Ingredient>(builder =>
     {
-        builder.ConfigurBaseTableProps();
+        builder.ConfigureBaseTableProps();
 
         builder.HasKey(ingredient => ingredient.Id)
             .HasName("ingredient_id");
@@ -20,9 +20,12 @@ public static class IngredientClassMap
         //================PROPERTIES================
         builder.Property(i => i.Name)
             .HasMaxLength(255)
+            .HasColumnName("name")
             .IsRequired();
-        builder.Property(i => i.Quantity);
-        builder.Property(i => i.Available);
+        builder.Property(i => i.Quantity)
+            .HasColumnName("quantity");
+        builder.Property(i => i.Available)
+            .HasColumnName("available");
         //================MY-RELATIONS================
         builder.HasOne(i => i.Service)
             .WithMany(s => s.Ingredients)
@@ -35,7 +38,7 @@ public static class IngredientClassMap
         builder.HasMany(i => i.CartItems)
             .WithMany(ci => ci.Ingredients)
             .UsingEntity(
-                "CartItemIngredient",
+                "tb_cart_item_ingredient",
                 r => r.HasOne(typeof(CartItem)).WithMany().HasForeignKey("CartItemsId").HasPrincipalKey(nameof(CartItem.Id)),
                 l => l.HasOne(typeof(Ingredient)).WithMany().HasForeignKey("IngredientsId").HasPrincipalKey(nameof(Ingredient.Id)),
                 j => j.HasKey("CartItemsId","IngredientsId")
