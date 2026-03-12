@@ -10,4 +10,5 @@ public interface IVariantService : IBaseService
     public Task<Result<GenericListPayload<GetPayload>>> GetAll(bool? available, CancellationToken cancellationToken);
     public Task<Result<GetPayload>> GetById(Guid id, CancellationToken cancellationToken);
     public Task<Result<GenericListPayload<GetPayload>>> GetByService(Guid serviceId, CancellationToken cancellationToken);
+    public Task<Result<GetPayload>> Update(Guid id, UpdatePayload payload, CancellationToken cancellationToken);
 }

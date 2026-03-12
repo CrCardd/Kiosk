@@ -905,6 +905,432 @@
             }
           ],
           "items": []
+        },
+        {
+          "name": "_Admin",
+          "children": [
+            {
+              "name": "Service",
+              "children": [],
+              "items": [
+                {
+                  "id": 674336,
+                  "createdAt": "2026-03-12T01:08:58.000Z",
+                  "updatedAt": "2026-03-12T01:10:36.000Z",
+                  "name": "GetAll",
+                  "method": "get",
+                  "path": "http://localhost:5025/api/service",
+                  "requestBody": {
+                    "type": "none",
+                    "parameters": []
+                  },
+                  "parameters": {},
+                  "commonParameters": {
+                    "query": [],
+                    "body": [],
+                    "header": [],
+                    "cookie": []
+                  },
+                  "preProcessors": [],
+                  "postProcessors": [],
+                  "auth": {},
+                  "advancedSettings": {},
+                  "folderId": 9535119,
+                  "projectId": 1222307,
+                  "creatorId": 647229,
+                  "editorId": 647229
+                },
+                {
+                  "id": 674337,
+                  "createdAt": "2026-03-12T01:11:06.000Z",
+                  "updatedAt": "2026-03-12T01:22:55.000Z",
+                  "name": "Update",
+                  "method": "patch",
+                  "path": "http://localhost:5025/api/service/{id}",
+                  "requestBody": {
+                    "type": "application/json",
+                    "parameters": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {
+                        "Name": {
+                          "type": "null"
+                        },
+                        "Image": {
+                          "type": "null"
+                        },
+                        "Available": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "Name",
+                        "Image",
+                        "Available"
+                      ]
+                    },
+                    "example": "{\r\n    \"Name\" : null,\r\n    \"Image\" : null,\r\n    \"Available\" : true\r\n}",
+                    "data": "{\r\n    \"Name\" : null,\r\n    \"Image\" : null,\r\n    \"Available\" : true\r\n}"
+                  },
+                  "parameters": {
+                    "path": [
+                      {
+                        "name": "id",
+                        "value": "00000000-0000-0000-0000-000000000004",
+                        "sampleValue": "00000000-0000-0000-0000-000000000004",
+                        "enable": true
+                      }
+                    ]
+                  },
+                  "commonParameters": {
+                    "query": [],
+                    "body": [],
+                    "header": [],
+                    "cookie": []
+                  },
+                  "preProcessors": [],
+                  "postProcessors": [],
+                  "auth": {},
+                  "advancedSettings": {},
+                  "folderId": 9535119,
+                  "projectId": 1222307,
+                  "creatorId": 647229,
+                  "editorId": 647229
+                },
+                {
+                  "id": 674345,
+                  "createdAt": "2026-03-12T01:24:01.000Z",
+                  "updatedAt": "2026-03-12T02:35:34.000Z",
+                  "name": "Create",
+                  "method": "post",
+                  "path": "http://localhost:5025/api/service",
+                  "requestBody": {
+                    "type": "application/json",
+                    "parameters": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {
+                        "Name": {
+                          "type": "string"
+                        },
+                        "Image": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "Name",
+                        "Image"
+                      ]
+                    },
+                    "example": "{\r\n    \"Name\" : \"Combos\",\r\n    \"Image\" : \"http://image\"\r\n}",
+                    "data": "{\r\n    \"Name\" : \"Combos\",\r\n    \"Image\" : \"http://image\"\r\n}"
+                  },
+                  "parameters": {},
+                  "commonParameters": {
+                    "query": [],
+                    "body": [],
+                    "header": [],
+                    "cookie": []
+                  },
+                  "preProcessors": [],
+                  "postProcessors": [],
+                  "auth": {},
+                  "advancedSettings": {},
+                  "folderId": 9535119,
+                  "projectId": 1222307,
+                  "creatorId": 647229,
+                  "editorId": 647229
+                },
+                {
+                  "id": 674346,
+                  "createdAt": "2026-03-12T01:26:15.000Z",
+                  "updatedAt": "2026-03-12T01:26:15.000Z",
+                  "name": "Delete",
+                  "method": "delete",
+                  "path": "http://localhost:5025/api/service/{id}",
+                  "requestBody": {
+                    "type": "none"
+                  },
+                  "parameters": {
+                    "path": [
+                      {
+                        "name": "id",
+                        "value": "18f1dc45-5bd9-4a15-9fd5-a8e1182323b3",
+                        "sampleValue": "18f1dc45-5bd9-4a15-9fd5-a8e1182323b3",
+                        "enable": true
+                      }
+                    ]
+                  },
+                  "commonParameters": {
+                    "query": [],
+                    "body": [],
+                    "header": [],
+                    "cookie": []
+                  },
+                  "preProcessors": [],
+                  "postProcessors": [],
+                  "auth": {},
+                  "advancedSettings": {},
+                  "folderId": 9535119,
+                  "projectId": 1222307,
+                  "creatorId": 647229,
+                  "editorId": 647229
+                },
+                {
+                  "id": 674350,
+                  "createdAt": "2026-03-12T01:34:39.000Z",
+                  "updatedAt": "2026-03-12T01:34:39.000Z",
+                  "name": "GetById",
+                  "method": "get",
+                  "path": "http://localhost:5025/api/service/{id}",
+                  "requestBody": {
+                    "type": "none"
+                  },
+                  "parameters": {
+                    "path": [
+                      {
+                        "name": "id",
+                        "value": "",
+                        "sampleValue": "",
+                        "enable": true
+                      }
+                    ]
+                  },
+                  "commonParameters": {
+                    "query": [],
+                    "body": [],
+                    "header": [],
+                    "cookie": []
+                  },
+                  "preProcessors": [],
+                  "postProcessors": [],
+                  "auth": {},
+                  "advancedSettings": {},
+                  "folderId": 9535119,
+                  "projectId": 1222307,
+                  "creatorId": 647229,
+                  "editorId": 647229
+                }
+              ]
+            },
+            {
+              "name": "Variant",
+              "children": [],
+              "items": [
+                {
+                  "id": 674348,
+                  "createdAt": "2026-03-12T01:33:42.000Z",
+                  "updatedAt": "2026-03-12T02:34:14.000Z",
+                  "name": "GetAll",
+                  "method": "get",
+                  "path": "http://localhost:5025/api/variant",
+                  "requestBody": {
+                    "type": "none",
+                    "parameters": []
+                  },
+                  "parameters": {},
+                  "commonParameters": {
+                    "query": [],
+                    "body": [],
+                    "header": [],
+                    "cookie": []
+                  },
+                  "preProcessors": [],
+                  "postProcessors": [],
+                  "auth": {},
+                  "advancedSettings": {},
+                  "folderId": 9535141,
+                  "projectId": 1222307,
+                  "creatorId": 647229,
+                  "editorId": 647229
+                },
+                {
+                  "id": 674352,
+                  "createdAt": "2026-03-12T01:35:21.000Z",
+                  "updatedAt": "2026-03-12T03:10:22.000Z",
+                  "name": "GetById",
+                  "method": "get",
+                  "path": "http://localhost:5025/api/variant/{id}",
+                  "requestBody": {
+                    "type": "none",
+                    "parameters": []
+                  },
+                  "parameters": {
+                    "path": [
+                      {
+                        "name": "id",
+                        "value": "33317512-621c-42de-9ec9-ae7ed7dc7964",
+                        "sampleValue": "33317512-621c-42de-9ec9-ae7ed7dc7964",
+                        "enable": true
+                      }
+                    ]
+                  },
+                  "commonParameters": {
+                    "query": [],
+                    "body": [],
+                    "header": [],
+                    "cookie": []
+                  },
+                  "preProcessors": [],
+                  "postProcessors": [],
+                  "auth": {},
+                  "advancedSettings": {},
+                  "folderId": 9535141,
+                  "projectId": 1222307,
+                  "creatorId": 647229,
+                  "editorId": 647229
+                },
+                {
+                  "id": 674353,
+                  "createdAt": "2026-03-12T01:35:36.000Z",
+                  "updatedAt": "2026-03-12T03:10:33.000Z",
+                  "name": "Create",
+                  "method": "post",
+                  "path": "http://localhost:5025/api/variant",
+                  "requestBody": {
+                    "type": "application/json",
+                    "parameters": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {
+                        "Name": {
+                          "type": "string"
+                        },
+                        "Price": {
+                          "type": "integer"
+                        },
+                        "Image": {
+                          "type": "string"
+                        },
+                        "Ingredients": {
+                          "type": "null"
+                        },
+                        "Surpass": {
+                          "type": "null"
+                        },
+                        "Available": {
+                          "type": "null"
+                        },
+                        "ServiceId": {
+                          "type": "string"
+                        },
+                        "Parts": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "required": [
+                        "Name",
+                        "Price",
+                        "Image",
+                        "Ingredients",
+                        "Surpass",
+                        "Available",
+                        "ServiceId",
+                        "Parts"
+                      ]
+                    },
+                    "example": "{\r\n    \"Name\" : \"COMBO\",\r\n    \"Price\" : 10.0,\r\n    \"Image\" : \"https://imagem.com\",\r\n    \"Ingredients\" : null,\r\n    \"Surpass\" : null,\r\n    \"Available\" : null,\r\n    \"ServiceId\" : \"2bb0e112-52e2-4583-8d40-a9554299ccfc\",\r\n    \"Parts\" : [\r\n        \"00000000-0000-0000-0000-000000000001\",\r\n        \"00000000-0000-0000-0000-000000000004\"\r\n    ]\r\n}",
+                    "data": "{\r\n    \"Name\" : \"COMBO\",\r\n    \"Price\" : 10.0,\r\n    \"Image\" : \"https://imagem.com\",\r\n    \"Ingredients\" : null,\r\n    \"Surpass\" : null,\r\n    \"Available\" : null,\r\n    \"ServiceId\" : \"2bb0e112-52e2-4583-8d40-a9554299ccfc\",\r\n    \"Parts\" : [\r\n        \"00000000-0000-0000-0000-000000000001\",\r\n        \"00000000-0000-0000-0000-000000000004\"\r\n    ]\r\n}"
+                  },
+                  "parameters": {},
+                  "commonParameters": {
+                    "query": [],
+                    "body": [],
+                    "header": [],
+                    "cookie": []
+                  },
+                  "preProcessors": [],
+                  "postProcessors": [],
+                  "auth": {},
+                  "advancedSettings": {},
+                  "folderId": 9535141,
+                  "projectId": 1222307,
+                  "creatorId": 647229,
+                  "editorId": 647229
+                },
+                {
+                  "id": 674354,
+                  "createdAt": "2026-03-12T01:40:50.000Z",
+                  "updatedAt": "2026-03-12T04:21:23.000Z",
+                  "name": "Update",
+                  "method": "patch",
+                  "path": "http://localhost:5025/api/variant/{id}",
+                  "requestBody": {
+                    "type": "application/json",
+                    "parameters": [],
+                    "jsonSchema": {
+                      "type": "object",
+                      "properties": {
+                        "Name": {
+                          "type": "string"
+                        },
+                        "Price": {
+                          "type": "null"
+                        },
+                        "Image": {
+                          "type": "null"
+                        },
+                        "Ingredients": {
+                          "type": "null"
+                        },
+                        "Surpass": {
+                          "type": "null"
+                        },
+                        "Available": {
+                          "type": "null"
+                        },
+                        "Parts": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "required": [
+                        "Name",
+                        "Price",
+                        "Image",
+                        "Ingredients",
+                        "Surpass",
+                        "Available",
+                        "Parts"
+                      ]
+                    },
+                    "example": "{\r\n    \"Name\" : \"NOVO NOME\",\r\n    \"Price\" : null,\r\n    \"Image\" : null,\r\n    \"Ingredients\" : null,\r\n    \"Surpass\" : null,\r\n    \"Available\" : null,\r\n    \"Parts\" : [\r\n        \"00000000-0000-0000-0000-000000000001\"\r\n    ]\r\n}",
+                    "data": "{\r\n    \"Name\" : \"NOVO NOME\",\r\n    \"Price\" : null,\r\n    \"Image\" : null,\r\n    \"Ingredients\" : null,\r\n    \"Surpass\" : null,\r\n    \"Available\" : null,\r\n    \"Parts\" : [\r\n        \"00000000-0000-0000-0000-000000000001\"\r\n    ]\r\n}"
+                  },
+                  "parameters": {
+                    "path": [
+                      {
+                        "name": "id",
+                        "value": "17fef69a-f8ce-4684-9339-35b8f167a199",
+                        "sampleValue": "17fef69a-f8ce-4684-9339-35b8f167a199",
+                        "enable": true
+                      }
+                    ]
+                  },
+                  "commonParameters": {
+                    "query": [],
+                    "body": [],
+                    "header": [],
+                    "cookie": []
+                  },
+                  "preProcessors": [],
+                  "postProcessors": [],
+                  "auth": {},
+                  "advancedSettings": {},
+                  "folderId": 9535141,
+                  "projectId": 1222307,
+                  "creatorId": 647229,
+                  "editorId": 647229
+                }
+              ]
+            }
+          ],
+          "items": []
         }
       ],
       "items": []

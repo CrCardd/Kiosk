@@ -16,7 +16,8 @@ public class VariantController(
     Create create,
     GetAll getAll,
     GetByService getByService,
-    GetById getById
+    GetById getById,
+    Update update
 ) : ControllerBase
 {
     [HttpPost]
@@ -60,6 +61,20 @@ public class VariantController(
     )
     {
         var response = await getById.ExecuteAsync(id, cancellationToken);
+        if(response.IsSuccess)
+            return Ok(response);
+        return BadRequest(response);
+    }
+
+    [HttpPatch("{id}")]
+    public async Task<ActionResult<GenericListPayload<GetPayload>>> Update
+    (
+        [FromBody] UpdatePayload request,
+        [FromRoute] Guid id, 
+        CancellationToken cancellationToken
+    )
+    {
+        var response = await update.ExecuteAsync(id, request, cancellationToken);
         if(response.IsSuccess)
             return Ok(response);
         return BadRequest(response);
