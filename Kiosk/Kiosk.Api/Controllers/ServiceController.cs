@@ -7,6 +7,7 @@ using Kiosk.Application.Features.Service_.GetById;
 using Kiosk.Domain.Payloads._Misc;
 using Kiosk.Domain.Payloads.Service;
 using Microsoft.AspNetCore.Mvc;
+using Kiosk.Application.Features.Service_.Delete;
 
 namespace Kiosk.Api.Controllers;
 
@@ -16,7 +17,8 @@ public class ServiceController(
     Create create,
     GetAll getAll,
     GetById getById,
-    Update update
+    Update update,
+    Delete delete
 ) : ControllerBase
 {
     [HttpPost]
@@ -54,7 +56,7 @@ public class ServiceController(
     }
 
     [HttpPatch("{id}")]
-    public async Task<ActionResult<UpdateResponse>> Update
+    public async Task<ActionResult<GetPayload>> Update
     (
         [FromRoute] Guid id,
         [FromBody] UpdatePayload request,
@@ -62,6 +64,19 @@ public class ServiceController(
     )
     {
         var response = await update.ExecuteAsync(id, request, cancellationToken);
+        if(response.IsSuccess)
+            return Ok(response);
+        return BadRequest(response);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<GetPayload>> Delete
+    (
+        [FromRoute] Guid id,
+        CancellationToken cancellationToken
+    )
+    {
+        var response = await delete.ExecuteAsync(id, cancellationToken);
         if(response.IsSuccess)
             return Ok(response);
         return BadRequest(response);

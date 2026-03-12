@@ -117,4 +117,25 @@ public class ServiceService(
         );
         return value;
     }
+    public async Task<Result<GetPayload>> Delete(Guid id, CancellationToken cancellationToken)
+    {
+        var service = ctx.Services
+            .Where(s => s.DisabledAt == null)
+            .Where(s => s.Id == id)
+            .FirstOrDefault();
+        if(service == null)
+            return "Referenced service not found";
+            
+        service.DisabledAt = DateTime.UtcNow;
+        await ctx.SaveChangesAsync(cancellationToken);
+
+        var value = new GetPayload(
+            service.Id,
+            service.Name,
+            service.Image,
+            service.Available,
+            new List<GetVariant>()
+        );
+        return value;
+    }
 }
