@@ -4,7 +4,7 @@ using Kiosk.Domain.Models;
 using Kiosk.Domain.Payloads._Misc;
 using Kiosk.Domain.Payloads.Variant;
 using Kiosk.Domain.Services;
-using Kiosk.Domain.Services.Extensions;
+using Kiosk.Persistence.Services.Extensions;
 using Kiosk.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -78,6 +78,59 @@ public class VariantService(
         return value;
     }
 
+    public async Task<Result<GetPayload>> Delete(Guid id, CancellationToken cancellationToken)
+    {
+        var variant = await ctx.Variants
+            // .Where(v => v.DisabledAt == null)
+            .Include(v => v.Parts)
+            .Include(v => v.Service)
+            .Include(v => v.VariantIngredients)
+                .ThenInclude(vi => vi.Ingredient)
+                    .ThenInclude(i => i.PriceHistoryIngredients)
+            .Include(v => v.PriceHistoryVariants)
+            .FirstOrDefaultAsync(v => v.Id == id);
+        if(variant == null)
+            return "Referenced variant not found";
+
+        var parts = new List<GetPayload>();
+        foreach (var part in variant.Parts)
+        {
+            var result = await GetById(part.PartId, cancellationToken);
+            if (result.IsSuccess)
+                parts.Add(result.Value);
+        }
+
+        var variantPayload = new GetPayload(
+            variant.Id,
+            variant.Name,
+            variant.PriceHistoryVariants.Where(phv => phv.DisabledAt == null).OrderByDescending(phv => phv.CreatedAt).First().Price,
+            variant.Image,
+            variant.Ingredients,
+            variant.Surpass,
+            variant.Available,
+            new(variant.Service.Id, variant.Service.Name, variant.Service.Image),
+            parts,
+            variant.VariantIngredients
+                .Where(vi => vi.DisabledAt == null)
+                .Select(vi => new GetVariantIngredient(
+                    vi.Id,
+                    vi.Available, 
+                    new GetIngredient(
+                        vi.Ingredient.Id,
+                        vi.Ingredient.Available, 
+                        vi.Ingredient.Name,
+                        vi.Ingredient.PriceHistoryIngredients.Where(phi => phi.DisabledAt == null).OrderByDescending(phi => phi.CreatedAt).First().Price
+                    )
+                ))
+                .ToList()
+        );
+
+        ctx.Variants.CascadeDelete(variant);
+        await ctx.SaveChangesAsync(cancellationToken);
+
+        return variantPayload; 
+    }
+
     public async Task<Result<GenericListPayload<GetPayload>>> GetAll(bool? available, CancellationToken cancellationToken)
     {
         var variants = await ctx.Variants
@@ -111,8 +164,6 @@ public class VariantService(
 
     public async Task<Result<GetPayload>> GetById(Guid id, CancellationToken cancellationToken)
     {
-
-
         var variant = await ctx.Variants
             .Where(v => v.DisabledAt == null)
             .Include(v => v.Parts)
@@ -226,9 +277,6 @@ public class VariantService(
             foreach(var variantId in payload.Parts.MultExcept(variant.Parts.Where(p => p.DisabledAt == null).Select(p => p.PartId)))
             {
                 //CREATE/REACTIVE
-                Console.WriteLine("============");
-                Console.WriteLine("CREATE " + variantId);
-                Console.WriteLine("============");
                 if(variant.Id == variantId)
                     return "Cicular reference is not allowed";
 

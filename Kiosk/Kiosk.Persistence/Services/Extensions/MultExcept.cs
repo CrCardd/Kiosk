@@ -1,11 +1,11 @@
-namespace Kiosk.Domain.Services.Extensions;
+namespace Kiosk.Persistence.Services.Extensions;
 
 public static class MultExceptExtension
 {
-    public static IEnumerable<T> MultExcept<T>(this IEnumerable<T> a, IEnumerable<T> b)
+    public static IEnumerable<Guid> MultExcept<Guid>(this IEnumerable<Guid> a, IEnumerable<Guid> b)
     {
         var groupB = b.GroupBy(x => x).ToDictionary(x => x.Key, x => x.Count());
-        var list = new List<T>();
+        var list = new List<Guid>();
 
         foreach (var ai in a)
         {

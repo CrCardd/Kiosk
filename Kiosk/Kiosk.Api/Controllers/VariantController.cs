@@ -1,5 +1,6 @@
 
 using Kiosk.Api.Enums;
+using Kiosk.Application.Features.Variant_.Delete;
 using Kiosk.Application.Features.Variant_.Create;
 using Kiosk.Application.Features.Variant_.GetAll;
 using Kiosk.Application.Features.Variant_.GetById;
@@ -17,7 +18,8 @@ public class VariantController(
     GetAll getAll,
     GetByService getByService,
     GetById getById,
-    Update update
+    Update update,
+    Delete delete
 ) : ControllerBase
 {
     [HttpPost]
@@ -75,6 +77,19 @@ public class VariantController(
     )
     {
         var response = await update.ExecuteAsync(id, request, cancellationToken);
+        if(response.IsSuccess)
+            return Ok(response);
+        return BadRequest(response);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<GenericListPayload<GetPayload>>> Update
+    (
+        [FromRoute] Guid id, 
+        CancellationToken cancellationToken
+    )
+    {
+        var response = await delete.ExecuteAsync(id, cancellationToken);
         if(response.IsSuccess)
             return Ok(response);
         return BadRequest(response);
