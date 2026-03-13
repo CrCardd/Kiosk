@@ -1,7 +1,10 @@
 
+using System.Collections;
 using Kiosk.Domain.Models;
 using Kiosk.Persistence.Tables;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 //using Kiosk.Persistence.Tables;
 
 namespace Kiosk.Persistence.Context;
@@ -36,5 +39,31 @@ public class KioskContext(DbContextOptions<KioskContext> options) : DbContext(op
         // modelBuilder.Configur();
 
         base.OnModelCreating(modelBuilder);
+    }
+
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {   
+        foreach(var e in ChangeTracker.Entries<BaseModel>().Where(e => e.State == EntityState.Deleted))
+            CascadeSoftDelete(e);
+            
+        return base.SaveChangesAsync(cancellationToken);
+    }
+
+    public void CascadeSoftDelete(EntityEntry entry)
+    {
+        entry.State = EntityState.Unchanged;
+        ((BaseModel)entry.Entity).DisabledAt = DateTime.UtcNow;
+        // Console.WriteLine("\n\n\n");
+        // Console.WriteLine("!!!!!!!!!!!!!!!!!");
+        // Console.WriteLine("");
+        // Console.WriteLine("!!!!!!!!!!!!!!!!!");
+        // foreach(var nav in entry.Navigations)
+        //     if(nav.CurrentValue is IEnumerable children)
+        //         foreach(var c in children)
+        //             if(c is BaseModel bc)
+        //             {
+        //                 var entryC = Entry(bc);
+        //                 CascadeSoftDelete(entryC);
+        //             }
     }
 }

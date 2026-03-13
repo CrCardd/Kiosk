@@ -44,6 +44,7 @@ public class VariantController(
             return BadRequest(response);
         return Ok(response);
     }
+    
     [HttpGet("service/{serviceId}")]
     public async Task<ActionResult<GenericListPayload<GetPayload>>> GetAll(
         [FromRoute] Guid serviceId,
@@ -57,8 +58,7 @@ public class VariantController(
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<GenericListPayload<GetPayload>>> GetById
-    (
+    public async Task<ActionResult<GenericListPayload<GetPayload>>> GetById(
         [FromRoute] Guid id, CancellationToken cancellationToken
     )
     {
@@ -69,8 +69,7 @@ public class VariantController(
     }
 
     [HttpPatch("{id}")]
-    public async Task<ActionResult<GenericListPayload<GetPayload>>> Update
-    (
+    public async Task<ActionResult<GenericListPayload<GetPayload>>> Update(
         [FromBody] UpdatePayload request,
         [FromRoute] Guid id, 
         CancellationToken cancellationToken
@@ -83,8 +82,7 @@ public class VariantController(
     }
 
     [HttpDelete("{id}")]
-    public async Task<ActionResult<GenericListPayload<GetPayload>>> Update
-    (
+    public async Task<ActionResult<GenericListPayload<GetPayload>>> Delete(
         [FromRoute] Guid id, 
         CancellationToken cancellationToken
     )

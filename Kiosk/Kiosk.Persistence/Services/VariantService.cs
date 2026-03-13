@@ -125,7 +125,9 @@ public class VariantService(
                 .ToList()
         );
 
-        ctx.Variants.CascadeDelete(variant);
+        // ctx.Variants.CascadeDelete(variant);
+        ctx.Variants.Remove(variant);
+
         await ctx.SaveChangesAsync(cancellationToken);
 
         return variantPayload; 
