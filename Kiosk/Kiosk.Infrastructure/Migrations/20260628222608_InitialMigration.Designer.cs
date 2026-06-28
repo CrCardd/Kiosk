@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Kiosk.Infrastructure.Migrations
 {
     [DbContext(typeof(KioskContext))]
-    [Migration("20260628221056_InitialMigration")]
+    [Migration("20260628222608_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -28,7 +28,8 @@ namespace Kiosk.Infrastructure.Migrations
                         .HasColumnName("id");
 
                     b.Property<Guid>("CartId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasColumnName("cart_id");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT")
@@ -38,8 +39,9 @@ namespace Kiosk.Infrastructure.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("disabled_at");
 
-                    b.Property<Guid?>("ReferenceId")
-                        .HasColumnType("TEXT");
+                    b.Property<Guid>("ReferenceId")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("reference_id");
 
                     b.Property<decimal>("SnapShotPrice")
                         .HasPrecision(18, 2)
@@ -51,7 +53,8 @@ namespace Kiosk.Infrastructure.Migrations
                         .HasColumnName("updated_at");
 
                     b.Property<Guid>("VariantId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasColumnName("variant_id");
 
                     b.HasKey("Id")
                         .HasName("cart_item_id");
@@ -130,7 +133,8 @@ namespace Kiosk.Infrastructure.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("OrganizationId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasColumnName("organization_id");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("TEXT");
@@ -155,7 +159,8 @@ namespace Kiosk.Infrastructure.Migrations
                         .HasColumnName("id");
 
                     b.Property<Guid>("CombId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasColumnName("comb_id");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT")
@@ -166,7 +171,8 @@ namespace Kiosk.Infrastructure.Migrations
                         .HasColumnName("disabled_at");
 
                     b.Property<Guid>("PartId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasColumnName("part_id");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("TEXT")
@@ -212,7 +218,8 @@ namespace Kiosk.Infrastructure.Migrations
                         .HasColumnName("quantity");
 
                     b.Property<Guid>("ServiceId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasColumnName("service_id");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("TEXT")
@@ -234,7 +241,8 @@ namespace Kiosk.Infrastructure.Migrations
                         .HasColumnName("id");
 
                     b.Property<Guid>("CartId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasColumnName("cart_id");
 
                     b.Property<string>("Code")
                         .IsRequired()
@@ -326,7 +334,8 @@ namespace Kiosk.Infrastructure.Migrations
                         .HasColumnName("disabled_at");
 
                     b.Property<Guid>("IngredientId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasColumnName("ingredient_id");
 
                     b.Property<decimal>("Price")
                         .HasPrecision(18, 2)
@@ -370,7 +379,8 @@ namespace Kiosk.Infrastructure.Migrations
                         .HasColumnName("updated_at");
 
                     b.Property<Guid>("VariantId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasColumnName("variant_id");
 
                     b.HasKey("Id")
                         .HasName("price_history_variant_id");
@@ -441,14 +451,16 @@ namespace Kiosk.Infrastructure.Migrations
                         .HasColumnName("disabled_at");
 
                     b.Property<Guid>("IngredientId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasColumnName("ingredient_id");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("TEXT")
                         .HasColumnName("updated_at");
 
                     b.Property<Guid>("VariantId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasColumnName("variant_id");
 
                     b.HasKey("Id")
                         .HasName("variant_ingredient_id");
@@ -495,7 +507,8 @@ namespace Kiosk.Infrastructure.Migrations
                         .HasColumnName("name");
 
                     b.Property<Guid>("ServiceId")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasColumnName("service_id");
 
                     b.Property<bool>("Surpass")
                         .HasColumnType("INTEGER")
@@ -538,7 +551,9 @@ namespace Kiosk.Infrastructure.Migrations
 
                     b.HasOne("Kiosk.Domain.Models.CartItemModel", "Reference")
                         .WithMany("CartItems")
-                        .HasForeignKey("ReferenceId");
+                        .HasForeignKey("ReferenceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Kiosk.Domain.Models.VariantModel", "Variant")
                         .WithMany("CartItems")

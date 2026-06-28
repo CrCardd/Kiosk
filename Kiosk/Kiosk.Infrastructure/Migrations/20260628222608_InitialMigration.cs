@@ -69,7 +69,7 @@ namespace Kiosk.Infrastructure.Migrations
                     index = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     code = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     total = table.Column<decimal>(type: "TEXT", precision: 18, scale: 2, nullable: false),
-                    CartId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    cart_id = table.Column<Guid>(type: "TEXT", nullable: false),
                     created_at = table.Column<DateTime>(type: "TEXT", nullable: false),
                     updated_at = table.Column<DateTime>(type: "TEXT", nullable: false),
                     disabled_at = table.Column<DateTime>(type: "TEXT", nullable: true)
@@ -78,8 +78,8 @@ namespace Kiosk.Infrastructure.Migrations
                 {
                     table.PrimaryKey("order_id", x => x.id);
                     table.ForeignKey(
-                        name: "FK_tb_order_tb_cart_CartId",
-                        column: x => x.CartId,
+                        name: "FK_tb_order_tb_cart_cart_id",
+                        column: x => x.cart_id,
                         principalTable: "tb_cart",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -93,7 +93,7 @@ namespace Kiosk.Infrastructure.Migrations
                     code = table.Column<string>(type: "TEXT", maxLength: 9, nullable: false),
                     StartDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     EndDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    OrganizationId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    organization_id = table.Column<Guid>(type: "TEXT", nullable: false),
                     created_at = table.Column<DateTime>(type: "TEXT", nullable: false),
                     updated_at = table.Column<DateTime>(type: "TEXT", nullable: false),
                     disabled_at = table.Column<DateTime>(type: "TEXT", nullable: true)
@@ -102,8 +102,8 @@ namespace Kiosk.Infrastructure.Migrations
                 {
                     table.PrimaryKey("code_id", x => x.id);
                     table.ForeignKey(
-                        name: "FK_tb_code_tb_organization_OrganizationId",
-                        column: x => x.OrganizationId,
+                        name: "FK_tb_code_tb_organization_organization_id",
+                        column: x => x.organization_id,
                         principalTable: "tb_organization",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -117,7 +117,7 @@ namespace Kiosk.Infrastructure.Migrations
                     name = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     quantity = table.Column<int>(type: "INTEGER", nullable: true),
                     available = table.Column<bool>(type: "INTEGER", nullable: false),
-                    ServiceId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    service_id = table.Column<Guid>(type: "TEXT", nullable: false),
                     created_at = table.Column<DateTime>(type: "TEXT", nullable: false),
                     updated_at = table.Column<DateTime>(type: "TEXT", nullable: false),
                     disabled_at = table.Column<DateTime>(type: "TEXT", nullable: true)
@@ -126,8 +126,8 @@ namespace Kiosk.Infrastructure.Migrations
                 {
                     table.PrimaryKey("ingredient_id", x => x.id);
                     table.ForeignKey(
-                        name: "FK_tb_ingredient_tb_service_ServiceId",
-                        column: x => x.ServiceId,
+                        name: "FK_tb_ingredient_tb_service_service_id",
+                        column: x => x.service_id,
                         principalTable: "tb_service",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -143,7 +143,7 @@ namespace Kiosk.Infrastructure.Migrations
                     ingredients = table.Column<int>(type: "INTEGER", nullable: false),
                     surpass = table.Column<bool>(type: "INTEGER", nullable: false),
                     available = table.Column<bool>(type: "INTEGER", nullable: false),
-                    ServiceId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    service_id = table.Column<Guid>(type: "TEXT", nullable: false),
                     created_at = table.Column<DateTime>(type: "TEXT", nullable: false),
                     updated_at = table.Column<DateTime>(type: "TEXT", nullable: false),
                     disabled_at = table.Column<DateTime>(type: "TEXT", nullable: true)
@@ -152,8 +152,8 @@ namespace Kiosk.Infrastructure.Migrations
                 {
                     table.PrimaryKey("variant_id", x => x.id);
                     table.ForeignKey(
-                        name: "FK_tb_variant_tb_service_ServiceId",
-                        column: x => x.ServiceId,
+                        name: "FK_tb_variant_tb_service_service_id",
+                        column: x => x.service_id,
                         principalTable: "tb_service",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -165,7 +165,7 @@ namespace Kiosk.Infrastructure.Migrations
                 {
                     id = table.Column<Guid>(type: "TEXT", nullable: false),
                     price = table.Column<decimal>(type: "TEXT", precision: 18, scale: 2, nullable: false),
-                    IngredientId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ingredient_id = table.Column<Guid>(type: "TEXT", nullable: false),
                     created_at = table.Column<DateTime>(type: "TEXT", nullable: false),
                     updated_at = table.Column<DateTime>(type: "TEXT", nullable: false),
                     disabled_at = table.Column<DateTime>(type: "TEXT", nullable: true)
@@ -174,8 +174,8 @@ namespace Kiosk.Infrastructure.Migrations
                 {
                     table.PrimaryKey("price_history_ingredient_id", x => x.id);
                     table.ForeignKey(
-                        name: "FK_tb_price_history_ingredient_tb_ingredient_IngredientId",
-                        column: x => x.IngredientId,
+                        name: "FK_tb_price_history_ingredient_tb_ingredient_ingredient_id",
+                        column: x => x.ingredient_id,
                         principalTable: "tb_ingredient",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -187,9 +187,9 @@ namespace Kiosk.Infrastructure.Migrations
                 {
                     id = table.Column<Guid>(type: "TEXT", nullable: false),
                     snapshot_price = table.Column<decimal>(type: "TEXT", precision: 18, scale: 2, nullable: false),
-                    CartId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    ReferenceId = table.Column<Guid>(type: "TEXT", nullable: true),
-                    VariantId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    cart_id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    reference_id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    variant_id = table.Column<Guid>(type: "TEXT", nullable: false),
                     created_at = table.Column<DateTime>(type: "TEXT", nullable: false),
                     updated_at = table.Column<DateTime>(type: "TEXT", nullable: false),
                     disabled_at = table.Column<DateTime>(type: "TEXT", nullable: true)
@@ -198,19 +198,20 @@ namespace Kiosk.Infrastructure.Migrations
                 {
                     table.PrimaryKey("cart_item_id", x => x.id);
                     table.ForeignKey(
-                        name: "FK_tb_cart_item_tb_cart_CartId",
-                        column: x => x.CartId,
+                        name: "FK_tb_cart_item_tb_cart_cart_id",
+                        column: x => x.cart_id,
                         principalTable: "tb_cart",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_tb_cart_item_tb_cart_item_ReferenceId",
-                        column: x => x.ReferenceId,
+                        name: "FK_tb_cart_item_tb_cart_item_reference_id",
+                        column: x => x.reference_id,
                         principalTable: "tb_cart_item",
-                        principalColumn: "id");
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_tb_cart_item_tb_variant_VariantId",
-                        column: x => x.VariantId,
+                        name: "FK_tb_cart_item_tb_variant_variant_id",
+                        column: x => x.variant_id,
                         principalTable: "tb_variant",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -221,8 +222,8 @@ namespace Kiosk.Infrastructure.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    CombId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    PartId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    comb_id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    part_id = table.Column<Guid>(type: "TEXT", nullable: false),
                     created_at = table.Column<DateTime>(type: "TEXT", nullable: false),
                     updated_at = table.Column<DateTime>(type: "TEXT", nullable: false),
                     disabled_at = table.Column<DateTime>(type: "TEXT", nullable: true)
@@ -231,14 +232,14 @@ namespace Kiosk.Infrastructure.Migrations
                 {
                     table.PrimaryKey("combination_id", x => x.id);
                     table.ForeignKey(
-                        name: "FK_tb_combination_tb_variant_CombId",
-                        column: x => x.CombId,
+                        name: "FK_tb_combination_tb_variant_comb_id",
+                        column: x => x.comb_id,
                         principalTable: "tb_variant",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_tb_combination_tb_variant_PartId",
-                        column: x => x.PartId,
+                        name: "FK_tb_combination_tb_variant_part_id",
+                        column: x => x.part_id,
                         principalTable: "tb_variant",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -250,7 +251,7 @@ namespace Kiosk.Infrastructure.Migrations
                 {
                     id = table.Column<Guid>(type: "TEXT", nullable: false),
                     price = table.Column<decimal>(type: "TEXT", precision: 18, scale: 2, nullable: false),
-                    VariantId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    variant_id = table.Column<Guid>(type: "TEXT", nullable: false),
                     created_at = table.Column<DateTime>(type: "TEXT", nullable: false),
                     updated_at = table.Column<DateTime>(type: "TEXT", nullable: false),
                     disabled_at = table.Column<DateTime>(type: "TEXT", nullable: true)
@@ -259,8 +260,8 @@ namespace Kiosk.Infrastructure.Migrations
                 {
                     table.PrimaryKey("price_history_variant_id", x => x.id);
                     table.ForeignKey(
-                        name: "FK_tb_price_history_variant_tb_variant_VariantId",
-                        column: x => x.VariantId,
+                        name: "FK_tb_price_history_variant_tb_variant_variant_id",
+                        column: x => x.variant_id,
                         principalTable: "tb_variant",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -272,8 +273,8 @@ namespace Kiosk.Infrastructure.Migrations
                 {
                     id = table.Column<Guid>(type: "TEXT", nullable: false),
                     available = table.Column<bool>(type: "INTEGER", nullable: false),
-                    VariantId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    IngredientId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    variant_id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ingredient_id = table.Column<Guid>(type: "TEXT", nullable: false),
                     created_at = table.Column<DateTime>(type: "TEXT", nullable: false),
                     updated_at = table.Column<DateTime>(type: "TEXT", nullable: false),
                     disabled_at = table.Column<DateTime>(type: "TEXT", nullable: true)
@@ -282,14 +283,14 @@ namespace Kiosk.Infrastructure.Migrations
                 {
                     table.PrimaryKey("variant_ingredient_id", x => x.id);
                     table.ForeignKey(
-                        name: "FK_tb_variant_ingredient_tb_ingredient_IngredientId",
-                        column: x => x.IngredientId,
+                        name: "FK_tb_variant_ingredient_tb_ingredient_ingredient_id",
+                        column: x => x.ingredient_id,
                         principalTable: "tb_ingredient",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_tb_variant_ingredient_tb_variant_VariantId",
-                        column: x => x.VariantId,
+                        name: "FK_tb_variant_ingredient_tb_variant_variant_id",
+                        column: x => x.variant_id,
                         principalTable: "tb_variant",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -320,19 +321,19 @@ namespace Kiosk.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_tb_cart_item_CartId",
+                name: "IX_tb_cart_item_cart_id",
                 table: "tb_cart_item",
-                column: "CartId");
+                column: "cart_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tb_cart_item_ReferenceId",
+                name: "IX_tb_cart_item_reference_id",
                 table: "tb_cart_item",
-                column: "ReferenceId");
+                column: "reference_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tb_cart_item_VariantId",
+                name: "IX_tb_cart_item_variant_id",
                 table: "tb_cart_item",
-                column: "VariantId");
+                column: "variant_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tb_cart_item_ingredient_IngredientsId",
@@ -340,55 +341,55 @@ namespace Kiosk.Infrastructure.Migrations
                 column: "IngredientsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tb_code_OrganizationId",
+                name: "IX_tb_code_organization_id",
                 table: "tb_code",
-                column: "OrganizationId");
+                column: "organization_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tb_combination_CombId",
+                name: "IX_tb_combination_comb_id",
                 table: "tb_combination",
-                column: "CombId");
+                column: "comb_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tb_combination_PartId",
+                name: "IX_tb_combination_part_id",
                 table: "tb_combination",
-                column: "PartId");
+                column: "part_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tb_ingredient_ServiceId",
+                name: "IX_tb_ingredient_service_id",
                 table: "tb_ingredient",
-                column: "ServiceId");
+                column: "service_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tb_order_CartId",
+                name: "IX_tb_order_cart_id",
                 table: "tb_order",
-                column: "CartId",
+                column: "cart_id",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_tb_price_history_ingredient_IngredientId",
+                name: "IX_tb_price_history_ingredient_ingredient_id",
                 table: "tb_price_history_ingredient",
-                column: "IngredientId");
+                column: "ingredient_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tb_price_history_variant_VariantId",
+                name: "IX_tb_price_history_variant_variant_id",
                 table: "tb_price_history_variant",
-                column: "VariantId");
+                column: "variant_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tb_variant_ServiceId",
+                name: "IX_tb_variant_service_id",
                 table: "tb_variant",
-                column: "ServiceId");
+                column: "service_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tb_variant_ingredient_IngredientId",
+                name: "IX_tb_variant_ingredient_ingredient_id",
                 table: "tb_variant_ingredient",
-                column: "IngredientId");
+                column: "ingredient_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tb_variant_ingredient_VariantId",
+                name: "IX_tb_variant_ingredient_variant_id",
                 table: "tb_variant_ingredient",
-                column: "VariantId");
+                column: "variant_id");
         }
 
         /// <inheritdoc />
