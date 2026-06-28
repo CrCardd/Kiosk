@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kiosk.Application", "Kiosk.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kiosk.Domain", "Kiosk.Domain\Kiosk.Domain.csproj", "{AE81F992-E25F-91A4-2C46-1C172DA30268}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kiosk.Persistence", "Kiosk.Persistence\Kiosk.Persistence.csproj", "{31F7741B-2A19-ADE6-17D1-30226C4E8259}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kiosk.Infrastructure", "Kiosk.Infrastructure\Kiosk.Infrastructure.csproj", "{7BBF0D52-4516-C5A5-C65C-9725583D56B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,10 +28,10 @@ Global
 		{AE81F992-E25F-91A4-2C46-1C172DA30268}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE81F992-E25F-91A4-2C46-1C172DA30268}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE81F992-E25F-91A4-2C46-1C172DA30268}.Release|Any CPU.Build.0 = Release|Any CPU
-		{31F7741B-2A19-ADE6-17D1-30226C4E8259}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{31F7741B-2A19-ADE6-17D1-30226C4E8259}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{31F7741B-2A19-ADE6-17D1-30226C4E8259}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{31F7741B-2A19-ADE6-17D1-30226C4E8259}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BBF0D52-4516-C5A5-C65C-9725583D56B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BBF0D52-4516-C5A5-C65C-9725583D56B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BBF0D52-4516-C5A5-C65C-9725583D56B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BBF0D52-4516-C5A5-C65C-9725583D56B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

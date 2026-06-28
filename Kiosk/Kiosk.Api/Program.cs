@@ -1,5 +1,5 @@
 using Kiosk.Application.Config;
-using Kiosk.Persistence.Config;
+using Kiosk.Infrastructure.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 

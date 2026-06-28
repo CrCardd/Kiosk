@@ -1,7 +1,7 @@
 
 using Kiosk.Api.Enums;
 using Kiosk.Application.Features.CartItem_.Create;
-using Kiosk.Domain.Payloads.CartItem;
+using Kiosk.Application.Payloads.CartItem;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kiosk.Api.Controllers;

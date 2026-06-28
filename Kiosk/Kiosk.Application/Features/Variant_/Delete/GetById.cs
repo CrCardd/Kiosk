@@ -1,6 +1,6 @@
 
-using Kiosk.Domain.Payloads.Variant;
-using Kiosk.Domain.Services;
+using Kiosk.Application.Payloads.Variant;
+using Kiosk.Application.Services;
 
 namespace Kiosk.Application.Features.Variant_.Delete;
 

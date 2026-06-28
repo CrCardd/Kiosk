@@ -1,7 +1,7 @@
 
-using Kiosk.Domain.Payloads._Misc;
-using Kiosk.Domain.Payloads.Service;
-using Kiosk.Domain.Services;
+using Kiosk.Application.Payloads._Misc;
+using Kiosk.Application.Payloads.Service;
+using Kiosk.Application.Services;
 
 namespace Kiosk.Application.Features.Service_.GetAll;
 

@@ -1,8 +1,7 @@
 
-using System.Net;
-using Kiosk.Domain.Payloads._Misc;
-using Kiosk.Domain.Payloads.Variant;
-using Kiosk.Domain.Services;
+using Kiosk.Application.Payloads._Misc;
+using Kiosk.Application.Payloads.Variant;
+using Kiosk.Application.Services;
 
 namespace Kiosk.Application.Features.Variant_.GetAll;
 

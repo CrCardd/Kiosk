@@ -4,8 +4,8 @@ using Kiosk.Application.Features.Service_.Create;
 using Kiosk.Application.Features.Service_.GetAll;
 using Kiosk.Application.Features.Service_.Update;
 using Kiosk.Application.Features.Service_.GetById;
-using Kiosk.Domain.Payloads._Misc;
-using Kiosk.Domain.Payloads.Service;
+using Kiosk.Application.Payloads._Misc;
+using Kiosk.Application.Payloads.Service;
 using Microsoft.AspNetCore.Mvc;
 using Kiosk.Application.Features.Service_.Delete;
 

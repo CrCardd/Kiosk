@@ -1,9 +1,0 @@
-
-using Kiosk.Domain.Payloads.VariantIngredient;
-
-namespace Kiosk.Domain.Services;
-
-public interface IVariantIngredientService : IBaseService
-{
-    public Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken);
-}

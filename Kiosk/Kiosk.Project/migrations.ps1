@@ -1,0 +1,1 @@
+dotnet ef migrations add $args --project ./Kiosk.Infrastructure --startup-project ./Kiosk.Api

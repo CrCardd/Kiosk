@@ -1,0 +1,1 @@
+dotnet ef database update $args --project ./Kiosk.Infrastructure --startup-project ./Kiosk.Api

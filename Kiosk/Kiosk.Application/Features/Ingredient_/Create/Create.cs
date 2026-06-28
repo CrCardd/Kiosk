@@ -1,6 +1,6 @@
 
-using Kiosk.Domain.Payloads.Ingredient;
-using Kiosk.Domain.Services;
+using Kiosk.Application.Payloads.Ingredient;
+using Kiosk.Application.Services;
 
 namespace Kiosk.Application.Features.Ingredient_.Create;
 

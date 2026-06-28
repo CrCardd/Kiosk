@@ -5,8 +5,8 @@ using Kiosk.Application.Features.Variant_.Create;
 using Kiosk.Application.Features.Variant_.GetAll;
 using Kiosk.Application.Features.Variant_.GetById;
 using Kiosk.Application.Features.Variant_.GetByService;
-using Kiosk.Domain.Payloads._Misc;
-using Kiosk.Domain.Payloads.Variant;
+using Kiosk.Application.Payloads._Misc;
+using Kiosk.Application.Payloads.Variant;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kiosk.Api.Controllers;

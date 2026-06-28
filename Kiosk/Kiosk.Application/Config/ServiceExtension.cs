@@ -1,5 +1,5 @@
-using Microsoft.Extensions.DependencyInjection; 
-using Kiosk.Domain.Services;
+using Kiosk.Application.Services;
+using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 namespace Kiosk.Application.Config; 

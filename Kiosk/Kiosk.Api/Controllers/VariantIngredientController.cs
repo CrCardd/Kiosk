@@ -1,7 +1,7 @@
 
 using Kiosk.Api.Enums;
 using Kiosk.Application.Features.VariantIngredient_.Create;
-using Kiosk.Domain.Payloads.VariantIngredient;
+using Kiosk.Application.Payloads.VariantIngredient;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kiosk.Api.Controllers;
