@@ -21,17 +21,29 @@ public static class CartItemClassMap
             .HasPrecision(18, 2)
             .HasColumnName("snapshot_price")
             .IsRequired();
-        //================MY-RELATIONS================
+        //================MY-RELATIONS================        
+        builder.Property(ci => ci.CartId)
+            .HasColumnName("cart_id")
+            .IsRequired();
         builder.HasOne(ci => ci.Cart)
             .WithMany(c => c.CartItems)
             .HasForeignKey(ci => ci.CartId)
             .IsRequired();
+        
+        builder.Property(ci => ci.ReferenceId)
+            .HasColumnName("reference_id")
+            .IsRequired();
         builder.HasOne(ci => ci.Reference)
             .WithMany(c => c.CartItems)
             .HasForeignKey(ci => ci.ReferenceId);
+        
+        builder.Property(ci => ci.VariantId)
+            .HasColumnName("variant_id")
+            .IsRequired();
         builder.HasOne(ci => ci.Variant)
             .WithMany(c => c.CartItems)
             .HasForeignKey(ci => ci.VariantId);
+
         //================RELATIONS================
         builder.HasMany(ci => ci.Ingredients)
             .WithMany(i => i.CartItems)

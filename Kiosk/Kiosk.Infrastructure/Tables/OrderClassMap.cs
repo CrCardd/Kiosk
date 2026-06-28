@@ -29,7 +29,10 @@ public static class OrderClassMap
             .HasColumnName("total")
             .HasPrecision(18,2)
             .IsRequired();
-        //================MY-RELATIONS================
+        //================MY-RELATIONS================        
+        builder.Property(o => o.CartId)
+            .HasColumnName("cart_id")
+            .IsRequired();
         builder.HasOne(o => o.Cart)
             .WithOne(c => c.Order)
             .HasForeignKey<OrderModel>(o => o.CartId)

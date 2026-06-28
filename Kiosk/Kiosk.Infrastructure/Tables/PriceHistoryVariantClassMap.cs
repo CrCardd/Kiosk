@@ -21,7 +21,10 @@ public static class PriceHistoryVariantClassMap
             .HasColumnName("price")
             .HasPrecision(18,2)
             .IsRequired();
-        //================MY-RELATIONS================
+        //================MY-RELATIONS================        
+        builder.Property(phv => phv.VariantId)
+            .HasColumnName("variant_id")
+            .IsRequired();
         builder.HasOne(phv => phv.Variant)
             .WithMany(i => i.PriceHistoryVariants)
             .HasForeignKey(phv => phv.VariantId)

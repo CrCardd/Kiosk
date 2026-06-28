@@ -21,7 +21,10 @@ public static class PriceHistoryIngredientClassMap
             .HasPrecision(18,2)
             .HasColumnName("price")
             .IsRequired();
-        //================MY-RELATIONS================
+        //================MY-RELATIONS================        
+        builder.Property(phi => phi.IngredientId)
+            .HasColumnName("ingredient_id")
+            .IsRequired();
         builder.HasOne(phi => phi.Ingredient)
             .WithMany(i => i.PriceHistoryIngredients)
             .HasForeignKey(phi => phi.IngredientId)

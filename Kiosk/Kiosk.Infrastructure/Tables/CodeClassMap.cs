@@ -26,6 +26,9 @@ public static class CodeClassMap
             .IsRequired();
         
         //================MY-RELATIONS================
+        builder.Property(c => c.OrganizationId)
+            .HasColumnName("organization_id")
+            .IsRequired();
         builder.HasOne(c => c.Organization)
             .WithMany(c => c.Codes)
             .HasForeignKey(c => c.OrganizationId);

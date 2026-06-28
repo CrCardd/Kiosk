@@ -31,7 +31,10 @@ public static class VariantClassMap
         builder.Property(v => v.Available)
             .HasColumnName("available")
             .IsRequired();
-        //================MY-RELATIONS================
+        //================MY-RELATIONS================        
+        builder.Property(v => v.ServiceId)
+            .HasColumnName("service_id")
+            .IsRequired();
         builder.HasOne(v => v.Service)
             .WithMany(s => s.Variants)
             .HasForeignKey(v => v.ServiceId);

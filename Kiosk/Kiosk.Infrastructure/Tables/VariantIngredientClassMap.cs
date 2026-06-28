@@ -20,10 +20,17 @@ public static class VariantIngredientClassMap
         builder.Property(vi => vi.Available)
             .HasColumnName("available")
             .IsRequired();
-        //================MY-RELATIONS================
+        //================MY-RELATIONS================        
+        builder.Property(vi => vi.IngredientId)
+            .HasColumnName("ingredient_id")
+            .IsRequired();
         builder.HasOne(vi => vi.Ingredient)
             .WithMany(i => i.VariantIngredients)
             .HasForeignKey(vi => vi.IngredientId)
+            .IsRequired();
+        
+        builder.Property(vi => vi.VariantId)
+            .HasColumnName("variant_id")
             .IsRequired();
         builder.HasOne(vi => vi.Variant)
             .WithMany(i => i.VariantIngredients)
