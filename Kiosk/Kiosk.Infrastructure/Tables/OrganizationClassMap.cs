@@ -27,6 +27,9 @@ public static class OrganizationClassMap
         //================MY-RELATIONS================
 
         //================RELATIONS================
+        builder.HasMany(o => o.Services)
+            .WithOne(s => s.Organization)
+            .HasForeignKey(s => s.OrganizationId);
         builder.HasMany(o => o.Codes)
             .WithOne(c => c.Organization)
             .HasForeignKey(c => c.OrganizationId);

@@ -1,5 +1,7 @@
 function connect($db) {
-    $baseUrl = "../"
+    if ($args.Count -le 0){$baseUrl = "./"}
+    else{$baseUrl = $args}
+    
     $dbFile = "database.db" #if ($db -eq "prod") { "ProductDB.db" } else { "TestProductDB.db" }
     $env:SCRIPT_DATABASE_URL = $baseUrl + $dbFile
 }

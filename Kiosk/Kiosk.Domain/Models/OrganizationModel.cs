@@ -11,4 +11,5 @@ public class OrganizationModel : BaseModel
 
     //================RELATIONS================
     public ICollection<CodeModel> Codes {get;set;} = [];
+    public ICollection<ServiceModel> Services {get;set;} = [];
 }

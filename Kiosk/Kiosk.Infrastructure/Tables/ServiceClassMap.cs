@@ -29,6 +29,12 @@ public static class ServiceClassMap
             .HasColumnName("available")
             .IsRequired();
         //================MY-RELATIONS================
+        builder.Property(s => s.OrganizationId)
+            .HasColumnName("organization_id")
+            .IsRequired();
+        builder.HasOne(s => s.Organization)
+            .WithMany(o => o.Services)
+            .HasForeignKey(s => s.OrganizationId);
         
         //================RELATIONS================
         builder.HasMany(s => s.Variants)
