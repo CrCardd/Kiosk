@@ -17,7 +17,6 @@ public static class CodeClassMap
 
         //================PROPERTIES================
         builder.Property(c => c.Code)
-            .HasMaxLength(9)
             .HasColumnName("code")
             .IsRequired();
         builder.Property(c => c.StartDate)

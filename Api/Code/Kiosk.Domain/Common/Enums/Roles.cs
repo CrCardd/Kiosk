@@ -2,7 +2,7 @@ namespace Kiosk.Domain.Common.Enums;
 
 public enum Role
 {
-    Token,
+    Kiosk,
     Organization
 }
 
@@ -13,7 +13,7 @@ public static class Roles
         return (role) switch
         {
             Role.Organization => "organization",
-            Role.Token => "token",
+            Role.Kiosk => "kiosk",
             _ => "invalid"
         };
 

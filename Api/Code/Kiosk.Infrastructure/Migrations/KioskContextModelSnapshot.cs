@@ -116,8 +116,7 @@ namespace Kiosk.Infrastructure.Migrations
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasMaxLength(9)
-                        .HasColumnType("varchar(9)")
+                        .HasColumnType("longtext")
                         .HasColumnName("code");
 
                     b.Property<DateTime>("CreatedAt")

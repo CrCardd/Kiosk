@@ -1,6 +1,7 @@
 using Kiosk.Api.Enums;
 using Kiosk.Application.Features.Auth_;
 using Kiosk.Application.Features.Auth_.Create;
+using Kiosk.Application.Features.Auth_.Register;
 using Kiosk.Application.Payloads.Organization;
 using Microsoft.AspNetCore.Mvc;
 

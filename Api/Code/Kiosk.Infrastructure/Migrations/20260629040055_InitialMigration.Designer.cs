@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Kiosk.Infrastructure.Migrations
 {
     [DbContext(typeof(KioskContext))]
-    [Migration("20260629011127_InitialMigration")]
+    [Migration("20260629040055_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -119,8 +119,7 @@ namespace Kiosk.Infrastructure.Migrations
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasMaxLength(9)
-                        .HasColumnType("varchar(9)")
+                        .HasColumnType("longtext")
                         .HasColumnName("code");
 
                     b.Property<DateTime>("CreatedAt")

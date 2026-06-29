@@ -2,6 +2,7 @@ using Kiosk.Application.Payloads.Code;
 using Kiosk.Application.Services;
 using Kiosk.Domain.Models;
 using Kiosk.Infrastructure.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Kiosk.Infrastructure.Services;
 
@@ -27,6 +28,15 @@ public class CodeService(
         };
 
         ctx.Codes.Add(code);
+        await ctx.SaveChangesAsync(cancellationToken);
         return GetPayload.ToDto(code);
+    }
+
+    public async Task<Result<ICollection<GetPayload>>> GetAll(CancellationToken cancellationToken)
+    {
+        return await ctx.Codes
+            .Where(c => c.DisabledAt == null)
+            .Select(c => GetPayload.ToDto(c))
+            .ToListAsync(cancellationToken);
     }
 }

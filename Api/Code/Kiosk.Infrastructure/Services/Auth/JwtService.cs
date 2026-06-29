@@ -5,6 +5,7 @@ using Kiosk.Application.Features.Auth_;
 using Kiosk.Application.Services;
 using Kiosk.Application.Services.Auth;
 using Kiosk.Domain.Common.Enums;
+using Kiosk.Domain.Utils;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Kiosk.Infrastructure.Services.Auth;
@@ -21,8 +22,8 @@ public class JWTService : IJwtService
             
             var jwt = new JwtSecurityToken(
                 claims: [
-                    new Claim(ClaimTypes.NameIdentifier, payload.OrganizationId.ToString()),
-                    new Claim(ClaimTypes.Role, Roles.GetRoleName(payload.Role)),
+                    new Claim(MyClaims.OrganizationId, payload.OrganizationId.ToString()),
+                    new Claim(MyClaims.Role, Roles.GetRoleName(payload.Role)),
                 ],
                 expires: DateTime.UtcNow.AddHours(durationHours),
                 signingCredentials: new SigningCredentials(

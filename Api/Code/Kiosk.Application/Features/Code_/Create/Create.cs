@@ -1,11 +1,15 @@
+using Kiosk.Application.Features.Auth_;
 using Kiosk.Application.Payloads.Code;
 using Kiosk.Application.Services;
+using Kiosk.Application.Services.Auth;
 using Kiosk.Domain.Utils;
 
-namespace Kiosk.Application.Features.Auth_;
+namespace Kiosk.Application.Features.Code_;
 
-public class StartToken(
-    ICodeService service
+public class Create(
+    ICodeService service,
+
+    IPasswordService passwordService
 ) : BaseFeature
 {
     public async Task<Result<GetTokenPayload>> ExecuteAsync(Guid organizationId, CancellationToken cancellationToken)
@@ -21,18 +25,18 @@ public class StartToken(
             endDate = DateTime.MaxValue;
         }
         
-
+        var code = RandomCodeGenerator.Generate("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", 8);
         var payload = new CreatePayload
         {
-            Code = RandomCodeGenerator.Generate("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", 8),
+            Code = passwordService.Hash(code),
             OrganizationId = organizationId,
             StartDate = DateTime.UtcNow,
             EndDate = endDate
         };
         var response = await service.Create(payload, cancellationToken);
         if(!response.IsSuccess)
-            return "Something went wrong. sorry :(." + payload.OrganizationId;
+            return response.Message;
 
-        return new GetTokenPayload{Token = response.Value.Code};
+        return new GetTokenPayload{Token = code};
     }
 }

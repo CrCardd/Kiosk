@@ -3,7 +3,7 @@ using Kiosk.Application.Services;
 using Kiosk.Application.Services.Auth;
 using Kiosk.Domain.Common.Enums;
 
-namespace Kiosk.Application.Features.Auth_.Create;
+namespace Kiosk.Application.Features.Auth_.Register;
 
 public class Create(
     IOrganizationService service,
