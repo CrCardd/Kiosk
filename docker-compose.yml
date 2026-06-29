@@ -1,0 +1,25 @@
+services:
+  kiosk.api:
+    build: 
+      context: ./Api
+      
+    image: kiosk.api:latest
+    ports:
+      - 5555:8080
+    env_file:
+      - ./Api/.env
+
+  kiosk.db:
+    image: mysql:8.0
+    environment:
+    - MYSQL_ROOT_PASSWORD=root
+    - MYSQL_DATABASE=kiosk
+    - MYSQL_USER=kiosk
+    - MYSQL_PASSWORD=kiosk
+    volumes:
+      - kiosk.vol:/var/lib/mysql
+    ports:
+      - 4444:3306
+
+volumes:
+  kiosk.vol:

@@ -1,0 +1,30 @@
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+
+WORKDIR /app
+
+COPY ./Code/Kiosk.sln .
+COPY ./Code/Kiosk.Api/*.csproj ./Kiosk.Api/
+COPY ./Code/Kiosk.Application/*.csproj ./Kiosk.Application/
+COPY ./Code/Kiosk.Domain/*.csproj ./Kiosk.Domain/
+COPY ./Code/Kiosk.Infrastructure/*.csproj ./Kiosk.Infrastructure/
+RUN dotnet restore
+
+COPY ./Code .
+
+RUN dotnet publish -c Release -o /app/publish
+
+# FROM mcr.microsoft.com/dotnet/aspnet:9.0-alpine
+# RUN addgroup -S appgroup
+# RUN adduser -S appuser -G appgroup
+
+FROM mcr.microsoft.com/dotnet/aspnet:9.0-bookworm-slim
+RUN groupadd -r appgroup
+RUN useradd -r -g appgroup appuser
+
+
+WORKDIR /app
+COPY --from=build /app/publish ./
+
+USER appuser
+
+ENTRYPOINT ["dotnet", "Kiosk.Api.dll"]
