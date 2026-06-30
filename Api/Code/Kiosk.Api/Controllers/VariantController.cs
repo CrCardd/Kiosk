@@ -8,6 +8,8 @@ using Kiosk.Application.Features.Variant_.GetByService;
 using Kiosk.Application.Payloads._Util;
 using Kiosk.Application.Payloads.Variant;
 using Microsoft.AspNetCore.Mvc;
+using Kiosk.Api.Auth;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Kiosk.Api.Controllers;
 
@@ -22,6 +24,7 @@ public class VariantController(
     Delete delete
 ) : ControllerBase
 {
+    [OrganizationAuth]
     [HttpPost]
     public async Task<ActionResult<GetPayload>> Create(
         [FromBody] CreatePayload request,
@@ -33,6 +36,8 @@ public class VariantController(
             return BadRequest(response);
         return Ok(response);
     }
+    
+    [Authorize]
     [HttpGet]
     public async Task<ActionResult<GenericListPayload<GetPayload>>> GetAll(
         [FromQuery] bool? available,
@@ -45,6 +50,7 @@ public class VariantController(
         return Ok(response);
     }
     
+    [Authorize]
     [HttpGet("service/{serviceId}")]
     public async Task<ActionResult<GenericListPayload<GetPayload>>> GetAll(
         [FromRoute] Guid serviceId,
@@ -57,6 +63,7 @@ public class VariantController(
         return Ok(response);
     }
 
+    [Authorize]
     [HttpGet("{id}")]
     public async Task<ActionResult<GenericListPayload<GetPayload>>> GetById(
         [FromRoute] Guid id, CancellationToken cancellationToken
@@ -68,6 +75,7 @@ public class VariantController(
         return BadRequest(response);
     }
 
+    [OrganizationAuth]
     [HttpPatch("{id}")]
     public async Task<ActionResult<GenericListPayload<GetPayload>>> Update(
         [FromBody] UpdatePayload request,
@@ -81,6 +89,7 @@ public class VariantController(
         return BadRequest(response);
     }
 
+    [OrganizationAuth]
     [HttpDelete("{id}")]
     public async Task<ActionResult<GenericListPayload<GetPayload>>> Delete(
         [FromRoute] Guid id, 

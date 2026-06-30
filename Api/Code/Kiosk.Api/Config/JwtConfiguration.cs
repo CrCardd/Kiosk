@@ -1,3 +1,4 @@
+using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -18,6 +19,7 @@ public static class JwtConfiguration
         })
         .AddJwtBearer(options =>
         {
+            options.MapInboundClaims = false;
             options.TokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
@@ -27,6 +29,7 @@ public static class JwtConfiguration
                 ClockSkew = TimeSpan.Zero
             };
         });
+        JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
         services.AddAuthorization();
     }

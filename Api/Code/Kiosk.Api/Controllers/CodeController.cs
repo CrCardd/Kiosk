@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Kiosk.Api.Auth;
 using Kiosk.Api.Enums;
 using Kiosk.Application.Features.Auth_;
 using Kiosk.Application.Features.Auth_.StartKiosk;
@@ -17,7 +18,7 @@ public class CodeController(
 ) : ControllerBase
 {
 
-    [Authorize]
+    [OrganizationAuth]
     [HttpPost]
     public async Task<ActionResult<GetTokenPayload>> Create(
         CancellationToken cancellationToken

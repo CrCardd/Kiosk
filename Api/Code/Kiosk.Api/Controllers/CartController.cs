@@ -3,6 +3,7 @@ using Kiosk.Api.Enums;
 using Kiosk.Application.Features.Cart_.GetById;
 using Kiosk.Application.Features.Cart_.StartSession;
 using Kiosk.Application.Payloads.Cart;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kiosk.Api.Controllers;
@@ -14,6 +15,7 @@ public class CartController(
     GetById getById
 ) : ControllerBase
 {   
+    [Authorize]
     [HttpPost]
     public async Task<ActionResult<GetPayload>> Post(
         CreatePayload request, CancellationToken cancellationToken
@@ -25,6 +27,7 @@ public class CartController(
         return Ok(response);
     }
 
+    [Authorize]
     [HttpGet("{id}")]
     public async Task<ActionResult<GetPayload>> GetById(
         [FromRoute] Guid id, CancellationToken cancellationToken

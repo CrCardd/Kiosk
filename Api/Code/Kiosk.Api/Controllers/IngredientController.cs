@@ -1,4 +1,5 @@
 
+using Kiosk.Api.Auth;
 using Kiosk.Api.Enums;
 using Kiosk.Application.Features.Ingredient_.Create;
 using Kiosk.Application.Payloads.Ingredient;
@@ -12,6 +13,7 @@ public class IngredientController(
     Create create
 ) : ControllerBase
 {
+    [OrganizationAuth]
     [HttpPost]
     public async Task<ActionResult<GetPayload>> Create(
         [FromBody] CreatePayload request,

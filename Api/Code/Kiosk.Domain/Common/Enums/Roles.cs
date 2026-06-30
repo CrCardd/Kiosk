@@ -10,7 +10,7 @@ public static class Roles
 {
     public static string GetRoleName(Role role)
     {
-        return (role) switch
+        return role switch
         {
             Role.Organization => "organization",
             Role.Kiosk => "kiosk",

@@ -8,6 +8,8 @@ using Kiosk.Application.Payloads._Util;
 using Kiosk.Application.Payloads.Service;
 using Microsoft.AspNetCore.Mvc;
 using Kiosk.Application.Features.Service_.Delete;
+using Kiosk.Api.Auth;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Kiosk.Api.Controllers;
 
@@ -21,6 +23,7 @@ public class ServiceController(
     Delete delete
 ) : ControllerBase
 {
+    [OrganizationAuth]
     [HttpPost]
     public async Task<ActionResult<GetPayload>> Create(
         CreatePayload request, CancellationToken cancellationToken
@@ -32,6 +35,7 @@ public class ServiceController(
         return BadRequest(response);
     }
 
+    [Authorize]
     [HttpGet]
     public async Task<ActionResult<GenericListPayload<GetPayload>>> GetAll
     (
@@ -43,6 +47,8 @@ public class ServiceController(
             return Ok(response);
         return BadRequest(response);
     }
+
+    [Authorize]
     [HttpGet("{id}")]
     public async Task<ActionResult<GenericListPayload<GetPayload>>> GetAll
     (
@@ -55,6 +61,7 @@ public class ServiceController(
         return BadRequest(response);
     }
 
+    [OrganizationAuth]
     [HttpPatch("{id}")]
     public async Task<ActionResult<GetPayload>> Update
     (
@@ -69,6 +76,7 @@ public class ServiceController(
         return BadRequest(response);
     }
 
+    [OrganizationAuth]
     [HttpDelete("{id}")]
     public async Task<ActionResult<GetPayload>> Delete
     (

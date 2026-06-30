@@ -1,4 +1,5 @@
 
+using Kiosk.Api.Auth;
 using Kiosk.Api.Enums;
 using Kiosk.Application.Features.CartItem_.Create;
 using Kiosk.Application.Payloads.CartItem;
@@ -12,6 +13,7 @@ public class CartItemController(
     Create create
 ) : ControllerBase
 {
+    [KioskAuth]
     [HttpPost]
     public async Task<ActionResult<GetPayload>> Post(
         CreatePayload request, CancellationToken cancellationToken
