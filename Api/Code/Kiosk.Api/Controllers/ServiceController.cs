@@ -1,5 +1,5 @@
 
-using Kiosk.Api.Enums;
+using Kiosk.Api.Common.Enums;
 using Kiosk.Application.Features.Service_.Create;
 using Kiosk.Application.Features.Service_.GetAll;
 using Kiosk.Application.Features.Service_.Update;
@@ -8,8 +8,9 @@ using Kiosk.Application.Payloads._Util;
 using Kiosk.Application.Payloads.Service;
 using Microsoft.AspNetCore.Mvc;
 using Kiosk.Application.Features.Service_.Delete;
-using Kiosk.Api.Auth;
+using Kiosk.Api.Common.Auth;
 using Microsoft.AspNetCore.Authorization;
+using Kiosk.Api.Controllers.Api;
 
 namespace Kiosk.Api.Controllers;
 
@@ -21,7 +22,7 @@ public class ServiceController(
     GetById getById,
     Update update,
     Delete delete
-) : ControllerBase
+) : ApiController
 {
     [OrganizationAuth]
     [HttpPost]

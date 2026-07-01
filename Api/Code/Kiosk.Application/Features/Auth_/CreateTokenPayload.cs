@@ -1,4 +1,4 @@
-using Kiosk.Domain.Common.Enums;
+using Kiosk.Application.Common.Enums;
 
 namespace Kiosk.Application.Features.Auth_;
 

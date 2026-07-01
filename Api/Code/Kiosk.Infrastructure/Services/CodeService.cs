@@ -1,5 +1,6 @@
 using Kiosk.Application.Payloads.Code;
 using Kiosk.Application.Services;
+using Kiosk.Domain.Common.Exceptions.Exceptions;
 using Kiosk.Domain.Models;
 using Kiosk.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +17,7 @@ public class CodeService(
             .Where(o => o.DisabledAt == null)
             .FirstOrDefault(o => o.Id == payload.OrganizationId);
         if(organization is null)
-            return "Organization not found!";
+            return new NotFoundEx("Organization not found!");
         
         var code = new CodeModel    
         {

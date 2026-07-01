@@ -1,5 +1,5 @@
 
-using Kiosk.Api.Enums;
+using Kiosk.Api.Common.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kiosk.Api.Controllers;

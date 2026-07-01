@@ -1,8 +1,9 @@
 
-namespace Kiosk.Domain.Common.Enums;
+namespace Kiosk.Application.Common.Enums;
 
-public enum StatusCode
+public enum Status
 {
+    Ok = 200,
     BadRequest = 400,
     Unauthorized = 401,
     Forbidden = 403,

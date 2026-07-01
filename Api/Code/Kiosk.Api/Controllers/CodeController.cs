@@ -1,6 +1,7 @@
 using System.Security.Claims;
-using Kiosk.Api.Auth;
-using Kiosk.Api.Enums;
+using Kiosk.Api.Common.Auth;
+using Kiosk.Api.Controllers.Api;
+using Kiosk.Api.Common.Enums;
 using Kiosk.Application.Features.Auth_;
 using Kiosk.Application.Features.Auth_.StartKiosk;
 using Kiosk.Application.Features.Code_;
@@ -15,7 +16,7 @@ namespace Kiosk.Api.Controllers;
 public class CodeController(
     Create create,
     StartKiosk startKiosk
-) : ControllerBase
+) : ApiController
 {
 
     [OrganizationAuth]

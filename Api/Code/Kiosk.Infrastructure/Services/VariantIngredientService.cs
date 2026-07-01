@@ -2,6 +2,7 @@ using Kiosk.Domain.Models;
 using Kiosk.Application.Payloads.VariantIngredient;
 using Kiosk.Application.Services;
 using Kiosk.Infrastructure.Context;
+using Kiosk.Domain.Common.Exceptions.Exceptions;
 
 namespace Kiosk.Infrastructure.Services;
 
@@ -16,14 +17,14 @@ public class VariantIngredientService(
             .Where(v => v.Id == payload.VariantId)
             .FirstOrDefault();
         if(variant is null)
-            return "Referenced Variant not found";
+            return new NotFoundEx("Referenced Variant not found");
      
         var ingredient = ctx.Ingredients
             .Where(v => v.DisabledAt == null)
             .Where(v => v.Id == payload.IngredientId)
             .FirstOrDefault();
         if(ingredient is null)
-            return "Referenced Ingredient not found";
+            return new NotFoundEx("Referenced Ingredient not found");
 
         var variantIngredient = new VariantIngredientModel
         {

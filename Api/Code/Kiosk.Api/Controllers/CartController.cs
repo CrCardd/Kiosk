@@ -1,5 +1,6 @@
 
-using Kiosk.Api.Enums;
+using Kiosk.Api.Controllers.Api;
+using Kiosk.Api.Common.Enums;
 using Kiosk.Application.Features.Cart_.GetById;
 using Kiosk.Application.Features.Cart_.StartSession;
 using Kiosk.Application.Payloads.Cart;
@@ -13,7 +14,7 @@ namespace Kiosk.Api.Controllers;
 public class CartController(
     StartSessionCart startSessionCart,
     GetById getById
-) : ControllerBase
+) : ApiController
 {   
     [Authorize]
     [HttpPost]

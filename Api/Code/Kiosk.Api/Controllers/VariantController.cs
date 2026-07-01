@@ -1,5 +1,5 @@
 
-using Kiosk.Api.Enums;
+using Kiosk.Api.Common.Enums;
 using Kiosk.Application.Features.Variant_.Delete;
 using Kiosk.Application.Features.Variant_.Create;
 using Kiosk.Application.Features.Variant_.GetAll;
@@ -8,8 +8,9 @@ using Kiosk.Application.Features.Variant_.GetByService;
 using Kiosk.Application.Payloads._Util;
 using Kiosk.Application.Payloads.Variant;
 using Microsoft.AspNetCore.Mvc;
-using Kiosk.Api.Auth;
+using Kiosk.Api.Common.Auth;
 using Microsoft.AspNetCore.Authorization;
+using Kiosk.Api.Controllers.Api;
 
 namespace Kiosk.Api.Controllers;
 
@@ -22,7 +23,7 @@ public class VariantController(
     GetById getById,
     Update update,
     Delete delete
-) : ControllerBase
+) : ApiController
 {
     [OrganizationAuth]
     [HttpPost]

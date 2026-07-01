@@ -5,6 +5,7 @@ using Kiosk.Application.Payloads.Service;
 using Kiosk.Application.Services;
 using Kiosk.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
+using Kiosk.Domain.Common.Exceptions.Exceptions;
 
 namespace Kiosk.Infrastructure.Services;
 
@@ -18,7 +19,7 @@ public class ServiceService(
             .Where(o => o.DisabledAt == null)
             .FirstOrDefault(o => o.Id == payload.OrganizationId);
         if(organization is null)
-            return "Organization not found";
+            return new NotFoundEx("Organization not found");
 
         var service = new ServiceModel
         {
@@ -51,8 +52,10 @@ public class ServiceService(
             .Include(s => s.Variants)    
                 .ThenInclude(v => v.PriceHistoryVariants)
             .FirstOrDefaultAsync(s => s.Id == id);
+        
         if(service == null)
-            return "Referenced service not found";
+            return new NotFoundEx("Referenced service not found");
+        
         return GetPayload.ToDto(service);
     }
 
@@ -63,7 +66,7 @@ public class ServiceService(
             .FirstOrDefault();
         
         if(service == null)
-            return "Referenced Service not found";
+            return new NotFoundEx("Referenced Service not found");
         
         if(payload.Name.HasChanged)
             service.Name = payload.Name.Value;
@@ -82,7 +85,7 @@ public class ServiceService(
             .Where(s => s.Id == id)
             .FirstOrDefault();
         if(service == null)
-            return "Referenced service not found";
+            return new NotFoundEx("Referenced service not found");
             
         service.DisabledAt = DateTime.UtcNow;
         await ctx.SaveChangesAsync(cancellationToken);

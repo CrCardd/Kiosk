@@ -1,5 +1,6 @@
 using Kiosk.Application.Payloads.Organization;
 using Kiosk.Application.Services;
+using Kiosk.Domain.Common.Exceptions.Exceptions;
 using Kiosk.Domain.Models;
 using Kiosk.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
@@ -31,7 +32,7 @@ public class OrganizationService
             .Where(o => o.DisabledAt == null)
             .FirstOrDefaultAsync(o => o.Name == name);
         if(organization is null)
-            return "Organization not found";
+            return new NotFoundEx("Organization not found");
         return GetPayload.ToDto(organization);
     }
 }

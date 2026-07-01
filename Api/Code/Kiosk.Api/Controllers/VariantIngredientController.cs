@@ -1,6 +1,7 @@
 
-using Kiosk.Api.Auth;
-using Kiosk.Api.Enums;
+using Kiosk.Api.Common.Auth;
+using Kiosk.Api.Controllers.Api;
+using Kiosk.Api.Common.Enums;
 using Kiosk.Application.Features.VariantIngredient_.Create;
 using Kiosk.Application.Payloads.VariantIngredient;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +12,7 @@ namespace Kiosk.Api.Controllers;
 [Route(APIRoutes.VariantIngredient)]
 public class VariantIngredientController(
     Create create
-) : ControllerBase
+) : ApiController
 {
     [OrganizationAuth]
     [HttpPost]

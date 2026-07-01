@@ -2,6 +2,7 @@ using Kiosk.Application.Features.Auth_;
 using Kiosk.Application.Payloads.Code;
 using Kiosk.Application.Services;
 using Kiosk.Application.Services.Auth;
+using Kiosk.Domain.Common.Exceptions.Exceptions;
 using Kiosk.Domain.Utils;
 
 namespace Kiosk.Application.Features.Code_;
@@ -35,7 +36,7 @@ public class Create(
         };
         var response = await service.Create(payload, cancellationToken);
         if(!response.IsSuccess)
-            return response.Message;
+            return new NotFoundEx(response.Message);
 
         return new GetTokenPayload{Token = code};
     }

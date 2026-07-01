@@ -3,6 +3,7 @@ using Kiosk.Domain.Models;
 using Kiosk.Application.Payloads.Ingredient;
 using Kiosk.Application.Services;
 using Kiosk.Infrastructure.Context;
+using Kiosk.Domain.Common.Exceptions.Exceptions;
 
 namespace Kiosk.Infrastructure.Services;
 
@@ -18,7 +19,7 @@ public class IngredientService(
             .FirstOrDefault();
 
         if(service == null)
-            return "Referenced Service not found";
+            return new NotFoundEx("Referenced Service not found");
 
         var ingredient = new IngredientModel
         {

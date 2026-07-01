@@ -1,10 +1,11 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Kiosk.Application.Common.Enums;
 using Kiosk.Application.Features.Auth_;
 using Kiosk.Application.Services;
 using Kiosk.Application.Services.Auth;
-using Kiosk.Domain.Common.Enums;
+using Kiosk.Domain.Common.Exceptions.Exceptions;
 using Kiosk.Domain.Utils;
 using Microsoft.IdentityModel.Tokens;
 
@@ -36,7 +37,13 @@ public class JWTService : IJwtService
         }
         catch(Exception ex)
         {
-            return "JWT_KEY environment variable was not setted or is in incorrect format!\n" + ex;
+            throw new InternalServerErrorEx(
+                $"""
+                JWT_KEY environment variable was 
+                not setted or is in incorrect format!
+                ${ex}
+                """ 
+            );
         }
     }
 }

@@ -1,5 +1,5 @@
 
-namespace Kiosk.Api.Enums;
+namespace Kiosk.Api.Common.Enums;
 public static class APIRoutes
 {
     /* 

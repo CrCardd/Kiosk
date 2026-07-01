@@ -6,6 +6,7 @@ using Kiosk.Application.Services;
 using Kiosk.Infrastructure.Services.Extensions;
 using Kiosk.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
+using Kiosk.Domain.Common.Exceptions.Exceptions;
 
 namespace Kiosk.Infrastructure.Services;
 
@@ -21,7 +22,7 @@ public class VariantService(
             .FirstOrDefault();
 
         if(service == null)
-            return "Referenced Service not found";
+            return new NotFoundEx("Referenced Service not found");
 
         var variant = new VariantModel
         {
@@ -45,7 +46,7 @@ public class VariantService(
                 .Where(v => v.DisabledAt == null)
                 .FirstOrDefault(v => v.Id == p);
             if(part == null)
-                return "Invalid Referenced Variant";
+                return new NotFoundEx("Invalid Referenced Variant");
 
             variant.Parts.Add(
                 new CombinationModel
@@ -77,7 +78,7 @@ public class VariantService(
             .Include(v => v.PriceHistoryVariants)
             .FirstOrDefaultAsync(v => v.Id == id);
         if(variant == null)
-            return "Referenced variant not found";
+            return new NotFoundEx("Referenced variant not found");
 
         var parts = new List<GetPayload>();
         foreach (var part in variant.Parts)
@@ -103,6 +104,9 @@ public class VariantService(
         .Include(v => v.VariantIngredients)
             .ThenInclude(vi => vi.Ingredient)
         .Include(v => v.PriceHistoryVariants)
+        .Include(v => v.VariantIngredients)
+            .ThenInclude(vi => vi.Ingredient)
+                .ThenInclude(i => i.PriceHistoryIngredients)
         .Select(v => GetPayload.ToDto(v))
         .ToListAsync(cancellationToken);
 
@@ -121,7 +125,7 @@ public class VariantService(
             .Include(v => v.PriceHistoryVariants)
             .FirstOrDefaultAsync(v => v.Id == id);
         if(variant == null)
-            return "Referenced variant not found";
+            return new NotFoundEx("Referenced variant not found");
 
         var parts = new List<GetPayload>();
         foreach (var part in variant.Parts)
@@ -137,7 +141,7 @@ public class VariantService(
     public async Task<Result<GenericListPayload<GetPayload>>> GetByService(Guid serviceId, CancellationToken cancellationToken)
     {
         if(!ctx.Services.Any(s => s.Id == serviceId))
-            return "Referenced service not found";
+            return new NotFoundEx("Referenced service not found");
 
         var variants = await ctx.Variants
             .Where(v => v.DisabledAt == null)
@@ -158,7 +162,7 @@ public class VariantService(
             .Include(v => v.Service)
             .FirstOrDefault(v => v.Id == id);
         if(variant == null)
-            return "Referenced variant not found";
+            return new NotFoundEx("Referenced variant not found");
             
         if(payload.Price.HasChanged)
         {
@@ -185,12 +189,12 @@ public class VariantService(
             {
                 //CREATE/REACTIVE
                 if(variant.Id == variantId)
-                    return "Cicular reference is not allowed";
+                    return new ConflictEx("Cicular reference is not allowed");
 
                 var newPart = ctx.Variants
                     .FirstOrDefault(v => v.Id == variantId);
                 if(newPart == null)
-                    return "Referenced variant not found";
+                    return new NotFoundEx("Referenced variant not found");
                 var existedDisabledPart = variant.Parts
                     .Where(p => p.DisabledAt != null)
                     .FirstOrDefault(p => p.PartId == variantId);

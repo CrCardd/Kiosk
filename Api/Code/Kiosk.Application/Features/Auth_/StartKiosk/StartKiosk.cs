@@ -1,7 +1,7 @@
-using Kiosk.Application.Payloads.Code;
+using Kiosk.Application.Common.Enums;
 using Kiosk.Application.Services;
 using Kiosk.Application.Services.Auth;
-using Kiosk.Domain.Common.Enums;
+using Kiosk.Domain.Common.Exceptions.Exceptions;
 
 namespace Kiosk.Application.Features.Auth_.StartKiosk;
 
@@ -16,15 +16,13 @@ public class StartKiosk(
     {
         var response = await service.GetAll(cancellationToken);
         if(!response.IsSuccess)
-            return "Login failed. Incorrect code";
+            return new InternalServerErrorEx("Something went wrong. sorry :(");
         var codeEntity = response.Value
-            .FirstOrDefault(c => 
-                passwordService.Compare(code, c.Code)
-                && DateTime.UtcNow < c.EndDate
-            );
+            .FirstOrDefault(c => passwordService.Compare(code, c.Code));
         if(codeEntity is null)
-            return "Login failed. Incorrect code";
-            
+            return new UnauthorizedEx("Login failed. Incorrect code");
+        if(codeEntity.EndDate < DateTime.UtcNow)
+            return new BadRequestEx("Code out of date. Generate a new code");
         
         var tokenPayload = jwtService.Generate(
             new CreateTokenPayload

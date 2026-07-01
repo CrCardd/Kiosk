@@ -1,9 +1,9 @@
-using Kiosk.Domain.Common.Enums;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Kiosk.Domain.Utils;
+using Kiosk.Application.Common.Enums;
 
-namespace Kiosk.Api.Auth;
+namespace Kiosk.Api.Common.Auth;
 
 public class OrganizationAuthAttribute : Attribute, IAuthorizationFilter
 {

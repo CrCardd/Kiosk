@@ -1,6 +1,7 @@
 
-using Kiosk.Api.Auth;
-using Kiosk.Api.Enums;
+using Kiosk.Api.Common.Auth;
+using Kiosk.Api.Controllers.Api;
+using Kiosk.Api.Common.Enums;
 using Kiosk.Application.Features.CartItem_.Create;
 using Kiosk.Application.Payloads.CartItem;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +12,7 @@ namespace Kiosk.Api.Controllers;
 [Route(APIRoutes.CartItem)]
 public class CartItemController(
     Create create
-) : ControllerBase
+) : ApiController
 {
     [KioskAuth]
     [HttpPost]

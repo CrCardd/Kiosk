@@ -4,6 +4,7 @@ using Kiosk.Application.Payloads.Cart;
 using Kiosk.Application.Services;
 using Kiosk.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
+using Kiosk.Domain.Common.Exceptions.Exceptions;
 
 namespace Kiosk.Infrastructure.Services;
 
@@ -21,7 +22,7 @@ public class CartService(
                     .ThenInclude(v => v.Service)
             .FirstOrDefaultAsync(c => c.Id == id);
         if(cart is null)
-            return "Invalid Cart's Id";
+            return new NotFoundEx("Invalid Cart's Id");
 
         return GetPayload.ToDto(cart);
     }
