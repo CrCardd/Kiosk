@@ -35,7 +35,7 @@ public static class Result
         => new(message, value, Status.NotImplemented);
 }
 
-public class Result<T>(
+public readonly struct Result<T>(
     string message,
     T? value,
     Status status
