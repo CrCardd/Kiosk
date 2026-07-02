@@ -6,6 +6,7 @@ using Kiosk.Application.Features.Cart_.StartSession;
 using Kiosk.Application.Payloads.Cart;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Kiosk.Application.Services;
 
 namespace Kiosk.Api.Controllers;
 
@@ -18,25 +19,21 @@ public class CartController(
 {   
     [Authorize]
     [HttpPost]
-    public async Task<ActionResult<GetPayload>> Post(
+    public async Task<ActionResult<Result<GetPayload>>> Post(
         CreatePayload request, CancellationToken cancellationToken
     )
     {
         var response = await startSessionCart.ExecuteAsync(request, cancellationToken);
-        if(!response.IsSuccess)
-            return BadRequest(response);
-        return Ok(response);
+        return response;
     }
 
     [Authorize]
     [HttpGet("{id}")]
-    public async Task<ActionResult<GetPayload>> GetById(
+    public async Task<ActionResult<Result<GetPayload>>> GetById(
         [FromRoute] Guid id, CancellationToken cancellationToken
     )
     {
         var response = await getById.ExecuteAsync(id, cancellationToken);
-        if(!response.IsSuccess)
-            return NotFound(response);
-        return Ok(response);
+        return response;
     }
 }

@@ -45,6 +45,24 @@ public class KioskContext(DbContextOptions<KioskContext> options) : DbContext(op
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {   
+        SetUpdatedAt();
+        SetDisableAt();
+        
+        return base.SaveChangesAsync(cancellationToken);
+    }
+
+    public void SetUpdatedAt()
+    {
+        var updated = ChangeTracker
+            .Entries<BaseModel>()
+            .Where(e => e.State == EntityState.Modified)
+            .ToList();
+        foreach(var e in updated)
+            e.Entity.UpdatedAt = DateTime.UtcNow;
+    }
+
+    public void SetDisableAt()
+    {
         var deleted = ChangeTracker
             .Entries<BaseModel>()
             .Where(e => e.State == EntityState.Deleted)
@@ -55,6 +73,5 @@ public class KioskContext(DbContextOptions<KioskContext> options) : DbContext(op
             e.State = EntityState.Modified;
             e.Property(x => x.DisabledAt).IsModified = true;
         }
-        return base.SaveChangesAsync(cancellationToken);
     }
 }

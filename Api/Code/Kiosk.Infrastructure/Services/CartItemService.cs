@@ -21,7 +21,7 @@ public class CartItemService(
             .Where(c => c.DisabledAt == null)
             .FirstOrDefault(c => c.Id == payload.CartId);
         if(cart == null)
-            return new NotFoundEx("Cart referenced not found");
+            throw new NotFoundEx("Cart referenced not found");
 
         var variant = ctx.Variants
             .Include(v => v.PriceHistoryVariants)
@@ -30,7 +30,7 @@ public class CartItemService(
             .FirstOrDefault(v => v.Id == payload.VariantId);
 
         if(variant == null)
-            return new NotFoundEx("Variant referenced not found");
+            throw new NotFoundEx("Variant referenced not found");
         
         decimal? price = variant
             .PriceHistoryVariants
@@ -39,7 +39,7 @@ public class CartItemService(
             .FirstOrDefault()
             ?.Price;
         if(price == null)
-            return new ConflictEx("There is no price for the referenced variant");
+            throw new ConflictEx("There is no price for the referenced variant");
 
         var cartItem = new CartItemModel
         {
@@ -52,7 +52,7 @@ public class CartItemService(
             VariantId=variant.Id
         };
         if(!variant.Surpass)
-            return new ForbiddenEx("This Variant may not surpass it's limit");
+            throw new ForbiddenEx("This Variant may not surpass it's limit");
         foreach(var ing in payload.Ingredients)
         {
             var ingredient = ctx.Ingredients
@@ -60,7 +60,7 @@ public class CartItemService(
                 .Include(i => i.PriceHistoryIngredients)
                 .FirstOrDefault(i => i.Id == ing);
             if(ingredient == null)
-                return new NotFoundEx("Ingredient referenced not found");
+                throw new NotFoundEx("Ingredient referenced not found");
             if(cartItem.Ingredients.Count >= variant.Ingredients)
             {
                 decimal? ingPrice = ingredient.PriceHistoryIngredients
@@ -69,7 +69,7 @@ public class CartItemService(
                     .FirstOrDefault()
                     ?.Price;
                 if(ingPrice == null)
-                    return new ConflictEx("There is no price for the referenced ingredient");
+                    throw new ConflictEx("There is no price for the referenced ingredient");
                 cartItem.SnapShotPrice += (decimal)ingPrice;
             }
             cartItem.Ingredients.Add(ingredient);
@@ -78,6 +78,6 @@ public class CartItemService(
         ctx.CartItems.Add(cartItem);
         await ctx.SaveChangesAsync(cancellationToken);
 
-        return GetPayload.ToDto(cartItem);
+        return Result.Created(GetPayload.ToDto(cartItem));
     }
 }

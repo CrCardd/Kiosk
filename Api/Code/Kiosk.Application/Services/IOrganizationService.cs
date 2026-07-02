@@ -1,5 +1,6 @@
 using Kiosk.Application.Features.Auth_;
 using Kiosk.Application.Payloads.Organization;
+using Kiosk.Domain.Interfaces;
 
 namespace Kiosk.Application.Services;
 

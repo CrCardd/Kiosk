@@ -1,7 +1,7 @@
-using Kiosk.Application.Common.Enums;
+using Kiosk.Domain.Common.Enums;
 
 namespace Kiosk.Domain.Common.Exceptions.Exceptions;
 
 public class ImATeapotEx(
     string message = "imateapot"
-) : BaseException(message, Status.ImATeapot, false);
+) : BaseException(message, Status.ImATeapot);

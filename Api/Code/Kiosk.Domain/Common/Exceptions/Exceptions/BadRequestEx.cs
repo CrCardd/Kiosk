@@ -1,7 +1,7 @@
-using Kiosk.Application.Common.Enums;
+using Kiosk.Domain.Common.Enums;
 
 namespace Kiosk.Domain.Common.Exceptions.Exceptions;
 
 public class BadRequestEx(
     string message = "invalid arguments"
-) : BaseException(message, Status.BadRequest, false);
+) : BaseException(message, Status.BadRequest);

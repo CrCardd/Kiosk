@@ -1,4 +1,4 @@
-namespace Kiosk.Application.Common.Enums;
+namespace Kiosk.Domain.Common.Enums;
 
 public enum Role
 {

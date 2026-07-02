@@ -1,4 +1,6 @@
 using Kiosk.Api.Controllers.Api;
+using Kiosk.Domain.Common.Enums;
+using Kiosk.Domain.Common.Exceptions;
 using Kiosk.Domain.Common.Exceptions.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 
@@ -12,32 +14,35 @@ public class ExceptionHandler : IExceptionHandler
         CancellationToken cancellationToken
     )
     {
-        var (statusCode, message) = exception switch
+        Status status;
+        string message;
+        if(exception is BaseException ex)
         {
-            BadRequestEx => (StatusCodes.Status400BadRequest, exception.Message),
-            ConflictEx => (StatusCodes.Status409Conflict, exception.Message),
-            ForbiddenEx => (StatusCodes.Status403Forbidden, exception.Message),
-            ImATeapotEx => (StatusCodes.Status418ImATeapot, exception.Message),
-            InternalServerErrorEx => (StatusCodes.Status500InternalServerError, exception.Message),
-            NotFoundEx => (StatusCodes.Status404NotFound, exception.Message),
-            NotImplementedEx => (StatusCodes.Status501NotImplemented, exception.Message),
-            UnauthorizedEx => (StatusCodes.Status401Unauthorized, exception.Message),
-            
-            _ => (
-                StatusCodes.Status500InternalServerError, 
+            (status, message) = (ex.Status, ex.Message);
+
+            var logger = httpContext.RequestServices.GetRequiredService<ILogger<Program>>();
+            logger.LogWarning($"Domain Error: ${message}");
+        }
+        else
+        {            
+            (status, message) = (
+                Status.InternalServerError, 
                 $"""
-                method was not setted on ExceptionHandler.
-                ${exception.Message}
+                    Method was not setted on ExceptionHandler.
+                    See the logs for further information.
                 """
-            )
-        };
+            );
 
-        httpContext.Response.StatusCode = statusCode;
+            var logger = httpContext.RequestServices.GetRequiredService<ILogger<Program>>();
+            logger.LogError($"System Error: ${exception.Message}");
+        }
 
-        var response = new ApiResponse<bool>
+        httpContext.Response.StatusCode = status.Code();
+
+        var response = new ApiResponse<bool?>
         {
             Ok = false,
-            Value = false,
+            Value = null,
             Message = message
         };
 

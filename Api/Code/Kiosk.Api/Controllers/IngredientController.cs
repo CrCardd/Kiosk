@@ -5,6 +5,7 @@ using Kiosk.Api.Common.Enums;
 using Kiosk.Application.Features.Ingredient_.Create;
 using Kiosk.Application.Payloads.Ingredient;
 using Microsoft.AspNetCore.Mvc;
+using Kiosk.Application.Services;
 
 namespace Kiosk.Api.Controllers;
 
@@ -16,14 +17,12 @@ public class IngredientController(
 {
     [OrganizationAuth]
     [HttpPost]
-    public async Task<ActionResult<GetPayload>> Create(
+    public async Task<ActionResult<Result<GetPayload>>> Create(
         [FromBody] CreatePayload request,
         CancellationToken cancellationToken
     )
     {
         var response = await create.ExecuteAsync(request, cancellationToken);
-        if(!response.IsSuccess)
-            return BadRequest(response);
-        return Ok(response);
+        return response;
     }
 }

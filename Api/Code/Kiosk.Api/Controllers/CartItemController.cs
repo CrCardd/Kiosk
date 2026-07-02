@@ -5,6 +5,7 @@ using Kiosk.Api.Common.Enums;
 using Kiosk.Application.Features.CartItem_.Create;
 using Kiosk.Application.Payloads.CartItem;
 using Microsoft.AspNetCore.Mvc;
+using Kiosk.Application.Services;
 
 namespace Kiosk.Api.Controllers;
 
@@ -16,7 +17,7 @@ public class CartItemController(
 {
     [KioskAuth]
     [HttpPost]
-    public async Task<ActionResult<GetPayload>> Post(
+    public async Task<ActionResult<Result<GetPayload>>> Post(
         CreatePayload request, CancellationToken cancellationToken
     )
     {

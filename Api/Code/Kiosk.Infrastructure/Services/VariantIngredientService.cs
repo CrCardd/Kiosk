@@ -17,14 +17,14 @@ public class VariantIngredientService(
             .Where(v => v.Id == payload.VariantId)
             .FirstOrDefault();
         if(variant is null)
-            return new NotFoundEx("Referenced Variant not found");
+            throw new NotFoundEx("Referenced Variant not found");
      
         var ingredient = ctx.Ingredients
             .Where(v => v.DisabledAt == null)
             .Where(v => v.Id == payload.IngredientId)
             .FirstOrDefault();
         if(ingredient is null)
-            return new NotFoundEx("Referenced Ingredient not found");
+            throw new NotFoundEx("Referenced Ingredient not found");
 
         var variantIngredient = new VariantIngredientModel
         {
@@ -36,6 +36,6 @@ public class VariantIngredientService(
         };
         ctx.VariantIngredients.Add(variantIngredient);
         await ctx.SaveChangesAsync(cancellationToken);
-        return GetPayload.ToDto(variantIngredient);
+        return Result.Created(GetPayload.ToDto(variantIngredient));
     }
 }

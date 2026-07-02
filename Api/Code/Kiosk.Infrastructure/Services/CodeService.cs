@@ -17,7 +17,7 @@ public class CodeService(
             .Where(o => o.DisabledAt == null)
             .FirstOrDefault(o => o.Id == payload.OrganizationId);
         if(organization is null)
-            return new NotFoundEx("Organization not found!");
+            throw new NotFoundEx("Organization not found!");
         
         var code = new CodeModel    
         {
@@ -30,14 +30,16 @@ public class CodeService(
 
         ctx.Codes.Add(code);
         await ctx.SaveChangesAsync(cancellationToken);
-        return GetPayload.ToDto(code);
+        return Result.Created(GetPayload.ToDto(code));
     }
 
     public async Task<Result<ICollection<GetPayload>>> GetAll(CancellationToken cancellationToken)
     {
-        return await ctx.Codes
+        ICollection<GetPayload> all = await ctx.Codes
             .Where(c => c.DisabledAt == null)
             .Select(c => GetPayload.ToDto(c))
             .ToListAsync(cancellationToken);
+            
+        return Result.Ok(all);
     }
 }

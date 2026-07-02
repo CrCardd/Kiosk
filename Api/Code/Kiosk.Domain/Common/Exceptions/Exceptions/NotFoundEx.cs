@@ -1,7 +1,7 @@
-using Kiosk.Application.Common.Enums;
+using Kiosk.Domain.Common.Enums;
 
 namespace Kiosk.Domain.Common.Exceptions.Exceptions;
 
 public class NotFoundEx(
     string message = "not found"
-) : BaseException(message, Status.NotFound, false);
+) : BaseException(message, Status.NotFound);

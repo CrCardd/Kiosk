@@ -22,7 +22,7 @@ public class OrganizationService
 
         ctx.Organizations.Add(organization);
         await ctx.SaveChangesAsync(cancellationToken);
-        return GetPayload.ToDto(organization);
+        return Result.Created(GetPayload.ToDto(organization));
     }
 
 
@@ -32,7 +32,8 @@ public class OrganizationService
             .Where(o => o.DisabledAt == null)
             .FirstOrDefaultAsync(o => o.Name == name);
         if(organization is null)
-            return new NotFoundEx("Organization not found");
-        return GetPayload.ToDto(organization);
+            throw new NotFoundEx("Organization not found");
+            
+        return Result.Ok(GetPayload.ToDto(organization));
     }
 }

@@ -4,10 +4,12 @@ namespace Kiosk.Api.Config;
 
 public static class ExceptionConfiguration
 {
-    public static void ConfigureException(this IServiceCollection services)
+    public static void ConfigureException(this WebApplicationBuilder builder)
     {
-        services.AddProblemDetails();
-        services.AddExceptionHandler<ExceptionHandler>();
+        builder.Services.AddProblemDetails();
+        builder.Services.AddExceptionHandler<ExceptionHandler>();
+
+        builder.Logging.AddFilter("Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware", LogLevel.None);
     }
 
     public static void ConfigureException(this WebApplication app)

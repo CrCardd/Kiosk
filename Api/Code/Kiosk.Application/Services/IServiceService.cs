@@ -1,6 +1,7 @@
 
 using Kiosk.Application.Payloads._Util;
 using Kiosk.Application.Payloads.Service;
+using Kiosk.Domain.Interfaces;
 
 namespace Kiosk.Application.Services;
 

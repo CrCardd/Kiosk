@@ -1,4 +1,5 @@
 using Kiosk.Application.Features.Auth_;
+using Kiosk.Domain.Interfaces;
 
 namespace Kiosk.Application.Services.Auth;
 

@@ -36,7 +36,7 @@ public class Create(
         };
         var response = await service.Create(payload, cancellationToken);
         if(!response.IsSuccess)
-            return new NotFoundEx(response.Message);
+            throw new NotFoundEx(response.Message);
 
         return new GetTokenPayload{Token = code};
     }

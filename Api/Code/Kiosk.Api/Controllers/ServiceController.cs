@@ -11,6 +11,7 @@ using Kiosk.Application.Features.Service_.Delete;
 using Kiosk.Api.Common.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Kiosk.Api.Controllers.Api;
+using Kiosk.Application.Services;
 
 namespace Kiosk.Api.Controllers;
 
@@ -26,45 +27,39 @@ public class ServiceController(
 {
     [OrganizationAuth]
     [HttpPost]
-    public async Task<ActionResult<GetPayload>> Create(
+    public async Task<ActionResult<Result<GetPayload>>> Create(
         CreatePayload request, CancellationToken cancellationToken
     )
     {
         var response = await create.ExecuteAsync(request, cancellationToken);
-        if(response.IsSuccess)
-            return Ok(response);
-        return BadRequest(response);
+        return response;
     }
 
     [Authorize]
     [HttpGet]
-    public async Task<ActionResult<GenericListPayload<GetPayload>>> GetAll
+    public async Task<ActionResult<Result<GenericListPayload<GetPayload>>>> GetAll
     (
         [FromQuery] bool? available, CancellationToken cancellationToken
     )
     {
         var response = await getAll.ExecuteAsync(available, cancellationToken);
-        if(response.IsSuccess)
-            return Ok(response);
-        return BadRequest(response);
+        return response;
     }
 
     [Authorize]
     [HttpGet("{id}")]
-    public async Task<ActionResult<GenericListPayload<GetPayload>>> GetAll
+    public async Task<ActionResult<Result<GetPayload>>> GetById
     (
         [FromRoute] Guid id, CancellationToken cancellationToken
     )
     {
         var response = await getById.ExecuteAsync(id, cancellationToken);
-        if(response.IsSuccess)
-            return Ok(response);
-        return BadRequest(response);
+        return response;
     }
 
     [OrganizationAuth]
     [HttpPatch("{id}")]
-    public async Task<ActionResult<GetPayload>> Update
+    public async Task<ActionResult<Result<GetPayload>>> Update
     (
         [FromRoute] Guid id,
         [FromBody] UpdatePayload request,
@@ -72,22 +67,18 @@ public class ServiceController(
     )
     {
         var response = await update.ExecuteAsync(id, request, cancellationToken);
-        if(response.IsSuccess)
-            return Ok(response);
-        return BadRequest(response);
+        return response;
     }
 
     [OrganizationAuth]
     [HttpDelete("{id}")]
-    public async Task<ActionResult<GetPayload>> Delete
+    public async Task<ActionResult<Result<GetPayload>>> Delete
     (
         [FromRoute] Guid id,
         CancellationToken cancellationToken
     )
     {
         var response = await delete.ExecuteAsync(id, cancellationToken);
-        if(response.IsSuccess)
-            return Ok(response);
-        return BadRequest(response);
+        return response;
     }
 }

@@ -1,4 +1,4 @@
-using Kiosk.Application.Services;
+using Kiosk.Domain.Interfaces;
 using Kiosk.Infrastructure.Context;
 using System.Reflection;
 

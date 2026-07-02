@@ -1,14 +1,12 @@
-using Kiosk.Application.Common.Enums;
+using Kiosk.Domain.Common.Enums;
 
 namespace Kiosk.Domain.Common.Exceptions.Exceptions;
 
 public abstract class BaseException : Exception
 {
-    public readonly Status StatusCode; 
-    public readonly bool Ok; 
-    protected BaseException(string message, Status statusCode, bool ok) : base(message)
+    public readonly Status Status; 
+    protected BaseException(string message, Status statusCode) : base(message)
     {
-        StatusCode = statusCode;
-        Ok = ok;
+        Status = statusCode;
     }
 }

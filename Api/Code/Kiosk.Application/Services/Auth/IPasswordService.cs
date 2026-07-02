@@ -1,3 +1,5 @@
+using Kiosk.Domain.Interfaces;
+
 namespace Kiosk.Application.Services.Auth;
 
 public interface IPasswordService : IBaseService

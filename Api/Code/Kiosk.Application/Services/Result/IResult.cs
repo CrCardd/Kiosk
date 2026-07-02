@@ -1,4 +1,4 @@
-using Kiosk.Application.Common.Enums;
+using Kiosk.Domain.Common.Enums;
 
 namespace Kiosk.Application.Services;
 

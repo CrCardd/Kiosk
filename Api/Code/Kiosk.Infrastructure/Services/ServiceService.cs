@@ -19,7 +19,7 @@ public class ServiceService(
             .Where(o => o.DisabledAt == null)
             .FirstOrDefault(o => o.Id == payload.OrganizationId);
         if(organization is null)
-            return new NotFoundEx("Organization not found");
+            throw new NotFoundEx("Organization not found");
 
         var service = new ServiceModel
         {
@@ -32,7 +32,7 @@ public class ServiceService(
 
         ctx.Services.Add(service);
         await ctx.SaveChangesAsync(cancellationToken);
-        return GetPayload.ToDto(service);
+        return Result.Created(GetPayload.ToDto(service));
     }
 
     public async Task<Result<GenericListPayload<GetPayload>>> GetAll(bool? available, CancellationToken cancellationToken)
@@ -42,7 +42,8 @@ public class ServiceService(
             .Where(s => available == null ? true : s.Available == available)
             .Select(s => GetPayload.ToDto(s))
             .ToListAsync(cancellationToken);
-        return new GenericListPayload<GetPayload>{Total = value.Count, List = value};
+        var all = new GenericListPayload<GetPayload>{Total = value.Count, List = value};
+        return Result.Ok(all);
     }
 
     public async Task<Result<GetPayload>> GetById(Guid id, CancellationToken cancellationToken)
@@ -54,9 +55,9 @@ public class ServiceService(
             .FirstOrDefaultAsync(s => s.Id == id);
         
         if(service == null)
-            return new NotFoundEx("Referenced service not found");
+            throw new NotFoundEx("Referenced service not found");
         
-        return GetPayload.ToDto(service);
+        return Result.Ok(GetPayload.ToDto(service));
     }
 
     public async Task<Result<GetPayload>> Update(Guid id, UpdatePayload payload, CancellationToken cancellationToken)
@@ -66,7 +67,7 @@ public class ServiceService(
             .FirstOrDefault();
         
         if(service == null)
-            return new NotFoundEx("Referenced Service not found");
+            throw new NotFoundEx("Referenced Service not found");
         
         if(payload.Name.HasChanged)
             service.Name = payload.Name.Value;
@@ -76,7 +77,7 @@ public class ServiceService(
             service.Available = payload.Available.Value;
         
         await ctx.SaveChangesAsync(cancellationToken);
-        return GetPayload.ToDto(service);
+        return Result.Ok(GetPayload.ToDto(service));
     }
     public async Task<Result<GetPayload>> Delete(Guid id, CancellationToken cancellationToken)
     {
@@ -85,11 +86,11 @@ public class ServiceService(
             .Where(s => s.Id == id)
             .FirstOrDefault();
         if(service == null)
-            return new NotFoundEx("Referenced service not found");
+            throw new NotFoundEx("Referenced service not found");
             
         service.DisabledAt = DateTime.UtcNow;
         await ctx.SaveChangesAsync(cancellationToken);
 
-        return GetPayload.ToDto(service);
+        return Result.Ok(GetPayload.ToDto(service));
     }
 }

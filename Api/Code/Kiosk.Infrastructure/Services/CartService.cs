@@ -22,9 +22,9 @@ public class CartService(
                     .ThenInclude(v => v.Service)
             .FirstOrDefaultAsync(c => c.Id == id);
         if(cart is null)
-            return new NotFoundEx("Invalid Cart's Id");
+            throw new NotFoundEx("Invalid Cart's Id");
 
-        return GetPayload.ToDto(cart);
+        return Result.Ok(GetPayload.ToDto(cart));
     }
 
     public async Task<Result<GetPayload>> Start(CreatePayload payload, CancellationToken cancellationToken)
@@ -38,6 +38,6 @@ public class CartService(
         ctx.Carts.Add(cart);
         await ctx.SaveChangesAsync(cancellationToken);
 
-        return GetPayload.ToDto(cart);
+        return Result.Created(GetPayload.ToDto(cart));
     }
 }

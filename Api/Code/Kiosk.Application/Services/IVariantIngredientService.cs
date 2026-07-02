@@ -1,5 +1,6 @@
 
 using Kiosk.Application.Payloads.VariantIngredient;
+using Kiosk.Domain.Interfaces;
 
 namespace Kiosk.Application.Services;
 

@@ -10,9 +10,7 @@ public class ServiceModel : BaseModel
     //================MY-RELATIONS================
     public required OrganizationModel Organization {get;set;}
     public required Guid OrganizationId {get;set;}
-
     //================RELATIONS================
     public ICollection<VariantModel> Variants {get;set;} = [];
     public ICollection<IngredientModel> Ingredients {get;set;} = [];
-
 }

@@ -1,7 +1,7 @@
-using Kiosk.Application.Common.Enums;
+using Kiosk.Domain.Common.Enums;
 
 namespace Kiosk.Domain.Common.Exceptions.Exceptions;
 
 public class UnauthorizedEx(
     string message = "unauthorized"
-) : BaseException(message, Status.Unauthorized, false);
+) : BaseException(message, Status.Unauthorized);

@@ -7,11 +7,8 @@ public class OrderModel : BaseModel
     public required string Index {get;set;}
     public required string Code {get;set;}
     public required decimal Total {get;set;}
-
-
     //================MY-RELATIONS================
     public required CartModel Cart {get;set;}
     public required Guid CartId {get;set;}
-
     //================RELATIONS================
 }

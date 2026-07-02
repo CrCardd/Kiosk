@@ -19,7 +19,7 @@ public class IngredientService(
             .FirstOrDefault();
 
         if(service == null)
-            return new NotFoundEx("Referenced Service not found");
+            throw new NotFoundEx("Referenced Service not found");
 
         var ingredient = new IngredientModel
         {
@@ -40,6 +40,6 @@ public class IngredientService(
         ctx.PriceHistoryIngredients.Add(price);
 
         await ctx.SaveChangesAsync(cancellationToken);
-        return GetPayload.ToDto(ingredient);
+        return Result.Created(GetPayload.ToDto(ingredient));
     }
 }

@@ -9,7 +9,7 @@ builder.Services.ConfigureDb();
 builder.Services.ConfigureServices();
 builder.Services.ConfigureFeatures();
 builder.Services.ConfigureJwt();
-builder.Services.ConfigureException();
+builder.ConfigureException();
 
 builder.Services.AddControllers(options => options.Filters.Add<ResultFilterAttribute>());
 

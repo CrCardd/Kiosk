@@ -1,4 +1,4 @@
-namespace Kiosk.Infrastructure.Services.Extensions;
+namespace Kiosk.Infrastructure.Extensions;
 
 public static class MultExceptExtension
 {
