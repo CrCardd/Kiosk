@@ -4,9 +4,11 @@ public class OrganizationModel : BaseModel
 {
     //================PROPERTIES================
     public required string Name {get;set;}
+    public required string Email {get;set;}
     public required string Password {get;set;}
     //================MY-RELATIONS================
     //================RELATIONS================
     public ICollection<CodeModel> Codes {get;set;} = [];
     public ICollection<ServiceModel> Services {get;set;} = [];
+    public ICollection<ProviderModel> Providers {get;set;} = [];
 }

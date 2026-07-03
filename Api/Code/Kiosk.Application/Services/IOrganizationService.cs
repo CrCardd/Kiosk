@@ -10,4 +10,5 @@ public interface IOrganizationService : IBaseService
     // Task<Result<>> GenerateCode();
 
     Task<Result<GetPayload>> GetByName(string name, CancellationToken cancellationToken);
+    Task<Result<GetPayload>> GetByEmail(string name, CancellationToken cancellationToken);
 }

@@ -20,6 +20,9 @@ public static class OrganizationClassMap
             .HasMaxLength(255)
             .HasColumnName("name")
             .IsRequired();
+        builder.Property(o => o.Email)
+            .HasColumnName("email")
+            .IsRequired();
         builder.Property(o => o.Password)
             .HasColumnName("password")
             .IsRequired();

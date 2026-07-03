@@ -14,9 +14,14 @@ public class OrganizationService
 {
     public async Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken)
     {
+        var exists = ctx.Organizations.Any(o => o.Email == payload.Email);
+        if(exists)
+            throw new ConflictEx("email already in use");
+
         var organization = new OrganizationModel
         {
             Name = payload.Name,
+            Email = payload.Email,
             Password = payload.Password
         };
 
@@ -31,6 +36,16 @@ public class OrganizationService
         var organization = await ctx.Organizations
             .Where(o => o.DisabledAt == null)
             .FirstOrDefaultAsync(o => o.Name == name);
+        if(organization is null)
+            throw new NotFoundEx("Organization not found");
+            
+        return Result.Ok(GetPayload.ToDto(organization));
+    }
+    public async Task<Result<GetPayload>> GetByEmail(string email, CancellationToken cancellationToken)
+    {
+        var organization = await ctx.Organizations
+            .Where(o => o.DisabledAt == null)
+            .FirstOrDefaultAsync(o => o.Email == email);
         if(organization is null)
             throw new NotFoundEx("Organization not found");
             

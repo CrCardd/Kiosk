@@ -41,6 +41,8 @@ namespace Kiosk.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     name = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    email = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     password = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -99,6 +101,37 @@ namespace Kiosk.Infrastructure.Migrations
                     table.PrimaryKey("code_id", x => x.Id);
                     table.ForeignKey(
                         name: "FK_tb_code_tb_organization_organization_id",
+                        column: x => x.organization_id,
+                        principalTable: "tb_organization",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "tb_provider",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    subject = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    email = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    name = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    picture = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    type = table.Column<int>(type: "int", nullable: false),
+                    organization_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    disabled_at = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("provider_id", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_tb_provider_tb_organization_organization_id",
                         column: x => x.organization_id,
                         principalTable: "tb_organization",
                         principalColumn: "Id",
@@ -412,6 +445,11 @@ namespace Kiosk.Infrastructure.Migrations
                 column: "variant_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_tb_provider_organization_id",
+                table: "tb_provider",
+                column: "organization_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_tb_service_organization_id",
                 table: "tb_service",
                 column: "organization_id");
@@ -452,6 +490,9 @@ namespace Kiosk.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "tb_price_history_variant");
+
+            migrationBuilder.DropTable(
+                name: "tb_provider");
 
             migrationBuilder.DropTable(
                 name: "tb_variant_ingredient");

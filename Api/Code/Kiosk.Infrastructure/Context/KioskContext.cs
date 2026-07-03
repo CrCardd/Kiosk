@@ -21,6 +21,7 @@ public class KioskContext(DbContextOptions<KioskContext> options) : DbContext(op
     public DbSet<CombinationModel> Combinations {get;set;}
     public DbSet<CodeModel> Codes {get;set;}
     public DbSet<OrganizationModel> Organizations {get;set;}
+    public DbSet<ProviderModel> Providers {get;set;}
     //public DbSet<_> _s {get;set;}
 
     
@@ -38,6 +39,7 @@ public class KioskContext(DbContextOptions<KioskContext> options) : DbContext(op
         modelBuilder.ConfigureVariantIngredientTable();
         modelBuilder.ConfigureCodeTable();
         modelBuilder.ConfigureOrganizationTable();
+        modelBuilder.ConfigureProviderTable();
         // modelBuilder.Configur();
 
         base.OnModelCreating(modelBuilder);
