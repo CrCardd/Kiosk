@@ -47,7 +47,7 @@ public async Task<Result<GetTokenPayload>> ExecuteAsync(string email, Cancellati
 
         var authCode = await service.Create(payload, cancellationToken);
         
-        emailService.Send(
+        await emailService.Send(
             email,
             orgEmail,
             "Verification Code",

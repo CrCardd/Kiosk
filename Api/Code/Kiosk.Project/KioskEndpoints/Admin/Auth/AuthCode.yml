@@ -12,6 +12,11 @@ http:
       type: query
   auth: inherit
 
+runtime:
+  variables:
+    - name: host
+      value: http://localhost:5555/api
+
 settings:
   encodeUrl: true
   timeout: 0

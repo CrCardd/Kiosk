@@ -4,5 +4,5 @@ namespace Kiosk.Application.Services.Email;
 
 public interface IEmailService : IBaseService
 {
-    void Send(string to, string from, string subject, string body);
+    Task Send(string to, string from, string subject, string body);
 }

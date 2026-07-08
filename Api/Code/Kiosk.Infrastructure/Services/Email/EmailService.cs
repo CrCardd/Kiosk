@@ -1,4 +1,5 @@
 using Kiosk.Application.Services.Email;
+using Kiosk.Domain.Models;
 using Resend;
 
 namespace Kiosk.Infrastructure.Services.Email;
@@ -7,7 +8,7 @@ public class EmailService(
     IResend resendService
 ) : IEmailService
 {
-    public async void Send(string to, string from, string subject, string body)
+    public async Task Send(string to, string from, string subject, string body)
     {
         var message = new EmailMessage();
         message.From = from;
