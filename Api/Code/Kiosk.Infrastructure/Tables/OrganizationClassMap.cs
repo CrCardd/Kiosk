@@ -9,12 +9,9 @@ public static class OrganizationClassMap
         => modelBuilder.Entity<OrganizationModel>(builder =>
     {
         builder.ConfigureBaseTableProps();
-
         builder.HasKey(order => order.Id)
             .HasName("organization_id");
-
         builder.ToTable("tb_organization");
-
         //================PROPERTIES================
         builder.Property(o => o.Name)
             .HasMaxLength(255)
@@ -26,9 +23,7 @@ public static class OrganizationClassMap
         builder.Property(o => o.Password)
             .HasColumnName("password")
             .IsRequired();
-        
         //================MY-RELATIONS================
-
         //================RELATIONS================
         builder.HasMany(o => o.Services)
             .WithOne(s => s.Organization)

@@ -10,15 +10,10 @@ public static class CombinationClassMap
         => modelBuilder.Entity<CombinationModel>(builder =>
     {
         builder.ConfigureBaseTableProps();
-
         builder.HasKey(combination => combination.Id)
             .HasName("combination_id");
-
-        builder.ToTable("tb_combination");
-
-        
+        builder.ToTable("tb_combination");        
         //================PROPERTIES================
-        
         //================MY-RELATIONS================
         builder.Property(c => c.CombId)
             .HasColumnName("comb_id")
@@ -27,7 +22,6 @@ public static class CombinationClassMap
             .WithMany(v => v.Parts)
             .HasForeignKey(c => c.CombId)
             .IsRequired();
-        
         builder.Property(c => c.PartId)
             .HasColumnName("part_id")
             .IsRequired();
@@ -36,6 +30,5 @@ public static class CombinationClassMap
             .HasForeignKey(c => c.PartId)
             .IsRequired();
         //================RELATIONS================
-
     });
 }

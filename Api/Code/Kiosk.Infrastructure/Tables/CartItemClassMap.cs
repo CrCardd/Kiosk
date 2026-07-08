@@ -10,10 +10,8 @@ public static class CartItemClassMap
         => modelBuilder.Entity<CartItemModel>(builder =>
     {
         builder.ConfigureBaseTableProps();
-
         builder.HasKey(cartitem => cartitem.Id)
             .HasName("cart_item_id");
-
         builder.ToTable("tb_cart_item");
 
         //================PROPERTIES================

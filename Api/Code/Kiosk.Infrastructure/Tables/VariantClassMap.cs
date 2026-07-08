@@ -10,12 +10,9 @@ public static class VariantClassMap
         => modelBuilder.Entity<VariantModel>(builder =>
     {
         builder.ConfigureBaseTableProps();
-
         builder.HasKey(variant => variant.Id)
             .HasName("variant_id");
-
         builder.ToTable("tb_variant");
-
         //================PROPERTIES================
         builder.Property(v => v.Name)
             .HasColumnName("name")

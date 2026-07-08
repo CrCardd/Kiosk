@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Kiosk.Infrastructure.Migrations
 {
     [DbContext(typeof(KioskContext))]
-    [Migration("20260703032355_InitialMigration")]
+    [Migration("20260708174239_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -24,6 +24,48 @@ namespace Kiosk.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
+
+            modelBuilder.Entity("Kiosk.Domain.Models.AuthCodeModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("code");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTime?>("DisabledAt")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("disabled_at");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("email");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("end_date");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("start_date");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("Id")
+                        .HasName("auth_code_id");
+
+                    b.ToTable("tb_auth_code", (string)null);
+                });
 
             modelBuilder.Entity("Kiosk.Domain.Models.CartItemModel", b =>
                 {
@@ -131,14 +173,16 @@ namespace Kiosk.Infrastructure.Migrations
                         .HasColumnName("disabled_at");
 
                     b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("end_date");
 
                     b.Property<Guid>("OrganizationId")
                         .HasColumnType("char(36)")
                         .HasColumnName("organization_id");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("start_date");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)")

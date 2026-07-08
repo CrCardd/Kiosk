@@ -11,12 +11,9 @@ public static class IngredientClassMap
         => modelBuilder.Entity<IngredientModel>(builder =>
     {
         builder.ConfigureBaseTableProps();
-
         builder.HasKey(ingredient => ingredient.Id)
             .HasName("ingredient_id");
-
         builder.ToTable("tb_ingredient");
-
         //================PROPERTIES================
         builder.Property(i => i.Name)
             .HasMaxLength(255)
@@ -50,6 +47,5 @@ public static class IngredientClassMap
             .WithOne(vi => vi.Ingredient)
             .HasForeignKey(vi => vi.IngredientId)
             .IsRequired();
-    
     });
 }

@@ -10,12 +10,9 @@ public static class OrderClassMap
         => modelBuilder.Entity<OrderModel>(builder =>
     {
         builder.ConfigureBaseTableProps();
-
         builder.HasKey(order => order.Id)
             .HasName("order_id");
-
         builder.ToTable("tb_order");
-
         //================PROPERTIES================
         builder.Property(o => o.Code)
             .HasMaxLength(255)
@@ -38,6 +35,5 @@ public static class OrderClassMap
             .HasForeignKey<OrderModel>(o => o.CartId)
             .IsRequired();
         //================RELATIONS================
-    
     });
 }

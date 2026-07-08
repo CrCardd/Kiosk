@@ -9,21 +9,19 @@ public static class CodeClassMap
         => modelBuilder.Entity<CodeModel>(builder =>
     {
         builder.ConfigureBaseTableProps();
-
         builder.HasKey(code => code.Id)
             .HasName("code_id");
-
         builder.ToTable("tb_code");
-
         //================PROPERTIES================
         builder.Property(c => c.Code)
             .HasColumnName("code")
             .IsRequired();
         builder.Property(c => c.StartDate)
+            .HasColumnName("start_date")
             .IsRequired();
         builder.Property(c => c.EndDate)
+            .HasColumnName("end_date")
             .IsRequired();
-        
         //================MY-RELATIONS================
         builder.Property(c => c.OrganizationId)
             .HasColumnName("organization_id")
@@ -31,8 +29,6 @@ public static class CodeClassMap
         builder.HasOne(c => c.Organization)
             .WithMany(c => c.Codes)
             .HasForeignKey(c => c.OrganizationId);
-
         //================RELATIONS================
-
     });
 }

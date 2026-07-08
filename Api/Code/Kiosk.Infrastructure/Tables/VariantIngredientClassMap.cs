@@ -10,12 +10,9 @@ public static class VariantIngredientClassMap
         => modelBuilder.Entity<VariantIngredientModel>(builder =>
     {
         builder.ConfigureBaseTableProps();
-
         builder.HasKey(order => order.Id)
             .HasName("variant_ingredient_id");
-
         builder.ToTable("tb_variant_ingredient");
-
         //================PROPERTIES================
         builder.Property(vi => vi.Available)
             .HasColumnName("available")
@@ -28,7 +25,6 @@ public static class VariantIngredientClassMap
             .WithMany(i => i.VariantIngredients)
             .HasForeignKey(vi => vi.IngredientId)
             .IsRequired();
-        
         builder.Property(vi => vi.VariantId)
             .HasColumnName("variant_id")
             .IsRequired();
@@ -37,6 +33,5 @@ public static class VariantIngredientClassMap
             .HasForeignKey(vi => vi.VariantId)
             .IsRequired();
         //================RELATIONS================
-    
     });
 }

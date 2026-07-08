@@ -1,4 +1,5 @@
 using Kiosk.Infrastructure.Context;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -6,9 +7,9 @@ namespace Kiosk.Infrastructure.Config;
 
 public static class ConfigureDatabase
 {
-    public static void ConfigureDb(this IServiceCollection service)
+    public static void ConfigureDb(this WebApplicationBuilder builder)
     {        
-        service.AddDbContext<KioskContext>(options =>
+        builder.Services.AddDbContext<KioskContext>(options =>
         {
             var host = Environment.GetEnvironmentVariable("DB_HOST");
             var port = Environment.GetEnvironmentVariable("DB_PORT");

@@ -8,7 +8,7 @@ namespace Kiosk.Application.Config;
 
 public static class FeatureConfiguration 
 { 
-    public static void ConfigureFeatures(this IServiceCollection services) 
+    public static void ConfigureFeatures(this WebApplicationBuilder builder) 
     {
         var path = AppDomain.CurrentDomain.BaseDirectory;
         
@@ -25,6 +25,6 @@ public static class FeatureConfiguration
             .ToList();
 
         foreach(var feature in features)
-            services.AddScoped(feature);
+            builder.Services.AddScoped(feature);
     }
 }

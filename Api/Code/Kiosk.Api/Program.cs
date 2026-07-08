@@ -5,11 +5,12 @@ using Kiosk.Infrastructure.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.ConfigureDb();
-builder.Services.ConfigureServices();
-builder.Services.ConfigureFeatures();
-builder.Services.ConfigureJwt();
+builder.ConfigureDb();
+builder.ConfigureServices();
+builder.ConfigureFeatures();
+builder.ConfigureJwt();
 builder.ConfigureException();
+builder.ConfigureEmail();
 
 builder.Services.AddControllers(options => options.Filters.Add<ResultFilterAttribute>());
 

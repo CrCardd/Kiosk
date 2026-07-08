@@ -7,7 +7,7 @@ services:
     ports:
       - 5555:8080
     env_file:
-      - ./Api/.env
+      - ./Api/dev.env
 
   kiosk.db:
     image: mysql:8.0

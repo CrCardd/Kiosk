@@ -6,9 +6,9 @@ namespace Kiosk.Application.Config;
 
 public static class ServiceConfiguration 
 { 
-    public static void ConfigureServices(this IServiceCollection services) 
+    public static void ConfigureServices(this WebApplicationBuilder builder) 
     {
-        services.AddTransient<SeedService>();
+        builder.Services.AddTransient<SeedService>();
 
         var path = AppDomain.CurrentDomain.BaseDirectory;
         var assemblies = Directory.GetFiles(path, "Kiosk.*.dll")
@@ -27,7 +27,7 @@ public static class ServiceConfiguration
         { 
             var implementation = allTypes
                 .First(t => t.IsClass && !t.IsAbstract && iservice.IsAssignableFrom(t));     
-            services.AddTransient(iservice, implementation); 
+            builder.Services.AddTransient(iservice, implementation); 
         } 
     }
 }

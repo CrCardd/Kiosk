@@ -3,7 +3,8 @@ namespace Kiosk.Domain.Common.Enums;
 public enum Role
 {
     Kiosk,
-    Organization
+    Organization,
+    Register
 }
 
 public static class Roles
@@ -14,8 +15,8 @@ public static class Roles
         {
             Role.Organization => "organization",
             Role.Kiosk => "kiosk",
+            Role.Register => "register",
             _ => "invalid"
         };
-
     }
 }

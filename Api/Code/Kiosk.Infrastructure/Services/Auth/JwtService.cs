@@ -17,7 +17,7 @@ public class JWTService : IJwtService
     {
         try
         {
-            var jwtSecret = Environment.GetEnvironmentVariable("JWT_KEY");
+            var jwtSecret = Environment.GetEnvironmentVariable("INTERNAL_JWT_KEY");
             var keyBytes = Encoding.UTF8.GetBytes(jwtSecret!);
             var key = new SymmetricSecurityKey(keyBytes);
             
@@ -39,7 +39,7 @@ public class JWTService : IJwtService
         {
             throw new Exception(
                 $"""
-                JWT_KEY environment variable was 
+                INTERNAL_JWT_KEY environment variable was 
                 not setted or is in incorrect format!
                 ${ex}
                 """ 

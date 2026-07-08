@@ -10,12 +10,9 @@ public static class ProviderClassMap
         => modelBuilder.Entity<ProviderModel>(builder =>
     {
         builder.ConfigureBaseTableProps();
-
         builder.HasKey(order => order.Id)
             .HasName("provider_id");
-
         builder.ToTable("tb_provider");
-
         //================PROPERTIES================
         builder.Property(p => p.Name)
             .HasColumnName("name")

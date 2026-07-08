@@ -8,7 +8,7 @@ public record GetPayload
     public required string Client {get;init;}
     public required string SessionToken {get;init;}
     public required ICollection<GetCartItem> CartItems {get;init;}
-
+    //================METHODS================
     public static GetPayload ToDto(CartModel cart)
     {
         return new GetPayload
@@ -29,7 +29,7 @@ public record GetCartItem
     public required string Service {get;init;}
     public required string Variant {get;init;}
     public required ICollection<GetIngredient> Ingredients {get;init;}
-
+    //================METHODS================
     public static GetCartItem ToDto(CartItemModel cartItem)
     {
         return new GetCartItem
@@ -47,7 +47,7 @@ public record GetCartItem
 public record GetIngredient{
     public required Guid Id {get;init;}
     public required string Name {get;init;}
-
+    //================METHODS================
     public static GetIngredient ToDto(IngredientModel ingredient)
     {
         return new GetIngredient

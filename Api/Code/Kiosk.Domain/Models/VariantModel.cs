@@ -18,4 +18,13 @@ public class VariantModel : BaseModel
     public ICollection<CombinationModel> Combs {get;set;} = [];
     public ICollection<CombinationModel> Parts {get;set;} = [];
     public ICollection<VariantIngredientModel> VariantIngredients {get;set;} = [];
+    //================METHODS================
+    public decimal? GetCurrentPrice()
+    {
+        return PriceHistoryVariants
+            .Where(p => p.DisabledAt == null)
+            .OrderByDescending(p => p.CreatedAt)
+            .Select(p => p.Price)
+            .FirstOrDefault();
+    }
 }

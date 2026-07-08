@@ -13,10 +13,7 @@ public static class CartClassMap
 
         builder.HasKey(cart => cart.Id)
             .HasName("cart_id");
-
-        builder.ToTable("tb_cart");
-
-        
+        builder.ToTable("tb_cart");        
         //================PROPERTIES================
         builder.Property(c => c.Client)
             .HasMaxLength(255)
@@ -27,12 +24,10 @@ public static class CartClassMap
             .HasColumnName("session_token")
             .IsRequired();
         //================MY-RELATIONS================
-        
         //================RELATIONS================
         builder.HasOne(c => c.Order)
             .WithOne(o => o.Cart)
             .HasForeignKey<OrderModel>(o => o.CartId)
             .IsRequired();
-    
     });
 }

@@ -10,12 +10,9 @@ public static class ServiceClassMap
         => modelBuilder.Entity<ServiceModel>(builder =>
     {
         builder.ConfigureBaseTableProps();
-
         builder.HasKey(service => service.Id)
             .HasName("service_id");
-
         builder.ToTable("tb_service");
-
         //================PROPERTIES================
         builder.Property(s => s.Name)
             .HasColumnName("name")
@@ -35,7 +32,6 @@ public static class ServiceClassMap
         builder.HasOne(s => s.Organization)
             .WithMany(o => o.Services)
             .HasForeignKey(s => s.OrganizationId);
-        
         //================RELATIONS================
         builder.HasMany(s => s.Variants)
             .WithOne(v => v.Service)
@@ -43,6 +39,5 @@ public static class ServiceClassMap
         builder.HasMany(s => s.Ingredients)
             .WithOne(i => i.Service)
             .HasForeignKey(i => i.ServiceId);
-    
     });
 }

@@ -1,3 +1,5 @@
+using Kiosk.Domain.Models;
+
 namespace Kiosk.Application.Payloads.Cart;
 
 public record CreatePayload

@@ -13,4 +13,5 @@ public static class APIRoutes
     public const string CartItem = "api/cartitem";
     public const string Auth = "api/auth";
     public const string Code = "api/code";
+    public const string Register = "api/register";
 }

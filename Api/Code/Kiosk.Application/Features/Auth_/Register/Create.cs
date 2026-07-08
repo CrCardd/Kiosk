@@ -14,10 +14,15 @@ public class Create(
 ) : BaseFeature
 {
     public async Task<Result<GetTokenPayload>> ExecuteAsync(CreatePayload request, CancellationToken cancellationToken)
-    {
-        var responseGetByName = await service.GetByName(request.Name, cancellationToken);
-        if(responseGetByName.IsSuccess)
-            throw new ConflictEx("An organization with this name already exists.");
+    {   
+        try
+        {
+            var responseGetByName = await service.GetByName(request.Name, cancellationToken);
+            if(responseGetByName.IsSuccess)
+                throw new ConflictEx("An organization with this name already exists.");
+        }
+        catch{}
+        
         
         request.Password = passwordService.Hash(request.Password);
         var responseCreate = await service.Create(request, cancellationToken);

@@ -7,12 +7,12 @@ namespace Kiosk.Application.Config;
 
 public static class JwtConfiguration 
 { 
-    public static void ConfigureJwt(this IServiceCollection services) 
+    public static void ConfigureJwt(this WebApplicationBuilder builder) 
     {
-        var jwtSecret = Environment.GetEnvironmentVariable("JWT_KEY");
+        var jwtSecret = Environment.GetEnvironmentVariable("INTERNAL_JWT_KEY");
         var keyBytes = Encoding.UTF8.GetBytes(jwtSecret!);
 
-        services.AddAuthentication(options =>
+        builder.Services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -31,6 +31,6 @@ public static class JwtConfiguration
         });
         JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
-        services.AddAuthorization();
+      builder.Services.AddAuthorization();
     }
 }

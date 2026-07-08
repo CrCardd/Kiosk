@@ -18,8 +18,8 @@ public class Create(
         DateTime endDate;
         try
         {
-          var hours = int.Parse(Environment.GetEnvironmentVariable("TOKEN_CODE_DURATION")!);
-          endDate = DateTime.UtcNow.AddHours(hours);
+          var minutes = int.Parse(Environment.GetEnvironmentVariable("INTERNAL_TOKEN_CODE_DURATION")!);
+          endDate = DateTime.UtcNow.AddMinutes(minutes);
         }
         catch
         {

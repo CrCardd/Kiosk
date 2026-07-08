@@ -32,12 +32,7 @@ public class CartItemService(
         if(variant == null)
             throw new NotFoundEx("Variant referenced not found");
         
-        decimal? price = variant
-            .PriceHistoryVariants
-            .Where(phv => phv.DisabledAt == null)
-            .OrderByDescending(phv => phv.CreatedAt)
-            .FirstOrDefault()
-            ?.Price;
+        decimal? price = variant.GetCurrentPrice();
         if(price == null)
             throw new ConflictEx("There is no price for the referenced variant");
 
@@ -51,25 +46,19 @@ public class CartItemService(
             Variant=variant,
             VariantId=variant.Id
         };
-        if(!variant.Surpass)
+        if(!variant.Surpass && variant.Ingredients < payload.Ingredients.Count)
             throw new ForbiddenEx("This Variant may not surpass it's limit");
         foreach(var ing in payload.Ingredients)
         {
             var ingredient = ctx.Ingredients
                 .Where(i => i.DisabledAt == null)
                 .Include(i => i.PriceHistoryIngredients)
-                .FirstOrDefault(i => i.Id == ing);
-            if(ingredient == null)
-                throw new NotFoundEx("Ingredient referenced not found");
+                .FirstOrDefault(i => i.Id == ing)
+                ?? throw new NotFoundEx("Ingredient referenced not found");
             if(cartItem.Ingredients.Count >= variant.Ingredients)
             {
-                decimal? ingPrice = ingredient.PriceHistoryIngredients
-                    .Where(phi => phi.DisabledAt == null)
-                    .OrderByDescending(phi => phi.CreatedAt)
-                    .FirstOrDefault()
-                    ?.Price;
-                if(ingPrice == null)
-                    throw new ConflictEx("There is no price for the referenced ingredient");
+                decimal? ingPrice = ingredient.GetCurrentPrice()
+                    ?? throw new ConflictEx("There is no price for the referenced ingredient");
                 cartItem.SnapShotPrice += (decimal)ingPrice;
             }
             cartItem.Ingredients.Add(ingredient);

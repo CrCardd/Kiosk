@@ -15,7 +15,7 @@ public class ProviderLogin
 {
     public async Task<Result<GetTokenPayload>> ExecuteAsync(ProviderRequest request, CancellationToken cancellationToken)
     {
-        var clientId = Environment.GetEnvironmentVariable("CLIENT_ID");
+        var clientId = Environment.GetEnvironmentVariable("OAUTH_CLIENT_ID");
         var settings = new ValidationSettings { Audience = [clientId] };
         Payload payload;
         

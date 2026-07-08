@@ -10,12 +10,9 @@ public static class PriceHistoryIngredientClassMap
         => modelBuilder.Entity<PriceHistoryIngredientModel>(builder =>
     {
         builder.ConfigureBaseTableProps();
-
         builder.HasKey(pricehistoryingredient => pricehistoryingredient.Id)
             .HasName("price_history_ingredient_id");
-
         builder.ToTable("tb_price_history_ingredient");
-
         //================PROPERTIES================
         builder.Property(phi => phi.Price)
             .HasPrecision(18,2)
@@ -30,6 +27,5 @@ public static class PriceHistoryIngredientClassMap
             .HasForeignKey(phi => phi.IngredientId)
             .IsRequired();
         //================RELATIONS================
-    
     });
 }

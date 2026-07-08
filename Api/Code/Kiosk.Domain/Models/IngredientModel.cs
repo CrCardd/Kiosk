@@ -14,4 +14,13 @@ public class IngredientModel : BaseModel
     public ICollection<CartItemModel> CartItems {get;set;} = [];
     public ICollection<PriceHistoryIngredientModel> PriceHistoryIngredients {get;set;} = [];
     public ICollection<VariantIngredientModel> VariantIngredients {get;set;} = [];
-}
+    //================METHODS================
+    public decimal? GetCurrentPrice()
+    {
+        return PriceHistoryIngredients
+            .Where(p => p.DisabledAt == null)
+            .OrderByDescending(p => p.CreatedAt)
+            .Select(p => p.Price)
+            .FirstOrDefault();
+    }
+}   
