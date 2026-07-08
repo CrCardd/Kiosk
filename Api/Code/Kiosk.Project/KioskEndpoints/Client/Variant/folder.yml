@@ -1,0 +1,7 @@
+info:
+  name: Variant
+  type: folder
+  seq: 2
+
+request:
+  auth: inherit

@@ -1,0 +1,18 @@
+info:
+  name: GetById
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{host}}/service/00000000-0000-0000-0000-000000000001"
+  headers:
+    - name: Authorization
+      value: Bearer {{t_token}}
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

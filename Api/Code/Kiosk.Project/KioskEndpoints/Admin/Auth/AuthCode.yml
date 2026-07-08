@@ -1,0 +1,19 @@
+info:
+  name: AuthCode
+  type: http
+  seq: 4
+
+http:
+  method: POST
+  url: "{{host}}/register/code?email=cris.rc3777@gmail.com"
+  params:
+    - name: email
+      value: cris.rc3777@gmail.com
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
