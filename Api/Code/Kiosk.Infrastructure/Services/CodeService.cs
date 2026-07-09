@@ -37,6 +37,7 @@ public class CodeService(
     {
         ICollection<GetPayload> all = await ctx.Codes
             .Where(c => c.DisabledAt == null)
+            .Include(c => c.Organization)
             .Select(c => GetPayload.ToDto(c))
             .ToListAsync(cancellationToken);
             

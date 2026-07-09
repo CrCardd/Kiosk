@@ -8,9 +8,9 @@ public class Update(
     IVariantService variantService
 ) : BaseFeature
 {
-    public async Task<Result<GetPayload>> ExecuteAsync(Guid id, UpdatePayload request, CancellationToken cancellationToken)
+    public async Task<Result<GetPayload>> ExecuteAsync(UpdatePayload request, CancellationToken cancellationToken)
     {
-        var response = await variantService.Update(id,request,cancellationToken);
+        var response = await variantService.Update(request,cancellationToken);
         return response;
     }
 }

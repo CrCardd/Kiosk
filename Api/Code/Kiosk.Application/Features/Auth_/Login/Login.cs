@@ -1,4 +1,3 @@
-using Kiosk.Application.Payloads.Organization;
 using Kiosk.Application.Services;
 using Kiosk.Application.Services.Auth;
 using Kiosk.Domain.Common.Enums;
@@ -8,7 +7,7 @@ namespace Kiosk.Application.Features.Auth_.Create;
 
 public class Login 
 (
-    IOrganizationService service,
+    IOrganizationService organizationService,
 
     IPasswordService passwordService,
     IJwtService jwtService
@@ -16,19 +15,18 @@ public class Login
 {
     public async Task<Result<GetTokenPayload>> ExecuteAsync(LoginRequest request, CancellationToken cancellationToken)
     {
-        Result<GetPayload> response;
-        response = await service.GetByName(request.Login, cancellationToken);
-        if(!response.IsSuccess)
+        if(!organizationService.TryGet(o => o.Email == request.Email, out var organization))
             throw new UnauthorizedEx("Login failed. Incorrect password or e-mail");
-        if(!passwordService.Compare(request.Password, response.Value.Password))
+        if(!passwordService.Compare(request.Password, organization.Password))
             throw new UnauthorizedEx("Login failed. Incorrect password or e-mail");
             
         
         var tokenPayload = jwtService.Generate(
             new CreateTokenPayload
             {
-                OrganizationId = response.Value.Id,
-                Role = Role.Organization
+                OrganizationId = organization.Id,
+                Role = Role.Organization,
+                Email = organization.Email
             }
         );
 

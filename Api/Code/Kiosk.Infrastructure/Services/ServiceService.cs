@@ -60,10 +60,10 @@ public class ServiceService(
         return Result.Ok(GetPayload.ToDto(service));
     }
 
-    public async Task<Result<GetPayload>> Update(Guid id, UpdatePayload payload, CancellationToken cancellationToken)
+    public async Task<Result<GetPayload>> Update(UpdatePayload payload, CancellationToken cancellationToken)
     {
         var service = ctx.Services
-            .Where(s => s.Id == id)
+            .Where(s => s.Id == payload.Id)
             .FirstOrDefault();
         
         if(service == null)

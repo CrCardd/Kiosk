@@ -4,6 +4,7 @@ namespace Kiosk.Application.Payloads.Variant;
 
 public record UpdatePayload
 {
+    public required Guid Id {get;init;}
     public required UpdateObject<string> Name {get;init;}
     public required UpdateObject<decimal> Price {get;init;}
     public required UpdateObject<string> Image {get;init;}

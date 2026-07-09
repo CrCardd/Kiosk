@@ -58,15 +58,14 @@ public class ServiceController(
     }
 
     [OrganizationAuth]
-    [HttpPatch("{id}")]
+    [HttpPatch]
     public async Task<ActionResult<Result<GetPayload>>> Update
     (
-        [FromRoute] Guid id,
         [FromBody] UpdatePayload request,
         CancellationToken cancellationToken
     )
     {
-        var response = await update.ExecuteAsync(id, request, cancellationToken);
+        var response = await update.ExecuteAsync(request, cancellationToken);
         return response;
     }
 

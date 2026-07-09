@@ -1,5 +1,5 @@
 
-namespace Iduca.Api.Config;
+namespace Kiosk.Api.Config;
 
 public static class CorsPolicyConfiguration
 {

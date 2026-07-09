@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Kiosk.Application.Payloads.Organization;
 using Kiosk.Application.Services;
 using Kiosk.Application.Services.Auth;
@@ -7,25 +8,21 @@ using Kiosk.Domain.Common.Exceptions.Exceptions;
 namespace Kiosk.Application.Features.Auth_.Register;
 
 public class Create(
-    IOrganizationService service,
+    IOrganizationService organizationService,
 
     IPasswordService passwordService,
     IJwtService jwtService
 ) : BaseFeature
 {
     public async Task<Result<GetTokenPayload>> ExecuteAsync(CreatePayload request, CancellationToken cancellationToken)
-    {   
-        try
-        {
-            var responseGetByName = await service.GetByName(request.Name, cancellationToken);
-            if(responseGetByName.IsSuccess)
-                throw new ConflictEx("An organization with this name already exists.");
-        }
-        catch{}
-        
+    {
+
+        if(organizationService.TryGet(o => o.Email == request.Email, out var responseGetByEmail))
+            throw new ConflictEx("An organization with this email already exists.");
+            
         
         request.Password = passwordService.Hash(request.Password);
-        var responseCreate = await service.Create(request, cancellationToken);
+        var responseCreate = await organizationService.Create(request, cancellationToken);
         if(!responseCreate.IsSuccess)
             throw new Exception("Somenthing went wrong, sorry...");
 
@@ -33,7 +30,8 @@ public class Create(
             new CreateTokenPayload
             {
                 OrganizationId = responseCreate.Value.Id,
-                Role = Role.Organization
+                Role = Role.Organization,
+                Email = request.Email
             }
         );
 

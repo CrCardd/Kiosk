@@ -1,10 +1,10 @@
+using System.Diagnostics.CodeAnalysis;
+using System.Linq.Expressions;
 using Kiosk.Application.Payloads.Organization;
 using Kiosk.Application.Services;
 using Kiosk.Domain.Common.Exceptions.Exceptions;
 using Kiosk.Domain.Models;
 using Kiosk.Infrastructure.Context;
-using Microsoft.EntityFrameworkCore;
-
 namespace Kiosk.Infrastructure.Services;
 
 public class OrganizationService
@@ -29,26 +29,52 @@ public class OrganizationService
         await ctx.SaveChangesAsync(cancellationToken);
         return Result.Created(GetPayload.ToDto(organization));
     }
-
-
-    public async Task<Result<GetPayload>> GetByName(string name, CancellationToken cancellationToken)
+    public async Task<Result<GetPayload>> Update(UpdatePayload payload, CancellationToken cancellationToken)
     {
-        var organization = await ctx.Organizations
+        var organization = ctx.Organizations
             .Where(o => o.DisabledAt == null)
-            .FirstOrDefaultAsync(o => o.Name == name);
+            .FirstOrDefault(o => o.Id == payload.Id);
         if(organization is null)
-            throw new NotFoundEx("Organization not found");
+            throw new NotFoundEx("organization not found");
+        
+        if(payload.Name.HasChanged)
+            organization.Name = payload.Name.Value;
+        if(payload.Email.HasChanged)
+            organization.Email = payload.Email.Value;
+        if(payload.Password.HasChanged)
+            organization.Password = payload.Password.Value; 
             
-        return Result.Ok(GetPayload.ToDto(organization));
+        await ctx.SaveChangesAsync(cancellationToken);
+        return GetPayload.ToDto(organization);
     }
-    public async Task<Result<GetPayload>> GetByEmail(string email, CancellationToken cancellationToken)
+
+
+    public GetPayload Get(Expression<Func<OrganizationModel, bool>> predicate)
     {
-        var organization = await ctx.Organizations
+        var organization = ctx.Organizations
             .Where(o => o.DisabledAt == null)
-            .FirstOrDefaultAsync(o => o.Email == email);
+            .FirstOrDefault(predicate);
         if(organization is null)
-            throw new NotFoundEx("Organization not found");
-            
-        return Result.Ok(GetPayload.ToDto(organization));
+            throw new NotFoundEx("organization not found");
+        return GetPayload.ToDto(organization);
+    }
+
+    public bool TryGet(Expression<Func<OrganizationModel, bool>> predicate, [NotNullWhen(true)] out GetPayload? getPayload)
+    {
+        var organization = ctx.Organizations
+            .Where(o => o.DisabledAt == null)
+            .FirstOrDefault(predicate);
+        if(organization is null)
+        {            
+            getPayload = null;
+            return false;
+        }
+        getPayload = GetPayload.ToDto(organization);
+        return true;
+    }
+
+    public GetPayload Get(Func<OrganizationModel, bool> value, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
     }
 }

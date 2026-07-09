@@ -1,3 +1,4 @@
+using Kiosk.Domain.Interfaces;
 using Kiosk.Domain.Models;
 
 namespace Kiosk.Application.Payloads.AuthCode;
@@ -10,7 +11,7 @@ public record GetPayload
     public required DateTime StartDate {get;init;}
     public required DateTime EndDate {get;init;}
 
-    public static GetPayload FromGetPayload(AuthCodeModel authcode)
+    public static GetPayload ToDto(AuthCodeModel authcode)
     {
         return new GetPayload
         {

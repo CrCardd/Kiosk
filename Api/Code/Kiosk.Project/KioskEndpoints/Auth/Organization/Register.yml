@@ -1,0 +1,31 @@
+info:
+  name: Register
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: "{{host}}/register"
+  headers:
+    - name: Authorization
+      value: Bearer {{r_token}}
+  body:
+    type: json
+    data: |-
+      {
+        "Name" : "Helobraria",
+        "Password" : "senha123",
+        "VerificationCode" : "6RDSNO24"
+      }
+  auth: inherit
+
+runtime:
+  variables:
+    - name: r_token
+      value: eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6YXRpb25faWQiOiIwMDAwMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDAiLCJlbWFpbCI6ImNyaXMucmMzNzc3QGdtYWlsLmNvbSIsInJvbGUiOiJyZWdpc3RlciIsImV4cCI6MTc4MzU1NTE4Nn0.CvprkLUKet3HmKDztaHXGkgqS18_XCDaaEwdIMU00UM
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

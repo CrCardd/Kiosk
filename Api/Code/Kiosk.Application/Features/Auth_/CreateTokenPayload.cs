@@ -5,5 +5,6 @@ namespace Kiosk.Application.Features.Auth_;
 public record CreateTokenPayload
 {
     public required Role Role {get;init;}
+    public required string Email {get;init;}
     public required Guid OrganizationId {get;init;}
 }

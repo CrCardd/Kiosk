@@ -6,7 +6,7 @@ using Kiosk.Domain.Common.Exceptions.Exceptions;
 namespace Kiosk.Application.Features.Auth_.StartKiosk;
 
 public class StartKiosk(
-    ICodeService service,
+    ICodeService codeService,
 
     IPasswordService passwordService,
     IJwtService jwtService
@@ -14,7 +14,7 @@ public class StartKiosk(
 {
     public async Task<Result<GetTokenPayload>> ExecuteAsync(string code, CancellationToken cancellationToken)
     {
-        var response = await service.GetAll(cancellationToken);
+        var response = await codeService.GetAll(cancellationToken);
         if(!response.IsSuccess)
             throw new Exception("Something went wrong. sorry :(");
         var codeEntity = response.Value
@@ -27,8 +27,9 @@ public class StartKiosk(
         var tokenPayload = jwtService.Generate(
             new CreateTokenPayload
             {
-                OrganizationId = codeEntity.OrganizationId,
-                Role = Role.Kiosk
+                OrganizationId = codeEntity.Organization.Id,
+                Role = Role.Kiosk,
+                Email = codeEntity.Organization.Email
             }
         );
 

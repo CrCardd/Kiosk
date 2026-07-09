@@ -4,7 +4,14 @@ public enum Role
 {
     Kiosk,
     Organization,
-    Register
+
+
+    Register,
+    Password,
+
+
+
+    Invalid
 }
 
 public static class Roles
@@ -16,7 +23,19 @@ public static class Roles
             Role.Organization => "organization",
             Role.Kiosk => "kiosk",
             Role.Register => "register",
+            Role.Password => "password",
             _ => "invalid"
+        };
+    }
+    public static Role GetRole(string role)
+    {
+        return role switch
+        {
+            "organization"=> Role.Organization, 
+            "kiosk"=> Role.Kiosk, 
+            "register"=> Role.Register, 
+            "password"=> Role.Password, 
+            _ => Role.Invalid
         };
     }
 }

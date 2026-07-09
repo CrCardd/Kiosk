@@ -41,9 +41,9 @@ public class ProviderLogin
         Payloads.Organization.GetPayload organization;
         try
         {
-            organization = (await organizationService.GetByEmail(email, cancellationToken)).Value!;
+            organization = organizationService.Get(o => o.Email == email);
         }
-        catch(NotFoundEx ex)
+        catch(NotFoundEx)
         {
             organization = (await organizationService.Create(
                 new Payloads.Organization.CreatePayload {
@@ -80,7 +80,8 @@ public class ProviderLogin
             new CreateTokenPayload
             {
                 OrganizationId = organization.Id,
-                Role = Role.Organization
+                Email = email,
+                Role = Role.Organization,
             }
         );
 

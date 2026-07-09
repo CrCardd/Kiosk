@@ -8,9 +8,9 @@ public class Update(
     IServiceService serviceService
 ) : BaseFeature
 {
-    public async Task<Result<GetPayload>> ExecuteAsync(Guid id, UpdatePayload request, CancellationToken cancellationToken)
+    public async Task<Result<GetPayload>> ExecuteAsync(UpdatePayload request, CancellationToken cancellationToken)
     {
-        var response = await serviceService.Update(id,request,cancellationToken);
+        var response = await serviceService.Update(request,cancellationToken);
         return response;
     }
 }

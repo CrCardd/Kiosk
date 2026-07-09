@@ -6,6 +6,9 @@ using Kiosk.Application.Payloads.Organization;
 using Microsoft.AspNetCore.Mvc;
 using Kiosk.Application.Services;
 using Kiosk.Application.Features.AuthCode_.CreateAccount;
+using Kiosk.Api.Common.Auth;
+using Kiosk.Application.Features.AuthCode_.Validate;
+using Kiosk.Api.Config;
 
 namespace Kiosk.Api.Controllers;
 
@@ -13,24 +16,42 @@ namespace Kiosk.Api.Controllers;
 [Route(APIRoutes.Register)]
 public class RegisterController(
     Create create,
-    CreateAccount createAccount
+
+    CreateAccount createAccount,
+    Validate validate
 ) : ApiController
 {
+    [RegisterAuth]
     [HttpPost]
     public async Task<ActionResult<Result<GetTokenPayload>>> Post(
-        CreatePayload request, CancellationToken cancellationToken
+        CreateRequest request, CancellationToken cancellationToken
     )
     {
-        var response = await create.ExecuteAsync(request, cancellationToken);
+        var payload = new CreatePayload
+        {
+            Email = User.Email(),
+            Name = request.Name,
+            Password = request.Password
+        };
+        var response = await create.ExecuteAsync(payload, cancellationToken);
         return response;
     }
 
-    [HttpPost("code")]
-    public async Task<ActionResult<Result<GetTokenPayload>>> PostAuthCode(
-        [FromQuery] string email, CancellationToken cancellationToken
+    [HttpPost("code-create/{email}")]
+    public async Task<ActionResult<Result>> PostAuthCode(
+        [FromRoute] string email, CancellationToken cancellationToken
     )
     {
         var response = await createAccount.ExecuteAsync(email, cancellationToken);
+        return response;
+    }
+    
+    [HttpPost("code-verify")]
+    public async Task<ActionResult<Result<GetTokenPayload>>> ValidateAuthCode(
+        ValidateRequest request, CancellationToken cancellationToken
+    )
+    {
+        var response = await validate.ExecuteAsync(request, cancellationToken);
         return response;
     }
 

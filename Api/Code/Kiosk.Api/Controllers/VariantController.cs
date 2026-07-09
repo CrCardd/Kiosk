@@ -70,14 +70,13 @@ public class VariantController(
     }
 
     [OrganizationAuth]
-    [HttpPatch("{id}")]
+    [HttpPatch]
     public async Task<ActionResult<Result<GetPayload>>> Update(
         [FromBody] UpdatePayload request,
-        [FromRoute] Guid id, 
         CancellationToken cancellationToken
     )
     {
-        var response = await update.ExecuteAsync(id, request, cancellationToken);
+        var response = await update.ExecuteAsync(request, cancellationToken);
         return response;
     }
 

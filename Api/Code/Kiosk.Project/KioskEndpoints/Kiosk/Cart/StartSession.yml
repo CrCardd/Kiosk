@@ -1,0 +1,22 @@
+info:
+  name: StartSession
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{host}}/cart"
+  body:
+    type: json
+    data: |-
+      {
+          "SessionToken" : "KP1S-H03#",
+          "Client" : "Cr"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

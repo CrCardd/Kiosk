@@ -155,7 +155,7 @@ public class VariantService(
         return Result.Ok(variantList);
     }
 
-    public async Task<Result<GetPayload>> Update(Guid id, UpdatePayload payload, CancellationToken cancellationToken)
+    public async Task<Result<GetPayload>> Update(UpdatePayload payload, CancellationToken cancellationToken)
     {
         var variant = ctx.Variants
             .Where(v => v.DisabledAt == null)
@@ -163,7 +163,7 @@ public class VariantService(
             .Include(v => v.Parts)
             .Include(v => v.Combs)
             .Include(v => v.Service)
-            .FirstOrDefault(v => v.Id == id);
+            .FirstOrDefault(v => v.Id == payload.Id);
         if(variant == null)
             throw new NotFoundEx("Referenced variant not found");
             
