@@ -21,9 +21,9 @@ SET SQL_SAFE_UPDATES = 1;
 
 SELECT * FROM tb_organization;
 -- ==ORGANIZATION============================================================================================
--- ID                                     NAME    PASSWORD           
+-- ID                                     NAME   EMAIL					 	PASSWORD           
 INSERT INTO tb_organization VALUES 
-('00000000-0000-0000-0000-000000000001', 'Org',   'AQAAAAIAAYagAAAAEB1cf1l4L+FEnduc7spWQqw2oDPvawIFC2ms+0mCr9kPnBU4MGQWcf3fKn/v67MVBw==',        NOW(), NOW(), NULL);
+('00000000-0000-0000-0000-000000000001', 'Org', 'cris.rc3777@gmail.com',	'AQAAAAIAAYagAAAAEB1cf1l4L+FEnduc7spWQqw2oDPvawIFC2ms+0mCr9kPnBU4MGQWcf3fKn/v67MVBw==',        NOW(), NOW(), NULL);
 
 SELECT * FROM tb_service;
 -- ==SERVICE============================================================================================
