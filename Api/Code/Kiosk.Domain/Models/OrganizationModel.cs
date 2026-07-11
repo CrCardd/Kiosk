@@ -10,5 +10,8 @@ public class OrganizationModel : BaseModel
     //================RELATIONS================
     public ICollection<CodeModel> Codes {get;set;} = [];
     public ICollection<ServiceModel> Services {get;set;} = [];
-    public ICollection<ProviderModel> Providers {get;set;} = [];
+    public ICollection<VariantModel> Variants {get;set;} = [];
+    public ICollection<IngredientModel> Ingredient {get;set;} = [];
+    public ICollection<OAuthProviderModel> Providers {get;set;} = [];
+    public ICollection<CartModel> Carts {get;set;} = [];
 }

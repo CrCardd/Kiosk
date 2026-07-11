@@ -1,13 +1,14 @@
 using Kiosk.Application.Features.Auth_;
-using Kiosk.Application.Services;
+using Kiosk.Application.Services.Client;
 using Kiosk.Application.Services.Auth;
 using Kiosk.Domain.Common.Enums;
 using Kiosk.Domain.Common.Exceptions.Exceptions;
+using Kiosk.Application.Services;
 
 namespace Kiosk.Application.Features.AuthCode_.Validate;
 
 public class Validate(
-    IAuthCodeService authCodeService,
+    IAuthCodeClientService authCodeService,
 
     IPasswordService passwordService,
     IJwtService jwtService
@@ -26,7 +27,7 @@ public class Validate(
             {
                 OrganizationId = Guid.Empty,
                 Email = request.Email,
-                Role = Role.Register,
+                Roles = [Role.Register],
             }
         );
 

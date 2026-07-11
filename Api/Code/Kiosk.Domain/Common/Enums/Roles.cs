@@ -2,7 +2,12 @@ namespace Kiosk.Domain.Common.Enums;
 
 public enum Role
 {
+    Super,
+
+
+
     Kiosk,
+    Session,
     Organization,
 
 
@@ -20,8 +25,12 @@ public static class Roles
     {
         return role switch
         {
+            Role.Super => "super",
+
             Role.Organization => "organization",
+            Role.Session => "session",
             Role.Kiosk => "kiosk",
+
             Role.Register => "register",
             Role.Password => "password",
             _ => "invalid"
@@ -31,11 +40,22 @@ public static class Roles
     {
         return role switch
         {
+            "super"=> Role.Super, 
+
             "organization"=> Role.Organization, 
-            "kiosk"=> Role.Kiosk, 
+            "session"=> Role.Session,
+            "kiosk"=> Role.Kiosk,
+
             "register"=> Role.Register, 
             "password"=> Role.Password, 
             _ => Role.Invalid
         };
     }
+}
+
+public static class RoleExtension
+{
+    public static string ToMyString(this Role role)
+        => Roles.GetRoleName(role);
+    
 }

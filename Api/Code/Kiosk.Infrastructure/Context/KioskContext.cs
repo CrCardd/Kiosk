@@ -1,14 +1,23 @@
 
 using System.Collections;
+using Kiosk.Domain.Common.Enums;
+using Kiosk.Domain.Interfaces;
 using Kiosk.Domain.Models;
+using Kiosk.Infrastructure.Filters;
 using Kiosk.Infrastructure.Tables;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Kiosk.Infrastructure.Context;
 
-public class KioskContext(DbContextOptions<KioskContext> options) : DbContext(options)
+public class KioskContext(
+    DbContextOptions<KioskContext> options,
+    IApiContext apiContext
+) : DbContext(options)
 {
+    public Guid CurrentOrganizationId {get;init;} = apiContext.OrganizationId;
+    public bool IsSuperAdmin {get;init;} = apiContext.Roles.Any(r => r == Role.Super);
+
     public DbSet<CartModel> Carts {get;set;}
     public DbSet<CartItemModel> CartItems {get;set;}
     public DbSet<IngredientModel> Ingredients {get;set;}
@@ -21,12 +30,21 @@ public class KioskContext(DbContextOptions<KioskContext> options) : DbContext(op
     public DbSet<CombinationModel> Combinations {get;set;}
     public DbSet<CodeModel> Codes {get;set;}
     public DbSet<OrganizationModel> Organizations {get;set;}
-    public DbSet<ProviderModel> Providers {get;set;}
+    public DbSet<OAuthProviderModel> Providers {get;set;}
     public DbSet<AuthCodeModel> AuthCodes {get;set;}
     //public DbSet<_> _s {get;set;}
 
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        ConfigureTables(modelBuilder);
+        ConfigureFilters(modelBuilder);
+        base.OnModelCreating(modelBuilder);
+    }
+
+
+
+    public void ConfigureTables(ModelBuilder modelBuilder)
     {
         modelBuilder.ConfigureCartTable();
         modelBuilder.ConfigureCartItemTable();
@@ -40,12 +58,19 @@ public class KioskContext(DbContextOptions<KioskContext> options) : DbContext(op
         modelBuilder.ConfigureVariantIngredientTable();
         modelBuilder.ConfigureCodeTable();
         modelBuilder.ConfigureOrganizationTable();
-        modelBuilder.ConfigureProviderTable();
+        modelBuilder.ConfigureOAuthProviderTable();
         modelBuilder.ConfigureAuthCodeTable();
-        // modelBuilder.Configur();
-
-        base.OnModelCreating(modelBuilder);
     }
+    public void ConfigureFilters(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ConfigureServiceFilter(this);
+        modelBuilder.ConfigureVariantFilter(this);
+        modelBuilder.ConfigureIngredientFilter(this);
+        modelBuilder.ConfigureCartFilter(this);
+    }
+
+
+
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {   

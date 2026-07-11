@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
-using Kiosk.Domain.Utils;
 using Kiosk.Domain.Common.Enums;
+using Kiosk.Domain.Interfaces;
+using Kiosk.Domain.Common.Exceptions;
+using Kiosk.Api.Controllers.Api;
 
 namespace Kiosk.Api.Common.Auth;
 
@@ -9,24 +11,25 @@ public class OrganizationAuthAttribute : Attribute, IAuthorizationFilter
 {
     public void OnAuthorization(AuthorizationFilterContext context)
     {
-        var user = context.HttpContext.User;
+        Role role = Role.Organization;
 
-        
-        if (user?.Identity == null || !user.Identity.IsAuthenticated)
+        var httpContext = context.HttpContext;
+        if (httpContext.User?.Identity == null || !httpContext.User.Identity.IsAuthenticated)
         {
-            context.Result = new UnauthorizedResult(); 
+            context.Result = new UnauthorizedResult();
             return;
         }
+        var apiCtx = httpContext.RequestServices.GetRequiredService<IApiContext>();
 
-        var roleName = Roles.GetRoleName(Role.Organization);
-        var hasRole = user.Claims
-            .Any(c => 
-                c.Type == MyClaims.Role && 
-                c.Value == roleName
-            );
+        var isAuthorized = apiCtx.Roles.Any(r => r == role);
 
         
-        if (!hasRole)
-            context.Result = new ForbidResult(); 
+        if (!isAuthorized)
+        {
+            context.Result = new JsonResult(new ApiResponse{Ok = false, Message = $"Missing role {role.ToMyString()}"})
+            {
+                StatusCode = Status.Forbidden.Code()
+            };
+        }
     }
 }

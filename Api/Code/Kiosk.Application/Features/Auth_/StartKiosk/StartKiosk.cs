@@ -2,11 +2,12 @@ using Kiosk.Application.Services;
 using Kiosk.Application.Services.Auth;
 using Kiosk.Domain.Common.Enums;
 using Kiosk.Domain.Common.Exceptions.Exceptions;
+using Kiosk.Application.Services.Client;
 
 namespace Kiosk.Application.Features.Auth_.StartKiosk;
 
 public class StartKiosk(
-    ICodeService codeService,
+    ICodeClientService codeService,
 
     IPasswordService passwordService,
     IJwtService jwtService
@@ -28,8 +29,8 @@ public class StartKiosk(
             new CreateTokenPayload
             {
                 OrganizationId = codeEntity.Organization.Id,
-                Role = Role.Kiosk,
-                Email = codeEntity.Organization.Email
+                Email = codeEntity.Organization.Email,
+                Roles = [Role.Kiosk],
             }
         );
 

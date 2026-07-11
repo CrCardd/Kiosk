@@ -2,23 +2,25 @@ using Kiosk.Application.Payloads._Util;
 using Kiosk.Application.Payloads.Organization;
 using Kiosk.Application.Services;
 using Kiosk.Application.Services.Auth;
+using Kiosk.Application.Services.Client;
+using Kiosk.Domain.Interfaces;
 
 namespace Kiosk.Application.Features.Organization_.UpdatePassword;
 
 public class UpdatePassword(
-    IOrganizationService service,
+    IOrganizationClientService service,
 
+    IApiContext ctx,
     IPasswordService passwordService
 ) : BaseFeature
 {
-    public async Task<Result> ExecuteAsync(Guid organizationId, string newPassword, CancellationToken cancellationToken)
+    public async Task<Result> ExecuteAsync(string newPassword, CancellationToken cancellationToken)
     {
-        var organization = service.Get(o => o.Id == organizationId);
+        var organization = service.Get(o => o.Id == ctx.OrganizationId);
 
         var hashPassword = passwordService.Hash(newPassword);
         var update = new UpdatePayload
         {
-            Id = organization.Id,
             Password = new UpdateObject<string?>{HasChanged=true, Value=hashPassword}
         };
         

@@ -1,0 +1,22 @@
+info:
+  name: ValidateAuthCode
+  type: http
+  seq: 5
+
+http:
+  method: POST
+  url: "{{host}}/register/code-verify"
+  body:
+    type: json
+    data: |-
+      {
+        "Email" : "{{o_email}}",
+        "Code" : "JZERU4TM"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

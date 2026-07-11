@@ -11,4 +11,9 @@ public class VariantIngredientModel : BaseModel
     public required IngredientModel Ingredient {get;set;}
     public required Guid IngredientId {get;set;}
     //================RELATIONS================
+
+    public bool IsValidOrganization(Guid organizationId)
+    {
+        return Variant.IsValidOrganization(organizationId) && Ingredient.IsValidOrganization(organizationId);
+    } 
 }

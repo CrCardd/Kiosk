@@ -1,3 +1,4 @@
+using Kiosk.Api.Common.Auth;
 using Kiosk.Domain.Interfaces;
 using Kiosk.Infrastructure.Context;
 using System.Reflection;
@@ -8,6 +9,8 @@ public static class ServiceConfiguration
 { 
     public static void ConfigureServices(this WebApplicationBuilder builder) 
     {
+        builder.Services.AddHttpContextAccessor();
+        builder.Services.AddTransient<IApiContext, ApiContext>();
         builder.Services.AddTransient<SeedService>();
 
         var path = AppDomain.CurrentDomain.BaseDirectory;

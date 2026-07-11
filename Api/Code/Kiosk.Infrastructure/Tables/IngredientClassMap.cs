@@ -24,6 +24,13 @@ public static class IngredientClassMap
         builder.Property(i => i.Available)
             .HasColumnName("available");
         //================MY-RELATIONS================        
+        builder.Property(s => s.OrganizationId)
+            .HasColumnName("organization_id")
+            .IsRequired();
+        builder.HasOne(i => i.Organization)
+            .WithMany(o => o.Ingredient)
+            .HasForeignKey(s => s.OrganizationId)
+            .IsRequired();
         builder.Property(s => s.ServiceId)
             .HasColumnName("service_id")
             .IsRequired();

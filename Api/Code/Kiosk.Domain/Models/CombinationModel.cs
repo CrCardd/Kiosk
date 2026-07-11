@@ -10,4 +10,9 @@ public class CombinationModel : BaseModel
     public VariantModel Part {get;set;} = null!;
     public Guid PartId {get;set;}
     //================RELATIONS================
+
+    public bool IsValidOrganization(Guid organizationId)
+    {
+        return Comb.IsValidOrganization(organizationId) && Part.IsValidOrganization(organizationId);
+    } 
 }

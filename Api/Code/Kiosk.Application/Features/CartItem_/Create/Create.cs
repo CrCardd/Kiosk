@@ -1,11 +1,12 @@
 
 using Kiosk.Application.Payloads.CartItem;
 using Kiosk.Application.Services;
+using Kiosk.Application.Services.Client;
 
 namespace Kiosk.Application.Features.CartItem_.Create;
 
 public class Create(
-    ICartItemService cartItemService
+    ICartItemClientService cartItemService
 ) : BaseFeature
 {
     public async Task<Result<GetPayload>> ExecuteAsync(CreatePayload request, CancellationToken cancellationToken)

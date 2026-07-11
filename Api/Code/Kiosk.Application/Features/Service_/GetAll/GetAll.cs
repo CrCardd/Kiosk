@@ -2,11 +2,12 @@
 using Kiosk.Application.Payloads._Util;
 using Kiosk.Application.Payloads.Service;
 using Kiosk.Application.Services;
+using Kiosk.Application.Services.Client;
 
 namespace Kiosk.Application.Features.Service_.GetAll;
 
 public class GetAll(
-    IServiceService serviceService
+    IServiceClientService serviceService
 ) : BaseFeature
 {
     public async Task<Result<GenericListPayload<GetPayload>>> ExecuteAsync(bool? available, CancellationToken cancellationToken)

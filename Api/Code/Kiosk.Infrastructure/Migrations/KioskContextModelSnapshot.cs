@@ -134,6 +134,10 @@ namespace Kiosk.Infrastructure.Migrations
                     b.Property<Guid?>("OrderId")
                         .HasColumnType("char(36)");
 
+                    b.Property<Guid>("OrganizationId")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("organization_id");
+
                     b.Property<string>("SessionToken")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -146,6 +150,8 @@ namespace Kiosk.Infrastructure.Migrations
 
                     b.HasKey("Id")
                         .HasName("cart_id");
+
+                    b.HasIndex("OrganizationId");
 
                     b.ToTable("tb_cart", (string)null);
                 });
@@ -253,6 +259,10 @@ namespace Kiosk.Infrastructure.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("name");
 
+                    b.Property<Guid>("OrganizationId")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("organization_id");
+
                     b.Property<int?>("Quantity")
                         .HasColumnType("int")
                         .HasColumnName("quantity");
@@ -268,9 +278,65 @@ namespace Kiosk.Infrastructure.Migrations
                     b.HasKey("Id")
                         .HasName("ingredient_id");
 
+                    b.HasIndex("OrganizationId");
+
                     b.HasIndex("ServiceId");
 
                     b.ToTable("tb_ingredient", (string)null);
+                });
+
+            modelBuilder.Entity("Kiosk.Domain.Models.OAuthProviderModel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTime?>("DisabledAt")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("disabled_at");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("email");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("name");
+
+                    b.Property<Guid>("OrganizationId")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("organization_id");
+
+                    b.Property<string>("Picture")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("picture");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("subject");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int")
+                        .HasColumnName("type");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("Id")
+                        .HasName("oauth_provider_id");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.ToTable("tb_oauth_provider", (string)null);
                 });
 
             modelBuilder.Entity("Kiosk.Domain.Models.OrderModel", b =>
@@ -431,60 +497,6 @@ namespace Kiosk.Infrastructure.Migrations
                     b.ToTable("tb_price_history_variant", (string)null);
                 });
 
-            modelBuilder.Entity("Kiosk.Domain.Models.ProviderModel", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)")
-                        .HasColumnName("created_at");
-
-                    b.Property<DateTime?>("DisabledAt")
-                        .HasColumnType("datetime(6)")
-                        .HasColumnName("disabled_at");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("longtext")
-                        .HasColumnName("email");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext")
-                        .HasColumnName("name");
-
-                    b.Property<Guid>("OrganizationId")
-                        .HasColumnType("char(36)")
-                        .HasColumnName("organization_id");
-
-                    b.Property<string>("Picture")
-                        .IsRequired()
-                        .HasColumnType("longtext")
-                        .HasColumnName("picture");
-
-                    b.Property<string>("Subject")
-                        .IsRequired()
-                        .HasColumnType("longtext")
-                        .HasColumnName("subject");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int")
-                        .HasColumnName("type");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime(6)")
-                        .HasColumnName("updated_at");
-
-                    b.HasKey("Id")
-                        .HasName("provider_id");
-
-                    b.HasIndex("OrganizationId");
-
-                    b.ToTable("tb_provider", (string)null);
-                });
-
             modelBuilder.Entity("Kiosk.Domain.Models.ServiceModel", b =>
                 {
                     b.Property<Guid>("Id")
@@ -604,6 +616,10 @@ namespace Kiosk.Infrastructure.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("name");
 
+                    b.Property<Guid>("OrganizationId")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("organization_id");
+
                     b.Property<Guid>("ServiceId")
                         .HasColumnType("char(36)")
                         .HasColumnName("service_id");
@@ -618,6 +634,8 @@ namespace Kiosk.Infrastructure.Migrations
 
                     b.HasKey("Id")
                         .HasName("variant_id");
+
+                    b.HasIndex("OrganizationId");
 
                     b.HasIndex("ServiceId");
 
@@ -666,6 +684,17 @@ namespace Kiosk.Infrastructure.Migrations
                     b.Navigation("Variant");
                 });
 
+            modelBuilder.Entity("Kiosk.Domain.Models.CartModel", b =>
+                {
+                    b.HasOne("Kiosk.Domain.Models.OrganizationModel", "Organization")
+                        .WithMany("Carts")
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Organization");
+                });
+
             modelBuilder.Entity("Kiosk.Domain.Models.CodeModel", b =>
                 {
                     b.HasOne("Kiosk.Domain.Models.OrganizationModel", "Organization")
@@ -698,13 +727,32 @@ namespace Kiosk.Infrastructure.Migrations
 
             modelBuilder.Entity("Kiosk.Domain.Models.IngredientModel", b =>
                 {
+                    b.HasOne("Kiosk.Domain.Models.OrganizationModel", "Organization")
+                        .WithMany("Ingredient")
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Kiosk.Domain.Models.ServiceModel", "Service")
                         .WithMany("Ingredients")
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Organization");
+
                     b.Navigation("Service");
+                });
+
+            modelBuilder.Entity("Kiosk.Domain.Models.OAuthProviderModel", b =>
+                {
+                    b.HasOne("Kiosk.Domain.Models.OrganizationModel", "Organization")
+                        .WithMany("Providers")
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Organization");
                 });
 
             modelBuilder.Entity("Kiosk.Domain.Models.OrderModel", b =>
@@ -740,17 +788,6 @@ namespace Kiosk.Infrastructure.Migrations
                     b.Navigation("Variant");
                 });
 
-            modelBuilder.Entity("Kiosk.Domain.Models.ProviderModel", b =>
-                {
-                    b.HasOne("Kiosk.Domain.Models.OrganizationModel", "Organization")
-                        .WithMany("Providers")
-                        .HasForeignKey("OrganizationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Organization");
-                });
-
             modelBuilder.Entity("Kiosk.Domain.Models.ServiceModel", b =>
                 {
                     b.HasOne("Kiosk.Domain.Models.OrganizationModel", "Organization")
@@ -783,11 +820,19 @@ namespace Kiosk.Infrastructure.Migrations
 
             modelBuilder.Entity("Kiosk.Domain.Models.VariantModel", b =>
                 {
+                    b.HasOne("Kiosk.Domain.Models.OrganizationModel", "Organization")
+                        .WithMany("Variants")
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Kiosk.Domain.Models.ServiceModel", "Service")
                         .WithMany("Variants")
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Organization");
 
                     b.Navigation("Service");
                 });
@@ -828,11 +873,17 @@ namespace Kiosk.Infrastructure.Migrations
 
             modelBuilder.Entity("Kiosk.Domain.Models.OrganizationModel", b =>
                 {
+                    b.Navigation("Carts");
+
                     b.Navigation("Codes");
+
+                    b.Navigation("Ingredient");
 
                     b.Navigation("Providers");
 
                     b.Navigation("Services");
+
+                    b.Navigation("Variants");
                 });
 
             modelBuilder.Entity("Kiosk.Domain.Models.ServiceModel", b =>

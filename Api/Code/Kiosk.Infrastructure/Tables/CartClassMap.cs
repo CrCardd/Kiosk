@@ -24,6 +24,13 @@ public static class CartClassMap
             .HasColumnName("session_token")
             .IsRequired();
         //================MY-RELATIONS================
+        builder.Property(c => c.OrganizationId)
+            .HasColumnName("organization_id")
+            .IsRequired();
+        builder.HasOne(c => c.Organization)
+            .WithMany(o => o.Carts)
+            .HasForeignKey(c => c.OrganizationId)
+            .IsRequired();
         //================RELATIONS================
         builder.HasOne(c => c.Order)
             .WithOne(o => o.Cart)

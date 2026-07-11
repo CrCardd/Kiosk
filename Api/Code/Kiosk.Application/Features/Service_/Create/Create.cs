@@ -1,11 +1,12 @@
 
 using Kiosk.Application.Payloads.Service;
 using Kiosk.Application.Services;
+using Kiosk.Application.Services.Client;
 
 namespace Kiosk.Application.Features.Service_.Create;
 
 public class Create(
-    IServiceService serviceService
+    IServiceClientService serviceService
 ) : BaseFeature
 {
     public async Task<Result<GetPayload>> ExecuteAsync(CreatePayload request, CancellationToken cancellationToken)

@@ -1,5 +1,6 @@
 using Kiosk.Application.Payloads._Misc;
 using Kiosk.Application.Payloads.AuthCode;
+using Kiosk.Application.Services.Client;
 using Kiosk.Application.Services;
 using Kiosk.Application.Services.Auth;
 using Kiosk.Application.Services.Email;
@@ -9,8 +10,8 @@ using Kiosk.Domain.Utils;
 namespace Kiosk.Application.Features.AuthCode_.CreateAccount;
 
 public class CreateAccount(
-    IAuthCodeService service,
-    IOrganizationService organizationService,
+    IAuthCodeClientService service,
+    IOrganizationClientService organizationService,
 
     IPasswordService passwordService,
     IEmailService emailService

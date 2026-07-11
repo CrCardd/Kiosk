@@ -4,11 +4,12 @@ using Kiosk.Application.Services;
 using Kiosk.Application.Services.Auth;
 using Kiosk.Domain.Common.Exceptions.Exceptions;
 using Kiosk.Domain.Utils;
+using Kiosk.Application.Services.Client;
 
 namespace Kiosk.Application.Features.Code_;
 
 public class Create(
-    ICodeService service,
+    ICodeClientService service,
 
     IPasswordService passwordService
 ) : BaseFeature
@@ -30,7 +31,6 @@ public class Create(
         var payload = new CreatePayload
         {
             Code = passwordService.Hash(code),
-            OrganizationId = organizationId,
             StartDate = DateTime.UtcNow,
             EndDate = endDate
         };

@@ -19,12 +19,18 @@ public class JWTService : IJwtService
             var keyBytes = Encoding.UTF8.GetBytes(jwtSecret!);
             var key = new SymmetricSecurityKey(keyBytes);
             
+            var claims = new List<Claim>
+            {
+                new(MyClaims.OrganizationId, payload.OrganizationId.ToString()),
+                new(MyClaims.Email, payload.Email),
+            };
+            foreach(var role in payload.Roles)
+                claims.Add(new Claim(MyClaims.Roles, Roles.GetRoleName(role)));
+            if (payload?.CartId is not null)
+                claims.Add(new(MyClaims.CartId, payload.CartId.ToString()!));
+
             var jwt = new JwtSecurityToken(
-                claims: [
-                    new Claim(MyClaims.OrganizationId, payload.OrganizationId.ToString()),
-                    new Claim(MyClaims.Email, payload.Email),
-                    new Claim(MyClaims.Role, Roles.GetRoleName(payload.Role)),
-                ],
+                claims: claims,
                 expires: DateTime.UtcNow.AddMinutes(durationMinutes),
                 signingCredentials: new SigningCredentials(
                     key,

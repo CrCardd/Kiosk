@@ -25,6 +25,9 @@ public static class OrganizationClassMap
             .IsRequired();
         //================MY-RELATIONS================
         //================RELATIONS================
+        builder.HasMany(o => o.Carts)
+            .WithOne(c => c.Organization)
+            .HasForeignKey(c => c.OrganizationId);
         builder.HasMany(o => o.Services)
             .WithOne(s => s.Organization)
             .HasForeignKey(s => s.OrganizationId);

@@ -20,6 +20,7 @@ public class KioskDbContextFactory : IDesignTimeDbContextFactory<KioskContext>
         var conn = $"Server={host};Port={port};Database={dtbs};Uid={user};Pwd={pass};";
         optionsBuilder.UseMySql(conn, new MySqlServerVersion(new Version(8, 0, 0)));
 
-        return new KioskContext(optionsBuilder.Options);
+        var designApiContext = new DesignApiContext();
+        return new KioskContext(optionsBuilder.Options, designApiContext);
     }
 }

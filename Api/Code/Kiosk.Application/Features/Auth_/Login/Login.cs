@@ -1,13 +1,14 @@
 using Kiosk.Application.Services;
 using Kiosk.Application.Services.Auth;
 using Kiosk.Domain.Common.Enums;
+using Kiosk.Application.Services.Client;
 using Kiosk.Domain.Common.Exceptions.Exceptions;
 
 namespace Kiosk.Application.Features.Auth_.Create;
 
 public class Login 
 (
-    IOrganizationService organizationService,
+    IOrganizationClientService organizationService,
 
     IPasswordService passwordService,
     IJwtService jwtService
@@ -25,8 +26,8 @@ public class Login
             new CreateTokenPayload
             {
                 OrganizationId = organization.Id,
-                Role = Role.Organization,
-                Email = organization.Email
+                Email = organization.Email,
+                Roles = [Role.Organization],
             }
         );
 

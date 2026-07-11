@@ -10,4 +10,9 @@ public class CodeModel : BaseModel
     public required OrganizationModel Organization {get;set;}
     public required Guid OrganizationId {get;set;}
     //================RELATIONS================
+
+    public bool IsValidOrganization(Guid organizationId)
+    {
+        return OrganizationId == organizationId;
+    } 
 }

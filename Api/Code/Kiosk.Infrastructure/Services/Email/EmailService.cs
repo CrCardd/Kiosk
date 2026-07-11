@@ -19,7 +19,7 @@ public class EmailService(
             HtmlBody = payload.Body
         };
         message.To.Add(payload.To);
-        var result = await resendService.EmailSendAsync(message);
+        var result = await resendService.EmailSendAsync(message, cancellationToken);
     }
 
     public async Task SendVerificationEmail(VerificationCodePayload payload, CancellationToken cancellationToken)
@@ -43,7 +43,7 @@ public class EmailService(
             HtmlBody = html
         };
         message.To.Add(payload.To);
-        var result = await resendService.EmailSendAsync(message);
+        var result = await resendService.EmailSendAsync(message, cancellationToken);
     }
 
     public async Task SendPasswordEmail(PasswordPayload payload, CancellationToken cancellationToken)
@@ -67,6 +67,6 @@ public class EmailService(
             HtmlBody = html
         };
         message.To.Add(payload.To);
-        var result = await resendService.EmailSendAsync(message);
+        var result = await resendService.EmailSendAsync(message, cancellationToken);
     }
 }

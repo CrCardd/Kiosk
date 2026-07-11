@@ -11,6 +11,9 @@ public static class ConfigureDatabase
     {        
         builder.Services.AddDbContext<KioskContext>(options =>
         {
+            options.EnableSensitiveDataLogging();
+            options.EnableDetailedErrors();
+
             var host = Environment.GetEnvironmentVariable("DB_HOST");
             var port = Environment.GetEnvironmentVariable("DB_PORT");
             var dtbs = Environment.GetEnvironmentVariable("DB_NAME");

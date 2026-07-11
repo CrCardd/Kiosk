@@ -1,11 +1,12 @@
 
 using Kiosk.Application.Payloads.Ingredient;
 using Kiosk.Application.Services;
+using Kiosk.Application.Services.Client;
 
 namespace Kiosk.Application.Features.Ingredient_.Create;
 
 public class Create(
-    IIngredientService ingredientService
+    IIngredientClientService ingredientService
 ) : BaseFeature
 {
     public async Task<Result<GetPayload>> ExecuteAsync(CreatePayload request, CancellationToken cancellationToken)

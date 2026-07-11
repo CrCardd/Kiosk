@@ -10,11 +10,11 @@ public record GetPayload
     public required string Email {get;init;}
     public required string Name {get;init;}
     public required string Picture {get;init;}
-    public required ProviderType Type {get;init;}
+    public required OAuthProviderType Type {get;init;}
  
     public required GetOrganization Organization {get;init;}
 
-    public static GetPayload ToDto(ProviderModel provider)
+    public static GetPayload ToDto(OAuthProviderModel provider)
     {
         return new GetPayload
         {

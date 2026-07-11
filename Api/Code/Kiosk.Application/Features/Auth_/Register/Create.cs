@@ -1,14 +1,14 @@
-using System.ComponentModel.DataAnnotations;
 using Kiosk.Application.Payloads.Organization;
 using Kiosk.Application.Services;
 using Kiosk.Application.Services.Auth;
 using Kiosk.Domain.Common.Enums;
 using Kiosk.Domain.Common.Exceptions.Exceptions;
+using Kiosk.Application.Services.Client;
 
 namespace Kiosk.Application.Features.Auth_.Register;
 
 public class Create(
-    IOrganizationService organizationService,
+    IOrganizationClientService organizationService,
 
     IPasswordService passwordService,
     IJwtService jwtService
@@ -30,8 +30,8 @@ public class Create(
             new CreateTokenPayload
             {
                 OrganizationId = responseCreate.Value.Id,
-                Role = Role.Organization,
-                Email = request.Email
+                Email = request.Email,
+                Roles = [Role.Organization],
             }
         );
 

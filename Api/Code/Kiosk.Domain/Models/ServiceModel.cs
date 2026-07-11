@@ -13,4 +13,9 @@ public class ServiceModel : BaseModel
     //================RELATIONS================
     public ICollection<VariantModel> Variants {get;set;} = [];
     public ICollection<IngredientModel> Ingredients {get;set;} = [];
+
+    public bool IsValidOrganization(Guid organizationId)
+    {
+        return OrganizationId == organizationId; 
+    } 
 }

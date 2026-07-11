@@ -4,12 +4,13 @@ using Kiosk.Application.Services.Auth;
 using Kiosk.Application.Services.Email;
 using Kiosk.Domain.Common.Enums;
 using Kiosk.Domain.Common.Exceptions.Exceptions;
+using Kiosk.Application.Services.Client;
 
 namespace Kiosk.Application.Features.Auth_.ForgotPassword;
 
 public class ForgotPassword 
 (
-    IOrganizationService organizationService,
+    IOrganizationClientService organizationService,
 
     IEmailService emailService,
     IJwtService jwtService
@@ -33,8 +34,8 @@ public class ForgotPassword
             new CreateTokenPayload
             {
                 OrganizationId = organization.Id,
-                Role = Role.Password,
-                Email = organization.Email
+                Email = organization.Email,
+                Roles = [Role.Password],
             },
             5
         );
