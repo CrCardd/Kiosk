@@ -10,7 +10,7 @@ public static class CartFilter
         => modelBuilder.Entity<CartModel>(builder =>
     {
         builder.HasQueryFilter(c =>
-            context.IsSuperAdmin || c.OrganizationId == context.CurrentOrganizationId
+            context.IsSuperAdmin || c.SegmentId == context.CurrentSegmentId
         );
     });
 }

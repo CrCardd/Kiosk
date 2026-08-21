@@ -28,9 +28,8 @@ public class StartKiosk(
         var tokenPayload = jwtService.Generate(
             new CreateTokenPayload
             {
-                OrganizationId = codeEntity.Organization.Id,
-                Email = codeEntity.Organization.Email,
-                Roles = [Role.Kiosk],
+                SegmentId = codeEntity.Segment.Id,
+                TokenTypes = [TokenType.Kiosk],
             }
         );
 

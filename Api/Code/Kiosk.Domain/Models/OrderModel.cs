@@ -12,8 +12,4 @@ public class OrderModel : BaseModel
     public required Guid CartId {get;set;}
     //================RELATIONS================
 
-    public bool IsValidOrganization(Guid organizationId)
-    {
-        return Cart.OrganizationId == organizationId;
-    } 
 }

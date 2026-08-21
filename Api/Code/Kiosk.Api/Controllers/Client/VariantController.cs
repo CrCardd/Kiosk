@@ -26,7 +26,7 @@ public class VariantController(
     Delete delete
 ) : ApiController
 {
-    [OrganizationAuth]
+    [SegmentAuth]
     [HttpPost]
     public async Task<ActionResult<Result<GetPayload>>> Create(
         [FromBody] CreatePayload request,
@@ -69,7 +69,7 @@ public class VariantController(
         return response;
     }
 
-    [OrganizationAuth]
+    [SegmentAuth]
     [HttpPatch]
     public async Task<ActionResult<Result<GetPayload>>> Update(
         [FromBody] UpdatePayload request,
@@ -80,7 +80,7 @@ public class VariantController(
         return response;
     }
 
-    [OrganizationAuth]
+    [SegmentAuth]
     [HttpDelete("{id}")]
     public async Task<ActionResult<Result<GetPayload>>> Delete(
         [FromRoute] Guid id, 

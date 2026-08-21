@@ -17,22 +17,13 @@ public static class OrganizationClassMap
             .HasMaxLength(255)
             .HasColumnName("name")
             .IsRequired();
-        builder.Property(o => o.Email)
-            .HasColumnName("email")
-            .IsRequired();
-        builder.Property(o => o.Password)
-            .HasColumnName("password")
-            .IsRequired();
         //================MY-RELATIONS================
         //================RELATIONS================
-        builder.HasMany(o => o.Carts)
+        builder.HasMany(o => o.Segments)
             .WithOne(c => c.Organization)
             .HasForeignKey(c => c.OrganizationId);
-        builder.HasMany(o => o.Services)
-            .WithOne(s => s.Organization)
-            .HasForeignKey(s => s.OrganizationId);
-        builder.HasMany(o => o.Codes)
-            .WithOne(c => c.Organization)
-            .HasForeignKey(c => c.OrganizationId);
+        builder.HasMany(o => o.UserOrganizations)
+            .WithOne(uo => uo.Organization)
+            .HasForeignKey(uo => uo.OrganizationId);
     });
 }

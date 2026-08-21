@@ -21,10 +21,10 @@ public class OAuthProviderClientService(
         if(exists)
             throw new ConflictEx("provider already exists");
 
-        var organization = await ctx.Organizations
-            .FirstOrDefaultAsync(o => o.Id == payload.OrganizationId, cancellationToken);
-        if(organization is null)
-            throw new NotFoundEx("organization not found");
+        var user = await ctx.Users
+            .FirstOrDefaultAsync(u => u.Email == payload.Email, cancellationToken);
+        if(user is null)
+            throw new NotFoundEx("user not found");
         
         var provider = new OAuthProviderModel
         {
@@ -33,9 +33,6 @@ public class OAuthProviderClientService(
             Type = payload.Type,
             Subject = payload.Subject,
             Picture = payload.Picture,
-
-            Organization = organization,
-            OrganizationId = organization.Id,
         };
 
         ctx.Providers.Add(provider);

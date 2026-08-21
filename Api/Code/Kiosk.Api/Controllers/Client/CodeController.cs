@@ -18,14 +18,14 @@ public class CodeController(
 ) : ApiController
 {
 
-    [OrganizationAuth]
+    [SegmentAuth]
     [HttpPost]
     public async Task<ActionResult<Result<GetTokenPayload>>> Create(
         CancellationToken cancellationToken
     )
     {
-        var organizationId = User.FindFirst(MyClaims.OrganizationId)!.Value;
-        var response = await create.ExecuteAsync(Guid.Parse(organizationId), cancellationToken);
+        var segmentId = User.FindFirst(MyClaims.SegmentId)!.Value;
+        var response = await create.ExecuteAsync(Guid.Parse(segmentId), cancellationToken);
         return response;
     }
 

@@ -7,7 +7,6 @@ using Kiosk.Application.Services.Client;
 using Kiosk.Domain.Models;
 using Kiosk.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
-using Kiosk.Domain.Interfaces;
 
 namespace Kiosk.Infrastructure.Services.Client;
 
@@ -18,15 +17,10 @@ public class OrganizationClientService
 {
     public async Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken)
     {
-        var exists = ctx.Organizations.Any(o => o.Email == payload.Email);
-        if(exists)
-            throw new ConflictEx("email already in use");
 
         var organization = new OrganizationModel
         {
             Name = payload.Name,
-            Email = payload.Email,
-            Password = payload.Password
         };
 
         ctx.Organizations.Add(organization);
@@ -38,7 +32,6 @@ public class OrganizationClientService
         var organization = await ctx.Organizations
             .Where(o => o.DisabledAt == null)
             .FirstOrDefaultAsync(
-                // o => o.Id == apiCtx.OrganizationId, 
                 cancellationToken
             );
         if(organization is null)
@@ -46,10 +39,6 @@ public class OrganizationClientService
         
         if(payload.Name.HasChanged)
             organization.Name = payload.Name.Value;
-        if(payload.Email.HasChanged)
-            organization.Email = payload.Email.Value;
-        if(payload.Password.HasChanged)
-            organization.Password = payload.Password.Value; 
             
         await ctx.SaveChangesAsync(cancellationToken);
         return GetPayload.ToDto(organization);

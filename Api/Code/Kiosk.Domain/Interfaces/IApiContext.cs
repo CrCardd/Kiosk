@@ -4,8 +4,12 @@ namespace Kiosk.Domain.Interfaces;
 
 public interface IApiContext
 {
-    Guid? OrganizationId { get; }
+    Guid? UserId { get; }
     Guid? CartId { get; }
+    Guid? SegmentId { get; }
+    Guid? OrganizationId { get; }
     string? Email { get; }
-    List<Role> Roles { get; }
+    SegmentRole? SegmentRoles { get; }
+    OrganizationRole? OrganizationRoles { get; }
+    List<TokenType> TokenTypes { get; }
 }

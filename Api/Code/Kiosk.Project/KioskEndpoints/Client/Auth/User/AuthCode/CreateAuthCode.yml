@@ -1,0 +1,20 @@
+info:
+  name: CreateAuthCode
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{host}}/register/code-create/{{segment_email}}"
+  auth: inherit
+
+runtime:
+  variables:
+    - name: host
+      value: http://localhost:5555/api
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -15,19 +15,18 @@ public class CodeClientService(
 {
     public async Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken)
     {
-        var organization = await ctx.Organizations
+        var segment = await ctx.Segments
             .Where(o => o.DisabledAt == null)
             .FirstOrDefaultAsync(
-                // o => o.Id == apiCtx.OrganizationId, 
             cancellationToken);
-        if(organization is null)
-            throw new NotFoundEx("Organization not found!");
+        if(segment is null)
+            throw new NotFoundEx("segment not found!");
         
         var code = new CodeModel    
         {
             Code = payload.Code,
-            Organization = organization,
-            OrganizationId = organization.Id,
+            Segment = segment,
+            SegmentId = segment.Id,
             StartDate = payload.StartDate,
             EndDate = payload.EndDate
         };
@@ -42,7 +41,7 @@ public class CodeClientService(
 
         ICollection<GetPayload> all = await ctx.Codes
             .Where(c => c.DisabledAt == null)
-            .Include(c => c.Organization)
+            .Include(c => c.Segment)
             .Select(c => GetPayload.ToDto(c))
             .ToListAsync(cancellationToken);
             

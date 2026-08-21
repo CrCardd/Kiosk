@@ -32,21 +32,20 @@ public class CartClientService(
 
     public async Task<Result<GetPayload>> Start(CreatePayload payload, CancellationToken cancellationToken)
     {
-        var organization = await ctx.Organizations
+        var segment = await ctx.Segments
             .Where(o => o.DisabledAt == null)
             .FirstOrDefaultAsync(
-                // o => o.Id ==apiCtx.OrganizationId, 
                 cancellationToken
             );
-        if(organization == null)
-            throw new NotFoundEx("organization not found");
+        if(segment == null)
+            throw new NotFoundEx("segment not found");
 
         var cart = new CartModel
         {
             Client=payload.Client,
             SessionToken=RandomCodeGenerator.Generate("ABCDEFGHIJKLMNOPQRSTUVWXYZ",8),
-            Organization=organization,
-            OrganizationId=organization.Id
+            Segment=segment,
+            SegmentId=segment.Id
         };
 
         ctx.Carts.Add(cart);

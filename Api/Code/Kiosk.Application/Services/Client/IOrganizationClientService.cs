@@ -1,6 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
-using Kiosk.Application.Features.Auth_;
 using Kiosk.Application.Payloads.Organization;
 using Kiosk.Domain.Interfaces;
 using Kiosk.Domain.Models;

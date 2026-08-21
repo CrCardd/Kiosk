@@ -11,7 +11,7 @@ public static class IngredientFilter
     {
 
         builder.HasQueryFilter(i =>
-            context.IsSuperAdmin || i.OrganizationId == context.CurrentOrganizationId
+            context.IsSuperAdmin || i.SegmentId == context.CurrentSegmentId
         );
     });
 }

@@ -15,13 +15,4 @@ public class CartItemModel : BaseModel
     //================RELATIONS================
     public ICollection<IngredientModel> Ingredients {get;set;} = [];
     public ICollection<CartItemModel> CartItems {get;set;} = [];
-
-    public bool IsValidOrganization(Guid organizationId)
-    {
-        return Cart.IsValidOrganization(organizationId);
-    } 
-    public bool IsValidCart(Guid cartId)
-    {
-        return CartId == cartId;
-    } 
 }

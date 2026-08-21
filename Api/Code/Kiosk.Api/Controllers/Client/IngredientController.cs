@@ -15,7 +15,7 @@ public class IngredientController(
     Create create
 ) : ApiController
 {
-    [OrganizationAuth]
+    [SegmentAuth]
     [HttpPost]
     public async Task<ActionResult<Result<GetPayload>>> Create(
         [FromBody] CreatePayload request,

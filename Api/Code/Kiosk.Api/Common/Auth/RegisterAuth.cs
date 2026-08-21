@@ -13,7 +13,7 @@ public class RegisterAuthAttribute : Attribute, IAuthorizationFilter
 {
     public void OnAuthorization(AuthorizationFilterContext context)
     {
-        Role role = Role.Register;
+        TokenType role = TokenType.Register;
 
         var httpContext = context.HttpContext;
         if (httpContext.User?.Identity == null || !httpContext.User.Identity.IsAuthenticated)
@@ -23,7 +23,7 @@ public class RegisterAuthAttribute : Attribute, IAuthorizationFilter
         }
         var apiCtx = httpContext.RequestServices.GetRequiredService<IApiContext>();
 
-        var isAuthorized = apiCtx.Roles.Any(r => r == role);
+        var isAuthorized = apiCtx.TokenTypes.Any(r => r == role);
 
         
         if (!isAuthorized)

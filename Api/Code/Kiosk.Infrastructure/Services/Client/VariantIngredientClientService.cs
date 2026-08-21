@@ -18,7 +18,6 @@ public class VariantIngredientClientService(
         var variant = await ctx.Variants
             .Where(v => v.DisabledAt == null)
             .Include(v => v.Service)
-            // .Where(v => v.IsValidOrganization(apiCtx.OrganizationId))
             .Where(v => v.Id == payload.VariantId)
             .FirstOrDefaultAsync(cancellationToken);
         if(variant is null)
@@ -27,7 +26,6 @@ public class VariantIngredientClientService(
         var ingredient = await ctx.Ingredients
             .Where(v => v.DisabledAt == null)
             .Include(v => v.Service)
-            // .Where(v => v.IsValidOrganization(apiCtx.OrganizationId))
             .Where(v => v.Id == payload.IngredientId)
             .FirstOrDefaultAsync(cancellationToken);
         if(ingredient is null)

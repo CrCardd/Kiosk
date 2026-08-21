@@ -21,11 +21,26 @@ public class JWTService : IJwtService
             
             var claims = new List<Claim>
             {
-                new(MyClaims.OrganizationId, payload.OrganizationId.ToString()),
                 new(MyClaims.Email, payload.Email),
             };
-            foreach(var role in payload.Roles)
-                claims.Add(new Claim(MyClaims.Roles, Roles.GetRoleName(role)));
+            
+            foreach(var role in payload.TokenTypes)
+                claims.Add(new Claim(MyClaims.TokenType, TokenTypes.GetTokenTypeName(role)));
+            
+            // segment
+            if (payload?.SegmentId is not null)
+                claims.Add(new(MyClaims.SegmentId, payload.SegmentId.ToString()!));
+            if (payload?.SegmentRole is not null)
+                claims.Add(new(MyClaims.SegmentRoles, ((int)payload.SegmentRole).ToString()!));
+
+            // organization
+            if (payload?.OrganizationId is not null)
+                claims.Add(new(MyClaims.OrganizationId, payload.OrganizationId.ToString()!));
+            if (payload?.OrganizationRole is not null)
+                claims.Add(new(MyClaims.OrganizationRoles, ((int)payload.OrganizationRole).ToString()!));
+
+
+            // cart
             if (payload?.CartId is not null)
                 claims.Add(new(MyClaims.CartId, payload.CartId.ToString()!));
 

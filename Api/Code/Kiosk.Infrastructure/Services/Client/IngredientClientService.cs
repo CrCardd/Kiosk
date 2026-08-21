@@ -18,9 +18,8 @@ public class IngredientClientService(
     {
         var service = await ctx.Services
             .Where(s => s.DisabledAt == null)
-            // .Where(s => s.IsValidOrganization(apiCtx.OrganizationId))
             .Where(s => s.Id == payload.ServiceId)
-            .Include(s => s.Organization)
+            .Include(s => s.Segment)
             .FirstOrDefaultAsync(cancellationToken);
 
         if(service == null)
@@ -33,8 +32,8 @@ public class IngredientClientService(
             ServiceId = payload.ServiceId,
             Service = service,
             Quantity = payload.Quantity,
-            Organization = service.Organization,
-            OrganizationId = service.OrganizationId
+            Segment = service.Segment,
+            SegmentId = service.SegmentId
         };
         var price = new PriceHistoryIngredientModel
         {

@@ -27,7 +27,7 @@ public static class ServiceConfiguration
             .ToList(); 
 
         foreach(var iservice in interfaces) 
-        { 
+        {
             var implementation = allTypes
                 .First(t => t.IsClass && !t.IsAbstract && iservice.IsAssignableFrom(t));     
             builder.Services.AddTransient(iservice, implementation); 

@@ -18,22 +18,21 @@ public class ServiceClientService(
 
     public async Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken)
     {
-        var organization = await ctx.Organizations
+        var segment = await ctx.Segments
             .Where(o => o.DisabledAt == null)
             .FirstOrDefaultAsync(
-                // o => o.Id == OrganizationId, 
                 cancellationToken
             );
-        if(organization is null)
-            throw new NotFoundEx("Organization not found");
+        if(segment is null)
+            throw new NotFoundEx("segment not found");
 
         var service = new ServiceModel
         {
             Name=payload.Name,
             Image=payload.Image,
             Available=payload.Available ?? true,
-            Organization=organization,
-            OrganizationId=organization.Id
+            Segment=segment,
+            SegmentId=segment.Id
         };
 
         ctx.Services.Add(service);
@@ -45,7 +44,6 @@ public class ServiceClientService(
     {
         List<GetPayload> value = await ctx.Services
             .Where(s => s.DisabledAt == null)
-            // .Where(s => s.OrganizationId == OrganizationId)
             .Where(s => available == null ? true : s.Available == available)
             .Select(s => GetPayload.ToDto(s))
             .ToListAsync(cancellationToken);
@@ -57,7 +55,6 @@ public class ServiceClientService(
     {
         var service = await ctx.Services
             .Where(s => s.DisabledAt == null)
-            // .Where(s => s.OrganizationId == OrganizationId)
             .Include(s => s.Variants)
                 .ThenInclude(v => v.PriceHistoryVariants)
             .FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
@@ -71,7 +68,6 @@ public class ServiceClientService(
     public async Task<Result<GetPayload>> Update(UpdatePayload payload, CancellationToken cancellationToken)
     {
         var service = await ctx.Services
-            // .Where(s => s.OrganizationId == OrganizationId)
             .Where(s => s.Id == payload.Id)
             .FirstOrDefaultAsync(cancellationToken);
         
@@ -93,7 +89,6 @@ public class ServiceClientService(
         var service = await ctx.Services
             .Where(s => s.DisabledAt == null)
             .Where(s => s.Id == id)
-            // .Where(s => s.OrganizationId == OrganizationId)
             .FirstOrDefaultAsync(cancellationToken);
         if(service == null)
             throw new NotFoundEx("Referenced service not found");

@@ -11,7 +11,7 @@ public class SessionAuthAttribute : Attribute, IAuthorizationFilter
 {
     public void OnAuthorization(AuthorizationFilterContext context)
     {
-        Role role = Role.Session;
+        TokenType role = TokenType.Session;
 
         var httpContext = context.HttpContext;
         if (httpContext.User?.Identity == null || !httpContext.User.Identity.IsAuthenticated)
@@ -21,7 +21,7 @@ public class SessionAuthAttribute : Attribute, IAuthorizationFilter
         }
         var apiCtx = httpContext.RequestServices.GetRequiredService<IApiContext>();
 
-        var isAuthorized = apiCtx.Roles.Any(r => r == role);
+        var isAuthorized = apiCtx.TokenTypes.Any(r => r == role);
 
         
         if (!isAuthorized)

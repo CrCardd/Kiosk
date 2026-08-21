@@ -11,7 +11,7 @@ public static class ServiceFilter
     {
 
         builder.HasQueryFilter(s =>
-            context.IsSuperAdmin || s.OrganizationId == context.CurrentOrganizationId
+            context.IsSuperAdmin || s.SegmentId == context.CurrentSegmentId
         );
     });
 }

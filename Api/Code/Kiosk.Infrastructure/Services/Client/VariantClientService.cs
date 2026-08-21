@@ -21,8 +21,7 @@ public class VariantClientService(
         var service = await ctx.Services
             .Where(s => s.DisabledAt == null)
             .Where(s => s.Id == payload.ServiceId)
-            // .Where(s => s.OrganizationId == OrganizationId)
-            .Include(s => s.Organization)
+            .Include(s => s.Segment)
             .FirstOrDefaultAsync(cancellationToken);
 
         if(service == null)
@@ -37,8 +36,8 @@ public class VariantClientService(
             Available=payload.Available ?? true,
             Service=service,
             ServiceId=payload.ServiceId,
-            Organization=service.Organization,
-            OrganizationId=service.OrganizationId
+            Segment=service.Segment,
+            SegmentId=service.SegmentId
         };
         var price = new PriceHistoryVariantModel
         {
@@ -51,7 +50,6 @@ public class VariantClientService(
             var part = await ctx.Variants
                 .Where(v => v.DisabledAt == null)
                 .Include(v => v.Service)
-                // .Where(v => v.Service.OrganizationId == OrganizationId)
                 .FirstOrDefaultAsync(v => v.Id == p, cancellationToken);
             if(part == null)
                 throw new NotFoundEx("Invalid Referenced Variant");
@@ -80,7 +78,6 @@ public class VariantClientService(
             .Where(v => v.DisabledAt == null)
             .Include(v => v.Parts)
             .Include(v => v.Service)
-            // .Where(v => v.Service.OrganizationId == OrganizationId)
             .Include(v => v.VariantIngredients)
                 .ThenInclude(vi => vi.Ingredient)
                     .ThenInclude(i => i.PriceHistoryIngredients)
@@ -100,7 +97,6 @@ public class VariantClientService(
         .Where(v => v.DisabledAt == null)
         .Where(v => available == null ? true : v.Available == available)
         .Include(v => v.Service)
-        // .Where(v => v.Service.OrganizationId == OrganizationId)
         .Include(v => v.VariantIngredients)
             .ThenInclude(vi => vi.Ingredient)
         .Include(v => v.PriceHistoryVariants)
@@ -120,7 +116,6 @@ public class VariantClientService(
             .Where(v => v.DisabledAt == null)
             .Include(v => v.Parts)
             .Include(v => v.Service)
-            // .Where(v => v.Service.OrganizationId == OrganizationId)
             .Include(v => v.VariantIngredients)
                 .ThenInclude(vi => vi.Ingredient)
                     .ThenInclude(i => i.PriceHistoryIngredients)
@@ -137,7 +132,6 @@ public class VariantClientService(
         var service = ctx.Services
             .Where(s => s.DisabledAt == null)
             .FirstOrDefaultAsync(
-                // s => s.OrganizationId == OrganizationId,
                 cancellationToken
             );
         if(service is null)
@@ -162,7 +156,6 @@ public class VariantClientService(
             .Include(v => v.Parts)
             .Include(v => v.Combs)
             .Include(v => v.Service)
-            // .Where(v => v.Service.OrganizationId == OrganizationId)
             .FirstOrDefaultAsync(v => v.Id == payload.Id, cancellationToken);
         if(variant == null)
             throw new NotFoundEx("Referenced variant not found");

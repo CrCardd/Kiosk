@@ -5,11 +5,11 @@ using Kiosk.Domain.Common.Exceptions.Exceptions;
 using Kiosk.Application.Services.Client;
 using static Google.Apis.Auth.GoogleJsonWebSignature;
 
-namespace Kiosk.Application.Features.Auth_.Provider;
+namespace Kiosk.Application.Features.Auth_.OAuthProviderLogin;
 
 public class OAuthProviderLogin 
 (
-    IOrganizationClientService organizationService,
+    IUserClientService userService,
     IOAuthProviderClientService providerService,
     IJwtService jwtService
 ) : BaseFeature
@@ -39,15 +39,15 @@ public class OAuthProviderLogin
         string picture = payload.Picture;
 
     
-        Payloads.Organization.GetPayload organization;
+        Payloads.User.GetPayload user;
         try
         {
-            organization = organizationService.Get(o => o.Email == email);
+            user = userService.Get(o => o.Email == email);
         }
         catch(NotFoundEx)
         {
-            organization = (await organizationService.Create(
-                new Payloads.Organization.CreatePayload {
+            user = (await userService.Create(
+                new Payloads.User.CreatePayload {
                     Name = name,
                     Email = email,
                     Password = ""
@@ -67,7 +67,6 @@ public class OAuthProviderLogin
                 {
                     Name = name,
                     Email = email,
-                    OrganizationId = organization.Id,
                     Picture = picture,
                     Subject = subject,
                     Type = providerType
@@ -80,9 +79,9 @@ public class OAuthProviderLogin
         var tokenPayload = jwtService.Generate(
             new CreateTokenPayload
             {
-                OrganizationId = organization.Id,
+                OrganizationId = user.Id,
                 Email = email,
-                Roles = [Role.Organization],
+                TokenTypes = [TokenType.User],
             }
         );
 

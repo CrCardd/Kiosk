@@ -26,12 +26,12 @@ public static class ServiceClassMap
             .HasColumnName("available")
             .IsRequired();
         //================MY-RELATIONS================
-        builder.Property(s => s.OrganizationId)
-            .HasColumnName("organization_id")
+        builder.Property(s => s.SegmentId)
+            .HasColumnName("segment_id")
             .IsRequired();
-        builder.HasOne(s => s.Organization)
+        builder.HasOne(s => s.Segment)
             .WithMany(o => o.Services)
-            .HasForeignKey(s => s.OrganizationId);
+            .HasForeignKey(s => s.SegmentId);
         //================RELATIONS================
         builder.HasMany(s => s.Variants)
             .WithOne(v => v.Service)

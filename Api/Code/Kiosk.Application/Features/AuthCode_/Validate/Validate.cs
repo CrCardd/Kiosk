@@ -25,9 +25,9 @@ public class Validate(
         var tokenPayload = jwtService.Generate(
             new CreateTokenPayload
             {
-                OrganizationId = Guid.Empty,
+                SegmentId = Guid.Empty,
                 Email = request.Email,
-                Roles = [Role.Register],
+                TokenTypes = [TokenType.Register],
             }
         );
 

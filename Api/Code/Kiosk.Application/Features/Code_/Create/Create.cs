@@ -14,7 +14,7 @@ public class Create(
     IPasswordService passwordService
 ) : BaseFeature
 {
-    public async Task<Result<GetTokenPayload>> ExecuteAsync(Guid organizationId, CancellationToken cancellationToken)
+    public async Task<Result<GetTokenPayload>> ExecuteAsync(Guid segmentId, CancellationToken cancellationToken)
     {
         DateTime endDate;
         try

@@ -10,8 +10,8 @@ public class VariantModel : BaseModel
     public bool Surpass {get;set;}
     public required bool Available {get;set;}
     //================MY-RELATIONS================
-    public required OrganizationModel Organization {get;set;}
-    public required Guid OrganizationId {get;set;}
+    public required SegmentModel Segment {get;set;}
+    public required Guid SegmentId {get;set;}
     public required ServiceModel Service {get;set;}
     public required Guid ServiceId {get;set;}
     //================RELATIONS================
@@ -29,8 +29,4 @@ public class VariantModel : BaseModel
             .Select(p => p.Price)
             .FirstOrDefault();
     }
-    public bool IsValidOrganization(Guid organizationId)
-    {
-        return Service.IsValidOrganization(organizationId);
-    } 
 }

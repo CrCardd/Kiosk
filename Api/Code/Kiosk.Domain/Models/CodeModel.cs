@@ -7,12 +7,8 @@ public class CodeModel : BaseModel
     public required DateTime StartDate {get;set;}
     public required DateTime EndDate {get;set;}
     //================MY-RELATIONS================
-    public required OrganizationModel Organization {get;set;}
-    public required Guid OrganizationId {get;set;}
+    public required SegmentModel Segment {get;set;}
+    public required Guid SegmentId {get;set;}
     //================RELATIONS================
 
-    public bool IsValidOrganization(Guid organizationId)
-    {
-        return OrganizationId == organizationId;
-    } 
 }

@@ -11,7 +11,7 @@ public static class VariantFilter
     {
 
         builder.HasQueryFilter(v =>
-            context.IsSuperAdmin || v.OrganizationId == context.CurrentOrganizationId
+            context.IsSuperAdmin || v.SegmentId == context.CurrentSegmentId
         );
     });
 }
