@@ -7,7 +7,7 @@ using Kiosk.Application.Services.Client;
 namespace Kiosk.Application.Features.Auth_.StartKiosk;
 
 public class StartKiosk(
-    ICodeClientService codeService,
+    ICodeService codeService,
 
     IPasswordService passwordService,
     IJwtService jwtService

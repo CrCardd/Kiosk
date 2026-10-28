@@ -8,7 +8,7 @@ namespace Kiosk.Application.Features.Auth_.Create;
 
 public class Login 
 (
-    IUserClientService userService,
+    IUserService userService,
 
     IPasswordService passwordService,
     IJwtService jwtService

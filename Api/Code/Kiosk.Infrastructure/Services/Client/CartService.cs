@@ -11,9 +11,9 @@ using Kiosk.Domain.Interfaces;
 
 namespace Kiosk.Infrastructure.Services.Client;
 
-public class CartClientService(
+public class CartService(
     KioskContext ctx
-) : ICartClientService
+) : ICartService
 {
     public async Task<Result<GetPayload>> GetById(Guid id, CancellationToken cancellationToken)
     {

@@ -10,9 +10,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Kiosk.Infrastructure.Services.Client;
 
-public class AuthCodeClientService(
+public class AuthCodeService(
     KioskContext ctx
-) : IAuthCodeClientService
+) : IAuthCodeService
 {
     public async Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken)
     {

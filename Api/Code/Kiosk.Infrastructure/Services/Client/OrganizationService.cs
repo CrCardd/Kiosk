@@ -1,81 +1,71 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
-using Kiosk.Application.Payloads.User;
+using Kiosk.Application.Payloads.Organization;
+using Kiosk.Application.Services;
 using Kiosk.Domain.Common.Exceptions.Exceptions;
 using Kiosk.Application.Services.Client;
 using Kiosk.Domain.Models;
 using Kiosk.Infrastructure.Context;
-using Kiosk.Application.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Kiosk.Infrastructure.Services.Client;
 
-public class UserClientService
+public class OrganizationService
 (
     KioskContext ctx
-) : IUserClientService
+) : IOrganizationService
 {
     public async Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken)
     {
-        var exists = ctx.Users.Any(o => o.Email == payload.Email);
-        if(exists)
-            throw new ConflictEx("email already in use");
 
-        var user = new UserModel
+        var organization = new OrganizationModel
         {
             Name = payload.Name,
-            Email = payload.Email,
-            Password = payload.Password
         };
 
-        ctx.Users.Add(user);
+        ctx.Organizations.Add(organization);
         await ctx.SaveChangesAsync(cancellationToken);
-        return Result.Created(GetPayload.ToDto(user));
+        return Result.Created(GetPayload.ToDto(organization));
     }
     public async Task<Result<GetPayload>> Update(UpdatePayload payload, CancellationToken cancellationToken)
     {
-        var user = await ctx.Users
+        var organization = await ctx.Organizations
             .Where(o => o.DisabledAt == null)
             .FirstOrDefaultAsync(
                 cancellationToken
             );
-            
-        if(user is null)
+        if(organization is null)
             throw new NotFoundEx("organization not found");
         
         if(payload.Name.HasChanged)
-            user.Name = payload.Name.Value;
-        if(payload.Email.HasChanged)
-            user.Email = payload.Email.Value;
-        if(payload.Password.HasChanged)
-            user.Password = payload.Password.Value; 
+            organization.Name = payload.Name.Value;
             
         await ctx.SaveChangesAsync(cancellationToken);
-        return GetPayload.ToDto(user);
+        return GetPayload.ToDto(organization);
     }
 
 
-    public GetPayload Get(Expression<Func<UserModel, bool>> predicate)
+    public GetPayload Get(Expression<Func<OrganizationModel, bool>> predicate)
     {
-        var user = ctx.Users
+        var organization = ctx.Organizations
             .Where(o => o.DisabledAt == null)
             .FirstOrDefault(predicate);
-        if(user is null)
+        if(organization is null)
             throw new NotFoundEx("organization not found");
-        return GetPayload.ToDto(user);
+        return GetPayload.ToDto(organization);
     }
 
-    public bool TryGet(Expression<Func<UserModel, bool>> predicate, [NotNullWhen(true)] out GetPayload? getPayload)
+    public bool TryGet(Expression<Func<OrganizationModel, bool>> predicate, [NotNullWhen(true)] out GetPayload? getPayload)
     {
-        var user = ctx.Users
+        var organization = ctx.Organizations
             .Where(o => o.DisabledAt == null)
             .FirstOrDefault(predicate);
-        if(user is null)
+        if(organization is null)
         {            
             getPayload = null;
             return false;
         }
-        getPayload = GetPayload.ToDto(user);
+        getPayload = GetPayload.ToDto(organization);
         return true;
     }
 }

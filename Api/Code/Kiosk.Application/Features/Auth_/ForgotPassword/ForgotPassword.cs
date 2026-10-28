@@ -10,7 +10,7 @@ namespace Kiosk.Application.Features.Auth_.ForgotPassword;
 
 public class ForgotPassword 
 (
-    IUserClientService userService,
+    IUserService userService,
 
     IEmailService emailService,
     IJwtService jwtService

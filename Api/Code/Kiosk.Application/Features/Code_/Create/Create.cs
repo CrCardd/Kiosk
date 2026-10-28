@@ -9,7 +9,7 @@ using Kiosk.Application.Services.Client;
 namespace Kiosk.Application.Features.Code_;
 
 public class Create(
-    ICodeClientService service,
+    ICodeService service,
 
     IPasswordService passwordService
 ) : BaseFeature

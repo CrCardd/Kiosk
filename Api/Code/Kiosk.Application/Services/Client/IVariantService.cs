@@ -5,7 +5,7 @@ using Kiosk.Domain.Interfaces;
 
 namespace Kiosk.Application.Services.Client;
 
-public interface IVariantClientService : IBaseService
+public interface IVariantService : IBaseService
 {
     Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken);
     Task<Result<GenericListPayload<GetPayload>>> GetAll(bool? available, CancellationToken cancellationToken);

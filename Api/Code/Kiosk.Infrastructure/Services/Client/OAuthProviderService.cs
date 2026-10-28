@@ -8,9 +8,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Kiosk.Infrastructure.Services.Client;
 
-public class OAuthProviderClientService(
+public class OAuthProviderService(
     KioskContext ctx
-) : IOAuthProviderClientService
+) : IOAuthProviderService
 {
     public async Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken)
     {

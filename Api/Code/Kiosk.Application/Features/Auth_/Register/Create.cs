@@ -8,7 +8,7 @@ using Kiosk.Application.Services.Client;
 namespace Kiosk.Application.Features.Auth_.Register;
 
 public class Create(
-    IUserClientService userService,
+    IUserService userService,
 
     IPasswordService passwordService,
     IJwtService jwtService

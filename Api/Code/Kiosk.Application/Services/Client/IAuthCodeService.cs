@@ -6,7 +6,7 @@ using Kiosk.Domain.Models;
 
 namespace Kiosk.Application.Services.Client;
 
-public interface IAuthCodeClientService : IBaseService
+public interface IAuthCodeService : IBaseService
 {
     Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken);
     Task<Result<GetPayload>> GetByEmail(string email, CancellationToken cancellationToken);

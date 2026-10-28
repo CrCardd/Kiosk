@@ -8,7 +8,7 @@ using Kiosk.Application.Services;
 namespace Kiosk.Application.Features.AuthCode_.Validate;
 
 public class Validate(
-    IAuthCodeClientService authCodeService,
+    IAuthCodeService authCodeService,
 
     IPasswordService passwordService,
     IJwtService jwtService

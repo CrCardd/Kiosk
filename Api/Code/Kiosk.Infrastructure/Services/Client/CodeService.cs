@@ -9,9 +9,9 @@ using Kiosk.Domain.Interfaces;
 
 namespace Kiosk.Infrastructure.Services.Client;
 
-public class CodeClientService(
+public class CodeService(
     KioskContext ctx
-) : ICodeClientService
+) : ICodeService
 {
     public async Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken)
     {

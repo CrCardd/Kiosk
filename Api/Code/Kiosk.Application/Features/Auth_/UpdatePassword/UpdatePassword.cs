@@ -8,7 +8,7 @@ using Kiosk.Domain.Interfaces;
 namespace Kiosk.Application.Features.Auth_.UpdatePassword;
 
 public class UpdatePassword(
-    IUserClientService service,
+    IUserService service,
 
     IApiContext ctx,
     IPasswordService passwordService

@@ -1,9 +1,10 @@
-using Kiosk.Application.Payloads.CartItem;
+
+using Kiosk.Application.Payloads.Ingredient;
 using Kiosk.Domain.Interfaces;
 
 namespace Kiosk.Application.Services.Client;
 
-public interface ICartItemClientService : IBaseService
+public interface IIngredientService : IBaseService
 {
     Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken);
 }

@@ -10,8 +10,8 @@ using Kiosk.Domain.Utils;
 namespace Kiosk.Application.Features.AuthCode_.CreateAccount;
 
 public class CreateAccount(
-    IAuthCodeClientService service,
-    IUserClientService userService,
+    IAuthCodeService service,
+    IUserService userService,
 
     IPasswordService passwordService,
     IEmailService emailService

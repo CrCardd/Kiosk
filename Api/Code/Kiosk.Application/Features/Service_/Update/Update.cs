@@ -6,7 +6,7 @@ using Kiosk.Application.Services.Client;
 namespace Kiosk.Application.Features.Service_.Update;
 
 public class Update(
-    IServiceClientService serviceService
+    IServiceService serviceService
 ) : BaseFeature
 {
     public async Task<Result<GetPayload>> ExecuteAsync(UpdatePayload request, CancellationToken cancellationToken)

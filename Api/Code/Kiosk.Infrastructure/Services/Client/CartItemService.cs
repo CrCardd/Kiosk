@@ -9,9 +9,9 @@ using Kiosk.Domain.Interfaces;
 
 namespace Kiosk.Infrastructure.Services.Client;
 
-public class CartItemClientService(
+public class CartItemService(
     KioskContext ctx
-) : ICartItemClientService
+) : ICartItemService
 {
     public async Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken)
     {

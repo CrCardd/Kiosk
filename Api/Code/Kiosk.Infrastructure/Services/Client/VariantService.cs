@@ -12,9 +12,9 @@ using Kiosk.Domain.Interfaces;
 
 namespace Kiosk.Infrastructure.Services.Client;
 
-public class VariantClientService(
+public class VariantService(
     KioskContext ctx
-) : IVariantClientService
+) : IVariantService
 {
     public async Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken)
     {

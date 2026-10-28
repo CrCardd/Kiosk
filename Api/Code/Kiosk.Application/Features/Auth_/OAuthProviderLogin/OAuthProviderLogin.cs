@@ -9,8 +9,8 @@ namespace Kiosk.Application.Features.Auth_.OAuthProviderLogin;
 
 public class OAuthProviderLogin 
 (
-    IUserClientService userService,
-    IOAuthProviderClientService providerService,
+    IUserService userService,
+    IOAuthProviderService providerService,
     IJwtService jwtService
 ) : BaseFeature
 {

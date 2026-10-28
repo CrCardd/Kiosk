@@ -6,7 +6,7 @@ using Kiosk.Domain.Models;
 
 namespace Kiosk.Application.Services.Client;
 
-public interface IUserClientService : IBaseService
+public interface IUserService : IBaseService
 {
     Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken);
     Task<Result<GetPayload>> Update(UpdatePayload payload, CancellationToken cancellationToken);

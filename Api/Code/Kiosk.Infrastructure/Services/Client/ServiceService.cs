@@ -11,9 +11,9 @@ using Kiosk.Domain.Interfaces;
 
 namespace Kiosk.Infrastructure.Services.Client;
 
-public class ServiceClientService(
+public class ServiceService(
     KioskContext ctx
-) : IServiceClientService
+) : IServiceService
 {
 
     public async Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken)

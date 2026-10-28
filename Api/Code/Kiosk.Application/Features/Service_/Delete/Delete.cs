@@ -6,7 +6,7 @@ using Kiosk.Application.Services.Client;
 namespace Kiosk.Application.Features.Service_.Delete;
 
 public class Delete(
-    IServiceClientService serviceService
+    IServiceService serviceService
 ) : BaseFeature
 {
     public async Task<Result<GetPayload>> ExecuteAsync(Guid id, CancellationToken cancellationToken)
