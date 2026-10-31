@@ -1,0 +1,10 @@
+info:
+  name: User
+  type: folder
+  seq: 5
+
+request:
+  headers:
+    - name: Authorization
+      value: Bearer  {{user_token}}
+  auth: inherit

@@ -6,7 +6,7 @@ using Kiosk.Application.Services.Client;
 namespace Kiosk.Application.Features.VariantIngredient_.Create;
 
 public class Create(
-    IVariantIngredientClientService variantIngredientService
+    IVariantIngredientService variantIngredientService
 ) : BaseFeature
 {
     public async Task<Result<GetPayload>> ExecuteAsync(CreatePayload request, CancellationToken cancellationToken)

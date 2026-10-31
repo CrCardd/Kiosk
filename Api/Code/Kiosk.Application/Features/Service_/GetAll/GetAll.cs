@@ -7,7 +7,7 @@ using Kiosk.Application.Services.Client;
 namespace Kiosk.Application.Features.Service_.GetAll;
 
 public class GetAll(
-    IServiceClientService serviceService
+    IServiceService serviceService
 ) : BaseFeature
 {
     public async Task<Result<GenericListPayload<GetPayload>>> ExecuteAsync(bool? available, CancellationToken cancellationToken)

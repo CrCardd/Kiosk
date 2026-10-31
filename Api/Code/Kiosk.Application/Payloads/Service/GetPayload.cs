@@ -1,8 +1,9 @@
+using Kiosk.Domain.Interfaces;
 using Kiosk.Domain.Models;
 
 namespace Kiosk.Application.Payloads.Service;
 
-public record GetPayload
+public record GetPayload : IBaseGetPayload<ServiceModel, GetPayload>
 {
     public required Guid Id {get;init;}
     public required string Name {get;init;}

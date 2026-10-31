@@ -1,0 +1,16 @@
+info:
+  name: Open
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{host}}/organization/open/8255dcbd-8b80-4e98-a931-c7c22521c9b8"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

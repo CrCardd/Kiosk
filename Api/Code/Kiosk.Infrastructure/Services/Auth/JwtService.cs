@@ -13,6 +13,10 @@ public class JWTService : IJwtService
 {
     public GetTokenPayload Generate(CreateTokenPayload payload, int durationMinutes = 120)
     {
+        return Generate(payload, DateTimeOffset.UtcNow.AddMinutes(durationMinutes));
+    }
+    public GetTokenPayload Generate(CreateTokenPayload payload, DateTimeOffset expiresAt)
+    {
         try
         {
             var jwtSecret = Environment.GetEnvironmentVariable("INTERNAL_JWT_KEY");
@@ -21,17 +25,37 @@ public class JWTService : IJwtService
             
             var claims = new List<Claim>
             {
-                new(MyClaims.OrganizationId, payload.OrganizationId.ToString()),
-                new(MyClaims.Email, payload.Email),
+                new(MyClaims.TokenType, TokenTypes.GetTokenTypeName(payload.TokenType)),
+                new(MyClaims.TokenPurpose, TokenPurposes.GetTokenPurposeName(payload.TokenPurpose))
             };
-            foreach(var role in payload.Roles)
-                claims.Add(new Claim(MyClaims.Roles, Roles.GetRoleName(role)));
+
+            // email
+            if (payload?.Email is not null)
+                claims.Add(new(MyClaims.Email, payload.Email));
+            
+            // user
+            if (payload?.UserId is not null)
+                claims.Add(new(MyClaims.UserId, payload.UserId.ToString()!));
+
+            // segment
+            if (payload?.SegmentId is not null)
+                claims.Add(new(MyClaims.SegmentId, payload.SegmentId.ToString()!));
+            if (payload?.SegmentRole is not null)
+                claims.Add(new(MyClaims.SegmentRoles, ((int)payload.SegmentRole).ToString()!));
+
+            // organization
+            if (payload?.OrganizationId is not null)
+                claims.Add(new(MyClaims.OrganizationId, payload.OrganizationId.ToString()!));
+            if (payload?.OrganizationRole is not null)
+                claims.Add(new(MyClaims.OrganizationRoles, ((int)payload.OrganizationRole).ToString()!));
+
+            // cart
             if (payload?.CartId is not null)
                 claims.Add(new(MyClaims.CartId, payload.CartId.ToString()!));
 
             var jwt = new JwtSecurityToken(
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(durationMinutes),
+                expires: expiresAt.UtcDateTime,
                 signingCredentials: new SigningCredentials(
                     key,
                     SecurityAlgorithms.HmacSha256Signature

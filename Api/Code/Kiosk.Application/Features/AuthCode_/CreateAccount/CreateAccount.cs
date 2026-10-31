@@ -10,8 +10,8 @@ using Kiosk.Domain.Utils;
 namespace Kiosk.Application.Features.AuthCode_.CreateAccount;
 
 public class CreateAccount(
-    IAuthCodeClientService service,
-    IOrganizationClientService organizationService,
+    IAuthCodeService service,
+    IUserService userService,
 
     IPasswordService passwordService,
     IEmailService emailService
@@ -19,7 +19,7 @@ public class CreateAccount(
 {
     public async Task<Result> ExecuteAsync(string email, CancellationToken cancellationToken)
     {
-        if(organizationService.TryGet(o => o.Email == email, out var organization))
+        if(userService.TryGet(o => o.Email == email, out var user))
             throw new BadRequestEx("There is already an account for this e-mail");
 
         var orgEmail = Environment.GetEnvironmentVariable("RESEND_EMAIL");

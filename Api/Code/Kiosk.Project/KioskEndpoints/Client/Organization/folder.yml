@@ -1,10 +1,7 @@
 info:
   name: Organization
   type: folder
-  seq: 1
+  seq: 3
 
 request:
-  headers:
-    - name: Authorization
-      value: Bearer {{o_token}}
   auth: inherit

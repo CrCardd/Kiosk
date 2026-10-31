@@ -7,7 +7,7 @@ using Kiosk.Application.Services.Client;
 namespace Kiosk.Application.Features.Auth_.StartKiosk;
 
 public class StartKiosk(
-    ICodeClientService codeService,
+    ICodeService codeService,
 
     IPasswordService passwordService,
     IJwtService jwtService
@@ -28,9 +28,9 @@ public class StartKiosk(
         var tokenPayload = jwtService.Generate(
             new CreateTokenPayload
             {
-                OrganizationId = codeEntity.Organization.Id,
-                Email = codeEntity.Organization.Email,
-                Roles = [Role.Kiosk],
+                SegmentId = codeEntity.Segment.Id,
+                TokenType = TokenType.Kiosk,
+                TokenPurpose = TokenPurpose.Access,
             }
         );
 

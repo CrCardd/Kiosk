@@ -23,11 +23,16 @@ public static class ServiceConfiguration
         var allTypes = assemblies.SelectMany(a => a.GetTypes()).ToList();
 
         var interfaces = allTypes
-            .Where(t => t.IsInterface && typeof(IBaseService).IsAssignableFrom(t) && t != typeof(IBaseService))
+            .Where(t => 
+                t.IsInterface 
+                && typeof(IBaseService).IsAssignableFrom(t) 
+                && t != typeof(IBaseService)
+                && !t.ContainsGenericParameters
+            )
             .ToList(); 
 
         foreach(var iservice in interfaces) 
-        { 
+        {
             var implementation = allTypes
                 .First(t => t.IsClass && !t.IsAbstract && iservice.IsAssignableFrom(t));     
             builder.Services.AddTransient(iservice, implementation); 

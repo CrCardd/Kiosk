@@ -6,7 +6,7 @@ using Kiosk.Application.Services.Client;
 namespace Kiosk.Application.Features.CartItem_.Create;
 
 public class Create(
-    ICartItemClientService cartItemService
+    ICartItemService cartItemService
 ) : BaseFeature
 {
     public async Task<Result<GetPayload>> ExecuteAsync(CreatePayload request, CancellationToken cancellationToken)

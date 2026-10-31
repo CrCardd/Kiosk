@@ -7,25 +7,28 @@ using Kiosk.Application.Features.Code_;
 using Kiosk.Domain.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Kiosk.Application.Services;
+using Kiosk.Domain.Interfaces;
 
 namespace Kiosk.Api.Controllers.Client;
 
 [ApiController]
 [Route(APIRoutes.Code)]
 public class CodeController(
+    IApiContext ctx,
+
     Create create,
     StartKiosk startKiosk
 ) : ApiController
 {
 
-    [OrganizationAuth]
+    [SegmentAuth]
     [HttpPost]
     public async Task<ActionResult<Result<GetTokenPayload>>> Create(
         CancellationToken cancellationToken
     )
     {
-        var organizationId = User.FindFirst(MyClaims.OrganizationId)!.Value;
-        var response = await create.ExecuteAsync(Guid.Parse(organizationId), cancellationToken);
+        var segmentId = ctx.SegmentId;
+        var response = await create.ExecuteAsync((Guid)segmentId!, cancellationToken);
         return response;
     }
 

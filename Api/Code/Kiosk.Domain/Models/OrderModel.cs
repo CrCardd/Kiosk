@@ -1,7 +1,7 @@
 
 namespace Kiosk.Domain.Models;
 
-public class OrderModel : BaseModel
+public class OrderModel : BaseModelWithSegment
 {
     //================PROPERTIES================
     public required string Index {get;set;}
@@ -12,8 +12,4 @@ public class OrderModel : BaseModel
     public required Guid CartId {get;set;}
     //================RELATIONS================
 
-    public bool IsValidOrganization(Guid organizationId)
-    {
-        return Cart.OrganizationId == organizationId;
-    } 
 }

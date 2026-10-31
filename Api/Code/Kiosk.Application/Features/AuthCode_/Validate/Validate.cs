@@ -8,7 +8,7 @@ using Kiosk.Application.Services;
 namespace Kiosk.Application.Features.AuthCode_.Validate;
 
 public class Validate(
-    IAuthCodeClientService authCodeService,
+    IAuthCodeService authCodeService,
 
     IPasswordService passwordService,
     IJwtService jwtService
@@ -25,9 +25,10 @@ public class Validate(
         var tokenPayload = jwtService.Generate(
             new CreateTokenPayload
             {
-                OrganizationId = Guid.Empty,
+                SegmentId = Guid.Empty,
                 Email = request.Email,
-                Roles = [Role.Register],
+                TokenType = TokenType.User,
+                TokenPurpose = TokenPurpose.Register,
             }
         );
 

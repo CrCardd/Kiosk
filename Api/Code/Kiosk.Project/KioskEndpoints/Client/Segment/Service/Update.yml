@@ -1,0 +1,33 @@
+info:
+  name: Update
+  type: http
+  seq: 2
+
+http:
+  method: PATCH
+  url: "{{host}}/service"
+  body:
+    type: json
+    data: |-
+      {
+        "Id" : "00000000-0000-0000-0000-000000000001"
+      //   "Name" : {
+      //     "HasChanged" : false,
+      //     "Value" : "null"
+      //   },
+      //   "Image" : {
+      //     "HasChanged" : false,
+      //     "Value" : null
+      //   },
+      //   "Available" : {
+      //     "HasChanged" : false,
+      //     "Value" : null
+      //   }
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

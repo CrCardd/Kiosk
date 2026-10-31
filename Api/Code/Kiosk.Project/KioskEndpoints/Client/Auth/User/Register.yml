@@ -1,0 +1,31 @@
+info:
+  name: Register
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: "{{host}}/register"
+  headers:
+    - name: Authorization
+      value: Bearer {{register_token}}
+  body:
+    type: json
+    data: |-
+      {
+        "Name" : "cr.cardd",
+        "Password" : "senha123"
+      }
+  auth: inherit
+
+runtime:
+  variables:
+    - name: r_token
+      value: eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6YXRpb25faWQiOiIwMDAwMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDAiLCJlbWFpbCI6ImNyaXMucmMzNzdAZ21haWwuY29tIiwicm9sZXMiOiJyZWdpc3RlciIsImV4cCI6MTc4Mzc0ODg3MH0.PCkPTiZhTECvEGNs7cbbzMuowILqBfciKGEwvq_zraI
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true

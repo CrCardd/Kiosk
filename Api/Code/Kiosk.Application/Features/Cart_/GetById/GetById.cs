@@ -6,7 +6,7 @@ using Kiosk.Application.Services.Client;
 namespace Kiosk.Application.Features.Cart_.GetById;
 
 public class GetById(
-    ICartClientService cartService
+    ICartService cartService
 ) : BaseFeature
 {
     public async Task<Result<GetPayload>> ExecuteAsync(Guid id, CancellationToken cancellationToken)

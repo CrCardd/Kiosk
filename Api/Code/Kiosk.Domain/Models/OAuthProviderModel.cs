@@ -12,7 +12,6 @@ public class OAuthProviderModel : BaseModel
     public required string Picture {get;set;}
     public required OAuthProviderType Type {get;set;}
     //================MY-RELATIONS================
-    public required OrganizationModel Organization {get;set;}
-    public required Guid OrganizationId {get;set;}
+    
     //================RELATIONS================
 }

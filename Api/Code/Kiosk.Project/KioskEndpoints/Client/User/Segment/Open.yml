@@ -1,0 +1,16 @@
+info:
+  name: Open
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{host}}/segment/open/c590f1c2-263c-4f79-8ee9-3c35cd3d2f60"
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

@@ -10,7 +10,7 @@ namespace Kiosk.Application.Features.Auth_.ForgotPassword;
 
 public class ForgotPassword 
 (
-    IOrganizationClientService organizationService,
+    IUserService userService,
 
     IEmailService emailService,
     IJwtService jwtService
@@ -18,7 +18,7 @@ public class ForgotPassword
 {
     public async Task<Result> ExecuteAsync(string email, CancellationToken cancellationToken)
     {
-        if(!organizationService.TryGet(o => o.Email == email, out var organization))
+        if(!userService.TryGet(o => o.Email == email, out var user))
             throw new NotFoundEx("Email not found");
 
         var orgEmail = Environment.GetEnvironmentVariable("RESEND_EMAIL");
@@ -33,9 +33,10 @@ public class ForgotPassword
         var tokenPayload = jwtService.Generate(
             new CreateTokenPayload
             {
-                OrganizationId = organization.Id,
-                Email = organization.Email,
-                Roles = [Role.Password],
+                UserId = user.Id,
+                Email = user.Email,
+                TokenType = TokenType.User,
+                TokenPurpose = TokenPurpose.Password,
             },
             5
         );

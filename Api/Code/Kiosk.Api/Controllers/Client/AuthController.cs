@@ -4,10 +4,10 @@ using Kiosk.Application.Features.Auth_;
 using Kiosk.Application.Features.Auth_.Create;
 using Microsoft.AspNetCore.Mvc;
 using Kiosk.Application.Services;
-using Kiosk.Application.Features.Auth_.Provider;
 using Kiosk.Application.Features.Auth_.ForgotPassword;
-using Kiosk.Application.Features.Organization_.UpdatePassword;
 using Kiosk.Api.Common.Auth;
+using Kiosk.Application.Features.Auth_.OAuthProviderLogin;
+using Kiosk.Application.Features.Auth_.UpdatePassword;
 
 namespace Kiosk.Api.Controllers.Client;
 
@@ -17,7 +17,7 @@ public class AuthController(
     Login login,
     ForgotPassword forgotPassword,
     UpdatePassword updatePassword,
-    OAuthProviderLogin provider
+    OAuthProviderLogin organizationProvider
 ) : ApiController
 {
     [HttpPost]
@@ -30,7 +30,7 @@ public class AuthController(
     }
 
     [HttpPost("provider")]
-    public async Task<ActionResult<Result<GetTokenPayload>>> ProviderLogin(
+    public async Task<ActionResult<Result<GetTokenPayload>>> OrganizationProviderLogin(
         [FromQuery] string idToken, 
         [FromQuery] string providerType, 
         CancellationToken cancellationToken
@@ -42,9 +42,14 @@ public class AuthController(
             Provider = providerType
         };
 
-        var response = await provider.ExecuteAsync(payload, cancellationToken);
+        var response = await organizationProvider.ExecuteAsync(payload, cancellationToken);
         return response;
     }
+
+
+
+
+
 
     [HttpPost("forgot-password/{email}")]
     public async Task<ActionResult<Result>> ForgotPassword(

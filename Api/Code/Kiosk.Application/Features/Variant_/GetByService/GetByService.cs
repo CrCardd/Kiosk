@@ -7,7 +7,7 @@ using Kiosk.Application.Services;
 namespace Kiosk.Application.Features.Variant_.GetByService;
 
 public class GetByService(
-    IVariantClientService variantService
+    IVariantService variantService
 ) : BaseFeature
 {
     public async Task<Result<GenericListPayload<GetPayload>>> ExecuteAsync(Guid serviceId, CancellationToken cancellationToken)

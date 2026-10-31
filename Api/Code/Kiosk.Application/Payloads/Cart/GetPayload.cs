@@ -1,8 +1,9 @@
+using Kiosk.Domain.Interfaces;
 using Kiosk.Domain.Models;
 
 namespace Kiosk.Application.Payloads.Cart;
 
-public record GetPayload
+public record GetPayload : IBaseGetPayload<CartModel, GetPayload>
 {
     public required Guid Id {get;init;}
     public required string Client {get;init;}

@@ -1,7 +1,7 @@
 
 namespace Kiosk.Domain.Models;
 
-public class VariantIngredientModel : BaseModel
+public class VariantIngredientModel : BaseModelWithSegment
 {
     //================PROPERTIES================
     public required bool Available {get;set;}
@@ -12,8 +12,4 @@ public class VariantIngredientModel : BaseModel
     public required Guid IngredientId {get;set;}
     //================RELATIONS================
 
-    public bool IsValidOrganization(Guid organizationId)
-    {
-        return Variant.IsValidOrganization(organizationId) && Ingredient.IsValidOrganization(organizationId);
-    } 
 }

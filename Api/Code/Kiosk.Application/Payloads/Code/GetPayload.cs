@@ -1,12 +1,13 @@
+using Kiosk.Domain.Interfaces;
 using Kiosk.Domain.Models;
 
 namespace Kiosk.Application.Payloads.Code;
 
-public record GetPayload
+public record GetPayload : IBaseGetPayload<CodeModel, GetPayload>
 {
     public required Guid Id {get;init;}
     public required string Code {get;init;}
-    public required GetOrganization Organization {get;init;}
+    public required GetSegment Segment {get;init;}
     public required DateTime StartDate {get;init;}
     public required DateTime EndDate {get;init;}
 
@@ -18,22 +19,22 @@ public record GetPayload
             Code = code.Code,
             EndDate = code.EndDate,
             StartDate = code.StartDate,
-            Organization = GetOrganization.ToDto(code.Organization)
+            Segment = GetSegment.ToDto(code.Segment)
         };
     }
 }
 
-public record GetOrganization
+public record GetSegment
 {
     public required Guid Id {get;init;}
-    public required string Email {get;init;}
+    // public required string Email {get;init;}
 
-    public static GetOrganization ToDto(OrganizationModel organization)
+    public static GetSegment ToDto(SegmentModel segment)
     {
-        return new GetOrganization
+        return new GetSegment
         {
-            Id = organization.Id,
-            Email = organization.Email,
+            Id = segment.Id,
+            // Email = segment.Email,
         };
     }
 }

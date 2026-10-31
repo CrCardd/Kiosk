@@ -7,7 +7,7 @@ DELETE FROM tb_cart_item;
 DELETE FROM tb_cart_item_ingredient;
 DELETE FROM tb_combination;
 DELETE FROM tb_ingredient;
-DELETE FROM tb_organization;
+DELETE FROM tb_segment;
 DELETE FROM tb_order;
 DELETE FROM tb_price_history_ingredient;
 DELETE FROM tb_price_history_variant;
@@ -19,14 +19,14 @@ DELETE FROM tb_variant_ingredient;
 SET FOREIGN_KEY_CHECKS = 1;
 SET SQL_SAFE_UPDATES = 1;
 
--- ==ORGANIZATION============================================================================================
+-- ==SEGMENT============================================================================================
 -- ID                                     NAME   EMAIL					 	PASSWORD           
-INSERT INTO tb_organization VALUES 
+INSERT INTO tb_segment VALUES 
 ('00000000-0000-0000-0000-000000000001', 'Org', 'cris.rc3777@gmail.com',	'AQAAAAIAAYagAAAAEB1cf1l4L+FEnduc7spWQqw2oDPvawIFC2ms+0mCr9kPnBU4MGQWcf3fKn/v67MVBw==',        NOW(), NOW(), NULL);
 
 SELECT * FROM tb_service;
 -- ==SERVICE============================================================================================
---              ID                       NAME            IMAGE                AVAILABLE  ORGANIZATION_ID
+--              ID                       NAME            IMAGE                AVAILABLE  SEGMENT_ID
 INSERT INTO tb_service VALUES
 ('00000000-0000-0000-0000-000000000001', 'Pastel',       'https://image.com', 1,         '00000000-0000-0000-0000-000000000001', NOW(), NOW(), NULL),
 ('00000000-0000-0000-0000-000000000002', 'Refrigerante', 'https://image.com', 1,         '00000000-0000-0000-0000-000000000001', NOW(), NOW(), NULL),
@@ -35,7 +35,7 @@ INSERT INTO tb_service VALUES
 
 
 -- ==VARIANT============================================================================================
-INSERT INTO tb_variant (id, name, image, ingredients, surpass, available, service_id, organization_id, created_at, updated_at, disabled_at) VALUES
+INSERT INTO tb_variant (id, name, image, ingredients, surpass, available, service_id, segment_id, created_at, updated_at, disabled_at) VALUES
 -- ======PASTEL=====================
 ('00000000-0000-0000-0000-000000000001', 'Medio',   'https://image.com', 2, 1, 1, '00000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-000000000001', NOW(), NOW(), NULL),
 -- ======REFRIGERANTE===============
@@ -51,7 +51,7 @@ INSERT INTO tb_variant (id, name, image, ingredients, surpass, available, servic
 
 -- ==INGREDIENT============================================================================================
 INSERT INTO tb_ingredient VALUES
--- ID, NAME, QUANTITY, AVAILABLE, SERVICE_ID, ORGANIZATION_ID, CREATED_AT, UPDATED_AT, DISABLED_AT
+-- ID, NAME, QUANTITY, AVAILABLE, SERVICE_ID, SEGMENT_ID, CREATED_AT, UPDATED_AT, DISABLED_AT
 -- ======PASTEL=====================
 ('00000000-0000-0000-0000-000000000001', 'Carne', NULL, 1, '00000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-000000000001', NOW(), NOW(), NULL),
 ('00000000-0000-0000-0000-000000000002', 'Queijo', NULL, 1, '00000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-000000000001', NOW(), NOW(), NULL),

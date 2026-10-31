@@ -6,7 +6,7 @@ using Kiosk.Application.Services;
 namespace Kiosk.Application.Features.Variant_.Create;
 
 public class Update(
-    IVariantClientService variantService
+    IVariantService variantService
 ) : BaseFeature
 {
     public async Task<Result<GetPayload>> ExecuteAsync(UpdatePayload request, CancellationToken cancellationToken)

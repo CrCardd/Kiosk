@@ -9,7 +9,7 @@ public static class ServiceClassMap
     public static void ConfigureServiceTable(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<ServiceModel>(builder =>
     {
-        builder.ConfigureBaseTableProps();
+        builder.ConfigureBaseWithSegmentTableProps();
         builder.HasKey(service => service.Id)
             .HasName("service_id");
         builder.ToTable("tb_service");
@@ -26,12 +26,12 @@ public static class ServiceClassMap
             .HasColumnName("available")
             .IsRequired();
         //================MY-RELATIONS================
-        builder.Property(s => s.OrganizationId)
-            .HasColumnName("organization_id")
+        builder.Property(s => s.SegmentId)
+            .HasColumnName("segment_id")
             .IsRequired();
-        builder.HasOne(s => s.Organization)
+        builder.HasOne(s => s.Segment)
             .WithMany(o => o.Services)
-            .HasForeignKey(s => s.OrganizationId);
+            .HasForeignKey(s => s.SegmentId);
         //================RELATIONS================
         builder.HasMany(s => s.Variants)
             .WithOne(v => v.Service)

@@ -25,7 +25,7 @@ public class ServiceController(
     Delete delete
 ) : ApiController
 {
-    [OrganizationAuth]
+    [SegmentAuth]
     [HttpPost]
     public async Task<ActionResult<Result<GetPayload>>> Create(
         CreatePayload request, CancellationToken cancellationToken
@@ -57,7 +57,7 @@ public class ServiceController(
         return response;
     }
 
-    [OrganizationAuth]
+    [SegmentAuth]
     [HttpPatch]
     public async Task<ActionResult<Result<GetPayload>>> Update
     (
@@ -69,7 +69,7 @@ public class ServiceController(
         return response;
     }
 
-    [OrganizationAuth]
+    [SegmentAuth]
     [HttpDelete("{id}")]
     public async Task<ActionResult<Result<GetPayload>>> Delete
     (

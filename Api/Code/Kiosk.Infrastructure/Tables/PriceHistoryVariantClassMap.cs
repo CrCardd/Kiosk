@@ -9,7 +9,7 @@ public static class PriceHistoryVariantClassMap
     public static void ConfigurePriceHistoryVariantTable(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<PriceHistoryVariantModel>(builder =>
     {
-        builder.ConfigureBaseTableProps();
+        builder.ConfigureBaseWithSegmentTableProps();
         builder.HasKey(pricehistoryvariant => pricehistoryvariant.Id)
             .HasName("price_history_variant_id");
         builder.ToTable("tb_price_history_variant");

@@ -9,7 +9,7 @@ public static class CartClassMap
     public static void ConfigureCartTable(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<CartModel>(builder =>
     {
-        builder.ConfigureBaseTableProps();
+        builder.ConfigureBaseWithSegmentTableProps();
 
         builder.HasKey(cart => cart.Id)
             .HasName("cart_id");
@@ -24,13 +24,7 @@ public static class CartClassMap
             .HasColumnName("session_token")
             .IsRequired();
         //================MY-RELATIONS================
-        builder.Property(c => c.OrganizationId)
-            .HasColumnName("organization_id")
-            .IsRequired();
-        builder.HasOne(c => c.Organization)
-            .WithMany(o => o.Carts)
-            .HasForeignKey(c => c.OrganizationId)
-            .IsRequired();
+        
         //================RELATIONS================
         builder.HasOne(c => c.Order)
             .WithOne(o => o.Cart)

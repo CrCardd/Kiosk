@@ -9,12 +9,12 @@ using Kiosk.Application.Services.Client;
 namespace Kiosk.Application.Features.Code_;
 
 public class Create(
-    ICodeClientService service,
+    ICodeService service,
 
     IPasswordService passwordService
 ) : BaseFeature
 {
-    public async Task<Result<GetTokenPayload>> ExecuteAsync(Guid organizationId, CancellationToken cancellationToken)
+    public async Task<Result<GetTokenPayload>> ExecuteAsync(Guid segmentId, CancellationToken cancellationToken)
     {
         DateTime endDate;
         try

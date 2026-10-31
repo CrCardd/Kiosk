@@ -1,9 +1,10 @@
 using Kiosk.Application.Payloads.Service;
+using Kiosk.Domain.Interfaces;
 using Kiosk.Domain.Models;
 
 namespace Kiosk.Application.Payloads.Variant;
 
-public record GetPayload
+public record GetPayload : IBaseGetPayload<VariantModel, GetPayload>
 {
     public required Guid Id {get;init;}
     public required string Name {get;init;}

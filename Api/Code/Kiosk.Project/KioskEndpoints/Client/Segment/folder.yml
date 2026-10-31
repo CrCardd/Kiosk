@@ -1,0 +1,10 @@
+info:
+  name: Segment
+  type: folder
+  seq: 1
+
+request:
+  headers:
+    - name: Authorization
+      value: Bearer {{segment_token}}
+  auth: inherit

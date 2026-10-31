@@ -6,7 +6,7 @@ using Kiosk.Application.Services.Client;
 namespace Kiosk.Application.Features.Variant_.GetById;
 
 public class GetById(
-    IVariantClientService variantService
+    IVariantService variantService
 ) : BaseFeature
 {
     public async Task<Result<GetPayload>> ExecuteAsync(Guid id, CancellationToken cancellationToken)

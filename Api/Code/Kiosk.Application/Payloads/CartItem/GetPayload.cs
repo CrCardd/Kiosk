@@ -1,8 +1,9 @@
+using Kiosk.Domain.Interfaces;
 using Kiosk.Domain.Models;
 
 namespace Kiosk.Application.Payloads.CartItem;
 
-public record GetPayload
+public record GetPayload : IBaseGetPayload<CartItemModel, GetPayload>
 {
     public required Guid Id {get;init;}
     public required decimal SnapShotPrice {get;init;}

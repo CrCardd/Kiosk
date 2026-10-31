@@ -13,9 +13,6 @@ COPY ./Code .
 
 RUN dotnet publish -c Release -o /app/publish
 
-# FROM mcr.microsoft.com/dotnet/aspnet:9.0-alpine
-# RUN addgroup -S appgroup
-# RUN adduser -S appuser -G appgroup
 
 FROM mcr.microsoft.com/dotnet/aspnet:9.0-bookworm-slim
 RUN groupadd -r appgroup

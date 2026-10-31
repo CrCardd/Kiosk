@@ -9,7 +9,7 @@ public static class VariantClassMap
     public static void ConfigureVariantTable(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<VariantModel>(builder =>
     {
-        builder.ConfigureBaseTableProps();
+        builder.ConfigureBaseWithSegmentTableProps();
         builder.HasKey(variant => variant.Id)
             .HasName("variant_id");
         builder.ToTable("tb_variant");
@@ -29,12 +29,12 @@ public static class VariantClassMap
             .HasColumnName("available")
             .IsRequired();
         //================MY-RELATIONS================        
-        builder.Property(v => v.OrganizationId)
-            .HasColumnName("organization_id")
+        builder.Property(v => v.SegmentId)
+            .HasColumnName("segment_id")
             .IsRequired();
-        builder.HasOne(v => v.Organization)
+        builder.HasOne(v => v.Segment)
             .WithMany(o => o.Variants)
-            .HasForeignKey(v => v.OrganizationId);
+            .HasForeignKey(v => v.SegmentId);
         builder.Property(v => v.ServiceId)
             .HasColumnName("service_id")
             .IsRequired();

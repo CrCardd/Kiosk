@@ -29,13 +29,7 @@ public static class OAuthProviderClassMap
         builder.Property(p => p.Type)
             .HasColumnName("type")
             .IsRequired();
-        //================MY-RELATIONS================        
-        builder.Property(p => p.OrganizationId)
-            .HasColumnName("organization_id")
-            .IsRequired();
-        builder.HasOne(p => p.Organization)
-            .WithMany(p => p.Providers)
-            .HasForeignKey(o => o.OrganizationId);
+        //================MY-RELATIONS================
         //================RELATIONS================
     });
 }

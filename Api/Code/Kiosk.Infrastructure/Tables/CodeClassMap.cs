@@ -8,7 +8,7 @@ public static class CodeClassMap
     public static void ConfigureCodeTable(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<CodeModel>(builder =>
     {
-        builder.ConfigureBaseTableProps();
+        builder.ConfigureBaseWithSegmentTableProps();
         builder.HasKey(code => code.Id)
             .HasName("code_id");
         builder.ToTable("tb_code");
@@ -23,12 +23,12 @@ public static class CodeClassMap
             .HasColumnName("end_date")
             .IsRequired();
         //================MY-RELATIONS================
-        builder.Property(c => c.OrganizationId)
-            .HasColumnName("organization_id")
+        builder.Property(c => c.SegmentId)
+            .HasColumnName("segment_id")
             .IsRequired();
-        builder.HasOne(c => c.Organization)
+        builder.HasOne(c => c.Segment)
             .WithMany(c => c.Codes)
-            .HasForeignKey(c => c.OrganizationId);
+            .HasForeignKey(c => c.SegmentId);
         //================RELATIONS================
     });
 }

@@ -1,0 +1,23 @@
+info:
+  name: Create
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: "{{host}}/service"
+  body:
+    type: json
+    data: |-
+      {
+        "Name" : "Pastel",
+        "Image" : "image.com"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true
