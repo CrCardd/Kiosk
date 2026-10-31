@@ -6,11 +6,8 @@ using Kiosk.Domain.Models;
 
 namespace Kiosk.Application.Services.Client;
 
-public interface IOrganizationService : IBaseService
+public interface IOrganizationService : IBaseService<OrganizationModel, GetPayload>
 {
     Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken);
     Task<Result<GetPayload>> Update(UpdatePayload payload, CancellationToken cancellationToken);
-
-    GetPayload Get(Expression<Func<OrganizationModel, bool>> predicate);
-    bool TryGet(Expression<Func<OrganizationModel, bool>> predicate, [NotNullWhen(true)]  out GetPayload? getPayload);
 }

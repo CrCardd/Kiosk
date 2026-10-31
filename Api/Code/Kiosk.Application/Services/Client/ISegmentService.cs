@@ -7,11 +7,8 @@ using Kiosk.Domain.Models;
 
 namespace Kiosk.Application.Services.Client;
 
-public interface ISegmentService : IBaseService
+public interface ISegmentService : IBaseService<SegmentModel, GetPayload>
 {
     Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken);
     Task<Result<GetPayload>> Update(UpdatePayload payload, CancellationToken cancellationToken);
-
-    GetPayload Get(Expression<Func<SegmentModel, bool>> predicate);
-    bool TryGet(Expression<Func<SegmentModel, bool>> predicate, [NotNullWhen(true)]  out GetPayload? getPayload);
 }

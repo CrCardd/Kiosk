@@ -11,5 +11,7 @@ public interface IApiContext
     string? Email { get; }
     SegmentRole? SegmentRoles { get; }
     OrganizationRole? OrganizationRoles { get; }
-    List<TokenType> TokenTypes { get; }
+    TokenType TokenType { get; }
+    TokenPurpose TokenPurpose { get; }
+    DateTimeOffset? ExpiresAt { get; }
 }

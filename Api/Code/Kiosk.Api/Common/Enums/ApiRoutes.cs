@@ -14,4 +14,6 @@ public static class APIRoutes
     public const string Auth = "api/auth";
     public const string Code = "api/code";
     public const string Register = "api/register";
+    public const string Segment = "api/segment";
+    public const string Organization = "api/organization";
 }

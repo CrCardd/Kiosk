@@ -1,9 +1,10 @@
 using Kiosk.Domain.Common.Enums;
+using Kiosk.Domain.Interfaces;
 using Kiosk.Domain.Models;
 
 namespace Kiosk.Application.Payloads.Provider;
 
-public record GetPayload
+public record GetPayload : IBaseGetPayload<OAuthProviderModel, GetPayload>
 {
     public required Guid Id {get;init;}
     public required string Subject {get;init;}

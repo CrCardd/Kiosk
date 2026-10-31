@@ -21,20 +21,17 @@ public class ExceptionHandler : IExceptionHandler
             (status, message) = (ex.Status, ex.Message);
 
             var logger = httpContext.RequestServices.GetRequiredService<ILogger<Program>>();
-            logger.LogWarning($"Domain Error: ${message}");
+            logger.LogWarning(ex, "Domain Error: {Message}", message);
         }
         else
         {            
             (status, message) = (
                 Status.InternalServerError, 
-                $"""
-                    Method was not setted on ExceptionHandler.
-                    See the logs for further information.
-                """
+                "Method was not setted on ExceptionHandler. See the logs for further information."
             );
 
             var logger = httpContext.RequestServices.GetRequiredService<ILogger<Program>>();
-            logger.LogError($"System Error: ${exception.Message}");
+            logger.LogError(exception, "System Error");
         }
 
         httpContext.Response.StatusCode = status.Code();

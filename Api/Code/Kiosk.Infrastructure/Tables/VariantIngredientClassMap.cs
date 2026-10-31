@@ -9,7 +9,7 @@ public static class VariantIngredientClassMap
     public static void ConfigureVariantIngredientTable(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<VariantIngredientModel>(builder =>
     {
-        builder.ConfigureBaseTableProps();
+        builder.ConfigureBaseWithSegmentTableProps();
         builder.HasKey(order => order.Id)
             .HasName("variant_ingredient_id");
         builder.ToTable("tb_variant_ingredient");

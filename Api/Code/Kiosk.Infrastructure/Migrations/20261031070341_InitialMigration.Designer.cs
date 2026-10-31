@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Kiosk.Infrastructure.Migrations
 {
     [DbContext(typeof(KioskContext))]
-    [Migration("20260821031126_InitialMigration")]
+    [Migration("20261031070341_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace Kiosk.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.19")
+                .HasAnnotation("ProductVersion", "9.0.22")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
@@ -67,6 +67,56 @@ namespace Kiosk.Infrastructure.Migrations
                     b.ToTable("tb_auth_code", (string)null);
                 });
 
+            modelBuilder.Entity("Kiosk.Domain.Models.BaseModelWithOrganization", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DisabledAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid>("OrganizationId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.ToTable("BaseModelWithOrganization");
+                });
+
+            modelBuilder.Entity("Kiosk.Domain.Models.BaseModelWithSegment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DisabledAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid>("SegmentId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SegmentId");
+
+                    b.ToTable("BaseModelWithSegment");
+                });
+
             modelBuilder.Entity("Kiosk.Domain.Models.CartItemModel", b =>
                 {
                     b.Property<Guid>("Id")
@@ -89,6 +139,10 @@ namespace Kiosk.Infrastructure.Migrations
                         .HasColumnType("char(36)")
                         .HasColumnName("reference_id");
 
+                    b.Property<Guid>("SegmentId")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("segment_id");
+
                     b.Property<decimal>("SnapShotPrice")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)")
@@ -108,6 +162,8 @@ namespace Kiosk.Infrastructure.Migrations
                     b.HasIndex("CartId");
 
                     b.HasIndex("ReferenceId");
+
+                    b.HasIndex("SegmentId");
 
                     b.HasIndex("VariantId");
 
@@ -141,6 +197,9 @@ namespace Kiosk.Infrastructure.Migrations
                         .HasColumnType("char(36)")
                         .HasColumnName("segment_id");
 
+                    b.Property<Guid?>("SegmentModelId")
+                        .HasColumnType("char(36)");
+
                     b.Property<string>("SessionToken")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -155,6 +214,8 @@ namespace Kiosk.Infrastructure.Migrations
                         .HasName("cart_id");
 
                     b.HasIndex("SegmentId");
+
+                    b.HasIndex("SegmentModelId");
 
                     b.ToTable("tb_cart", (string)null);
                 });
@@ -224,6 +285,10 @@ namespace Kiosk.Infrastructure.Migrations
                         .HasColumnType("char(36)")
                         .HasColumnName("part_id");
 
+                    b.Property<Guid>("SegmentId")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("segment_id");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)")
                         .HasColumnName("updated_at");
@@ -234,6 +299,8 @@ namespace Kiosk.Infrastructure.Migrations
                     b.HasIndex("CombId");
 
                     b.HasIndex("PartId");
+
+                    b.HasIndex("SegmentId");
 
                     b.ToTable("tb_combination", (string)null);
                 });
@@ -366,6 +433,10 @@ namespace Kiosk.Infrastructure.Migrations
                         .HasColumnType("varchar(255)")
                         .HasColumnName("index");
 
+                    b.Property<Guid>("SegmentId")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("segment_id");
+
                     b.Property<decimal>("Total")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)")
@@ -380,6 +451,8 @@ namespace Kiosk.Infrastructure.Migrations
 
                     b.HasIndex("CartId")
                         .IsUnique();
+
+                    b.HasIndex("SegmentId");
 
                     b.ToTable("tb_order", (string)null);
                 });
@@ -437,6 +510,10 @@ namespace Kiosk.Infrastructure.Migrations
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("price");
 
+                    b.Property<Guid>("SegmentId")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("segment_id");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)")
                         .HasColumnName("updated_at");
@@ -445,6 +522,8 @@ namespace Kiosk.Infrastructure.Migrations
                         .HasName("price_history_ingredient_id");
 
                     b.HasIndex("IngredientId");
+
+                    b.HasIndex("SegmentId");
 
                     b.ToTable("tb_price_history_ingredient", (string)null);
                 });
@@ -468,6 +547,10 @@ namespace Kiosk.Infrastructure.Migrations
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("price");
 
+                    b.Property<Guid>("SegmentId")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("segment_id");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)")
                         .HasColumnName("updated_at");
@@ -478,6 +561,8 @@ namespace Kiosk.Infrastructure.Migrations
 
                     b.HasKey("Id")
                         .HasName("price_history_variant_id");
+
+                    b.HasIndex("SegmentId");
 
                     b.HasIndex("VariantId");
 
@@ -710,6 +795,10 @@ namespace Kiosk.Infrastructure.Migrations
                         .HasColumnType("char(36)")
                         .HasColumnName("ingredient_id");
 
+                    b.Property<Guid>("SegmentId")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("segment_id");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)")
                         .HasColumnName("updated_at");
@@ -722,6 +811,8 @@ namespace Kiosk.Infrastructure.Migrations
                         .HasName("variant_ingredient_id");
 
                     b.HasIndex("IngredientId");
+
+                    b.HasIndex("SegmentId");
 
                     b.HasIndex("VariantId");
 
@@ -802,6 +893,28 @@ namespace Kiosk.Infrastructure.Migrations
                     b.ToTable("tb_cart_item_ingredient");
                 });
 
+            modelBuilder.Entity("Kiosk.Domain.Models.BaseModelWithOrganization", b =>
+                {
+                    b.HasOne("Kiosk.Domain.Models.OrganizationModel", "Organization")
+                        .WithMany()
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Organization");
+                });
+
+            modelBuilder.Entity("Kiosk.Domain.Models.BaseModelWithSegment", b =>
+                {
+                    b.HasOne("Kiosk.Domain.Models.SegmentModel", "Segment")
+                        .WithMany()
+                        .HasForeignKey("SegmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Segment");
+                });
+
             modelBuilder.Entity("Kiosk.Domain.Models.CartItemModel", b =>
                 {
                     b.HasOne("Kiosk.Domain.Models.CartModel", "Cart")
@@ -816,6 +929,12 @@ namespace Kiosk.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Kiosk.Domain.Models.SegmentModel", "Segment")
+                        .WithMany()
+                        .HasForeignKey("SegmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Kiosk.Domain.Models.VariantModel", "Variant")
                         .WithMany("CartItems")
                         .HasForeignKey("VariantId")
@@ -826,16 +945,22 @@ namespace Kiosk.Infrastructure.Migrations
 
                     b.Navigation("Reference");
 
+                    b.Navigation("Segment");
+
                     b.Navigation("Variant");
                 });
 
             modelBuilder.Entity("Kiosk.Domain.Models.CartModel", b =>
                 {
                     b.HasOne("Kiosk.Domain.Models.SegmentModel", "Segment")
-                        .WithMany("Carts")
+                        .WithMany()
                         .HasForeignKey("SegmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Kiosk.Domain.Models.SegmentModel", null)
+                        .WithMany("Carts")
+                        .HasForeignKey("SegmentModelId");
 
                     b.Navigation("Segment");
                 });
@@ -865,9 +990,17 @@ namespace Kiosk.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Kiosk.Domain.Models.SegmentModel", "Segment")
+                        .WithMany()
+                        .HasForeignKey("SegmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Comb");
 
                     b.Navigation("Part");
+
+                    b.Navigation("Segment");
                 });
 
             modelBuilder.Entity("Kiosk.Domain.Models.IngredientModel", b =>
@@ -897,7 +1030,15 @@ namespace Kiosk.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Kiosk.Domain.Models.SegmentModel", "Segment")
+                        .WithMany()
+                        .HasForeignKey("SegmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Cart");
+
+                    b.Navigation("Segment");
                 });
 
             modelBuilder.Entity("Kiosk.Domain.Models.PriceHistoryIngredientModel", b =>
@@ -908,16 +1049,32 @@ namespace Kiosk.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Kiosk.Domain.Models.SegmentModel", "Segment")
+                        .WithMany()
+                        .HasForeignKey("SegmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Ingredient");
+
+                    b.Navigation("Segment");
                 });
 
             modelBuilder.Entity("Kiosk.Domain.Models.PriceHistoryVariantModel", b =>
                 {
+                    b.HasOne("Kiosk.Domain.Models.SegmentModel", "Segment")
+                        .WithMany()
+                        .HasForeignKey("SegmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Kiosk.Domain.Models.VariantModel", "Variant")
                         .WithMany("PriceHistoryVariants")
                         .HasForeignKey("VariantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Segment");
 
                     b.Navigation("Variant");
                 });
@@ -988,6 +1145,12 @@ namespace Kiosk.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Kiosk.Domain.Models.SegmentModel", "Segment")
+                        .WithMany()
+                        .HasForeignKey("SegmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Kiosk.Domain.Models.VariantModel", "Variant")
                         .WithMany("VariantIngredients")
                         .HasForeignKey("VariantId")
@@ -995,6 +1158,8 @@ namespace Kiosk.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Ingredient");
+
+                    b.Navigation("Segment");
 
                     b.Navigation("Variant");
                 });

@@ -1,4 +1,4 @@
-namespace Kiosk.Application.Features.Auth_;
+namespace Kiosk.Application.Features.Auth_.Register;
 
 public record CreateRequest
 {

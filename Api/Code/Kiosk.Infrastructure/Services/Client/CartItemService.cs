@@ -10,8 +10,9 @@ using Kiosk.Domain.Interfaces;
 namespace Kiosk.Infrastructure.Services.Client;
 
 public class CartItemService(
-    KioskContext ctx
-) : ICartItemService
+    KioskContext context
+) : BaseService<CartItemModel, GetPayload>(context, "cartItem"), 
+    ICartItemService
 {
     public async Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken)
     {
@@ -22,7 +23,6 @@ public class CartItemService(
         var cart = await ctx.Carts
             .Where(c => c.DisabledAt == null)
             .FirstOrDefaultAsync(
-                // c => c.Id == apiCtx.CartId, 
                 cancellationToken
             );
         if(cart == null)

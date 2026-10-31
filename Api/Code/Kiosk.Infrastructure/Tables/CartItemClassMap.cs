@@ -9,7 +9,7 @@ public static class CartItemClassMap
     public static void ConfigureCartItemTable(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<CartItemModel>(builder =>
     {
-        builder.ConfigureBaseTableProps();
+        builder.ConfigureBaseWithSegmentTableProps();
         builder.HasKey(cartitem => cartitem.Id)
             .HasName("cart_item_id");
         builder.ToTable("tb_cart_item");

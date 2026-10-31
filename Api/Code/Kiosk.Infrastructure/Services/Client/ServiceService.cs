@@ -7,13 +7,13 @@ using Kiosk.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Kiosk.Application.Services.Client;
 using Kiosk.Domain.Common.Exceptions.Exceptions;
-using Kiosk.Domain.Interfaces;
 
 namespace Kiosk.Infrastructure.Services.Client;
 
 public class ServiceService(
-    KioskContext ctx
-) : IServiceService
+    KioskContext context
+) : BaseService<ServiceModel, GetPayload>(context, "service"), 
+    IServiceService
 {
 
     public async Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken)

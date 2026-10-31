@@ -8,7 +8,7 @@ public static class UserOrganizationClassMap
     public static void ConfigureUserOrganizationTable(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<UserOrganizationModel>(builder =>
     {
-        builder.ConfigureBaseTableProps();
+        builder.ConfigureBaseWithOrganizationTableProps();
         builder.HasKey(order => order.Id)
             .HasName("user_organization_id");
         builder.ToTable("tb_user_organization");

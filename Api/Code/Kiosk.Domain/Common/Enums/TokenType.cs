@@ -4,19 +4,11 @@ public enum TokenType
 {
     Super,
 
-
-
     Kiosk,
     Session,
     Segment,
     Organization,
     User,
-
-
-    Register,
-    Password,
-
-
 
     Invalid
 }
@@ -35,8 +27,6 @@ public static class TokenTypes
             TokenType.Session => "session",
             TokenType.Kiosk => "kiosk",
 
-            TokenType.Register => "register",
-            TokenType.Password => "password",
             _ => "invalid"
         };
     }
@@ -52,8 +42,6 @@ public static class TokenTypes
             "session"=> TokenType.Session,
             "kiosk"=> TokenType.Kiosk,
 
-            "register"=> TokenType.Register, 
-            "password"=> TokenType.Password, 
             _ => TokenType.Invalid
         };
     }

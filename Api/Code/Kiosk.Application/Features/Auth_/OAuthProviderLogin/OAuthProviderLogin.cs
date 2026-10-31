@@ -42,7 +42,7 @@ public class OAuthProviderLogin
         Payloads.User.GetPayload user;
         try
         {
-            user = userService.Get(o => o.Email == email);
+            user = await userService.Get(o => o.Email == email, cancellationToken);
         }
         catch(NotFoundEx)
         {
@@ -81,7 +81,8 @@ public class OAuthProviderLogin
             {
                 OrganizationId = user.Id,
                 Email = email,
-                TokenTypes = [TokenType.User],
+                TokenType = TokenType.User,
+                TokenPurpose = TokenPurpose.Access,
             }
         );
 

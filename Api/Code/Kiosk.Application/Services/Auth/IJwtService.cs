@@ -6,4 +6,5 @@ namespace Kiosk.Application.Services.Auth;
 public interface IJwtService : IBaseService
 {
     public GetTokenPayload Generate(CreateTokenPayload payload, int durationMinutes = 120);
+    public GetTokenPayload Generate(CreateTokenPayload payload, DateTimeOffset expiresAt);
 }

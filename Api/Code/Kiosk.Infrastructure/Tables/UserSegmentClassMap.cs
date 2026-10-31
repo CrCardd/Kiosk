@@ -8,7 +8,7 @@ public static class UserSegmentClassMap
     public static void ConfigureUserSegmentTable(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<UserSegmentModel>(builder =>
     {
-        builder.ConfigureBaseTableProps();
+        builder.ConfigureBaseWithSegmentTableProps();
         builder.HasKey(order => order.Id)
             .HasName("user_segment_id");
         builder.ToTable("tb_user_segment");

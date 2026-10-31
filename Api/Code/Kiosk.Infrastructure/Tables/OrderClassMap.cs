@@ -9,7 +9,7 @@ public static class OrderClassMap
     public static void ConfigureOrderTable(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<OrderModel>(builder =>
     {
-        builder.ConfigureBaseTableProps();
+        builder.ConfigureBaseWithSegmentTableProps();
         builder.HasKey(order => order.Id)
             .HasName("order_id");
         builder.ToTable("tb_order");

@@ -98,6 +98,28 @@ namespace Kiosk.Infrastructure.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "BaseModelWithOrganization",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    OrganizationId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    DisabledAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BaseModelWithOrganization", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BaseModelWithOrganization_tb_organization_OrganizationId",
+                        column: x => x.OrganizationId,
+                        principalTable: "tb_organization",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "tb_segment",
                 columns: table => new
                 {
@@ -126,11 +148,11 @@ namespace Kiosk.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     roles = table.Column<int>(type: "int", nullable: false),
-                    organization_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     user_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    disabled_at = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                    disabled_at = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    organization_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
@@ -151,6 +173,28 @@ namespace Kiosk.Infrastructure.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "BaseModelWithSegment",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    SegmentId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    DisabledAt = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BaseModelWithSegment", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BaseModelWithSegment_tb_segment_SegmentId",
+                        column: x => x.SegmentId,
+                        principalTable: "tb_segment",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "tb_cart",
                 columns: table => new
                 {
@@ -159,15 +203,21 @@ namespace Kiosk.Infrastructure.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     session_token = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    segment_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     OrderId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
+                    SegmentModelId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
                     created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    disabled_at = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                    disabled_at = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    segment_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("cart_id", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_tb_cart_tb_segment_SegmentModelId",
+                        column: x => x.SegmentModelId,
+                        principalTable: "tb_segment",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_tb_cart_tb_segment_segment_id",
                         column: x => x.segment_id,
@@ -186,10 +236,10 @@ namespace Kiosk.Infrastructure.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     start_date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     end_date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    segment_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    disabled_at = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                    disabled_at = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    segment_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
@@ -213,10 +263,10 @@ namespace Kiosk.Infrastructure.Migrations
                     image = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     available = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    segment_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    disabled_at = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                    disabled_at = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    segment_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
@@ -236,11 +286,11 @@ namespace Kiosk.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     roles = table.Column<int>(type: "int", nullable: false),
-                    segment_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     user_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    disabled_at = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                    disabled_at = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    segment_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
@@ -273,7 +323,8 @@ namespace Kiosk.Infrastructure.Migrations
                     cart_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    disabled_at = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                    disabled_at = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    segment_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
@@ -282,6 +333,12 @@ namespace Kiosk.Infrastructure.Migrations
                         name: "FK_tb_order_tb_cart_cart_id",
                         column: x => x.cart_id,
                         principalTable: "tb_cart",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_tb_order_tb_segment_segment_id",
+                        column: x => x.segment_id,
+                        principalTable: "tb_segment",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -296,11 +353,11 @@ namespace Kiosk.Infrastructure.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     quantity = table.Column<int>(type: "int", nullable: true),
                     available = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    segment_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     service_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    disabled_at = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                    disabled_at = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    segment_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
@@ -332,11 +389,11 @@ namespace Kiosk.Infrastructure.Migrations
                     ingredients = table.Column<int>(type: "int", nullable: false),
                     surpass = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     available = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    segment_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     service_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    disabled_at = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                    disabled_at = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    segment_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
@@ -365,7 +422,8 @@ namespace Kiosk.Infrastructure.Migrations
                     ingredient_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    disabled_at = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                    disabled_at = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    segment_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
@@ -374,6 +432,12 @@ namespace Kiosk.Infrastructure.Migrations
                         name: "FK_tb_price_history_ingredient_tb_ingredient_ingredient_id",
                         column: x => x.ingredient_id,
                         principalTable: "tb_ingredient",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_tb_price_history_ingredient_tb_segment_segment_id",
+                        column: x => x.segment_id,
+                        principalTable: "tb_segment",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -390,7 +454,8 @@ namespace Kiosk.Infrastructure.Migrations
                     variant_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    disabled_at = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                    disabled_at = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    segment_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
@@ -405,6 +470,12 @@ namespace Kiosk.Infrastructure.Migrations
                         name: "FK_tb_cart_item_tb_cart_item_reference_id",
                         column: x => x.reference_id,
                         principalTable: "tb_cart_item",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_tb_cart_item_tb_segment_segment_id",
+                        column: x => x.segment_id,
+                        principalTable: "tb_segment",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -425,11 +496,18 @@ namespace Kiosk.Infrastructure.Migrations
                     part_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    disabled_at = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                    disabled_at = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    segment_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("combination_id", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_tb_combination_tb_segment_segment_id",
+                        column: x => x.segment_id,
+                        principalTable: "tb_segment",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_tb_combination_tb_variant_comb_id",
                         column: x => x.comb_id,
@@ -454,11 +532,18 @@ namespace Kiosk.Infrastructure.Migrations
                     variant_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    disabled_at = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                    disabled_at = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    segment_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("price_history_variant_id", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_tb_price_history_variant_tb_segment_segment_id",
+                        column: x => x.segment_id,
+                        principalTable: "tb_segment",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_tb_price_history_variant_tb_variant_variant_id",
                         column: x => x.variant_id,
@@ -478,7 +563,8 @@ namespace Kiosk.Infrastructure.Migrations
                     ingredient_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    disabled_at = table.Column<DateTime>(type: "datetime(6)", nullable: true)
+                    disabled_at = table.Column<DateTime>(type: "datetime(6)", nullable: true),
+                    segment_id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
@@ -487,6 +573,12 @@ namespace Kiosk.Infrastructure.Migrations
                         name: "FK_tb_variant_ingredient_tb_ingredient_ingredient_id",
                         column: x => x.ingredient_id,
                         principalTable: "tb_ingredient",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_tb_variant_ingredient_tb_segment_segment_id",
+                        column: x => x.segment_id,
+                        principalTable: "tb_segment",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -524,9 +616,24 @@ namespace Kiosk.Infrastructure.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
+                name: "IX_BaseModelWithOrganization_OrganizationId",
+                table: "BaseModelWithOrganization",
+                column: "OrganizationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BaseModelWithSegment_SegmentId",
+                table: "BaseModelWithSegment",
+                column: "SegmentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_tb_cart_segment_id",
                 table: "tb_cart",
                 column: "segment_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tb_cart_SegmentModelId",
+                table: "tb_cart",
+                column: "SegmentModelId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tb_cart_item_cart_id",
@@ -537,6 +644,11 @@ namespace Kiosk.Infrastructure.Migrations
                 name: "IX_tb_cart_item_reference_id",
                 table: "tb_cart_item",
                 column: "reference_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tb_cart_item_segment_id",
+                table: "tb_cart_item",
+                column: "segment_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tb_cart_item_variant_id",
@@ -564,6 +676,11 @@ namespace Kiosk.Infrastructure.Migrations
                 column: "part_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_tb_combination_segment_id",
+                table: "tb_combination",
+                column: "segment_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_tb_ingredient_segment_id",
                 table: "tb_ingredient",
                 column: "segment_id");
@@ -580,9 +697,24 @@ namespace Kiosk.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_tb_order_segment_id",
+                table: "tb_order",
+                column: "segment_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_tb_price_history_ingredient_ingredient_id",
                 table: "tb_price_history_ingredient",
                 column: "ingredient_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tb_price_history_ingredient_segment_id",
+                table: "tb_price_history_ingredient",
+                column: "segment_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tb_price_history_variant_segment_id",
+                table: "tb_price_history_variant",
+                column: "segment_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tb_price_history_variant_variant_id",
@@ -635,6 +767,11 @@ namespace Kiosk.Infrastructure.Migrations
                 column: "ingredient_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_tb_variant_ingredient_segment_id",
+                table: "tb_variant_ingredient",
+                column: "segment_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_tb_variant_ingredient_variant_id",
                 table: "tb_variant_ingredient",
                 column: "variant_id");
@@ -643,6 +780,12 @@ namespace Kiosk.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "BaseModelWithOrganization");
+
+            migrationBuilder.DropTable(
+                name: "BaseModelWithSegment");
+
             migrationBuilder.DropTable(
                 name: "tb_auth_code");
 

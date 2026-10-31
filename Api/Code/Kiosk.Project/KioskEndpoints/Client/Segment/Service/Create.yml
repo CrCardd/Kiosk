@@ -8,7 +8,11 @@ http:
   url: "{{host}}/service"
   body:
     type: json
-    data: ""
+    data: |-
+      {
+        "Name" : "Pastel",
+        "Image" : "image.com"
+      }
   auth: inherit
 
 settings:
@@ -16,3 +20,4 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+  forwardAuthorizationHeader: true

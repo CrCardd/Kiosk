@@ -24,23 +24,6 @@ public static class SegmentClassMap
             .WithMany(s => s.Segments)
             .HasForeignKey(s => s.OrganizationId);
         //================RELATIONS================
-        builder.HasMany(s => s.Carts)
-            .WithOne(c => c.Segment)
-            .HasForeignKey(c => c.SegmentId);
-        builder.HasMany(s => s.Services)
-            .WithOne(s => s.Segment)
-            .HasForeignKey(s => s.SegmentId);
-        builder.HasMany(s => s.Codes)
-            .WithOne(c => c.Segment)
-            .HasForeignKey(c => c.SegmentId);
-        builder.HasMany(s => s.Ingredients)
-            .WithOne(i => i.Segment)
-            .HasForeignKey(i => i.SegmentId);
-        builder.HasMany(s => s.Variants)
-            .WithOne(v => v.Segment)
-            .HasForeignKey(v => v.SegmentId);
-        builder.HasMany(s => s.UserSegments)
-            .WithOne(s => s.Segment)
-            .HasForeignKey(s => s.SegmentId);
+        
     });
 }

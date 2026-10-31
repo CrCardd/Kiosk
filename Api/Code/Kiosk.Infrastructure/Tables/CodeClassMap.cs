@@ -8,7 +8,7 @@ public static class CodeClassMap
     public static void ConfigureCodeTable(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<CodeModel>(builder =>
     {
-        builder.ConfigureBaseTableProps();
+        builder.ConfigureBaseWithSegmentTableProps();
         builder.HasKey(code => code.Id)
             .HasName("code_id");
         builder.ToTable("tb_code");

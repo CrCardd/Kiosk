@@ -1,7 +1,7 @@
 
 namespace Kiosk.Domain.Models;
 
-public class OrderModel : BaseModel
+public class OrderModel : BaseModelWithSegment
 {
     //================PROPERTIES================
     public required string Index {get;set;}

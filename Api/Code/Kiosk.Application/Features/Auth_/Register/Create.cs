@@ -29,9 +29,10 @@ public class Create(
         var tokenPayload = jwtService.Generate(
             new CreateTokenPayload
             {
-                SegmentId = responseCreate.Value.Id,
+                UserId = responseCreate.Value.Id,
                 Email = request.Email,
-                TokenTypes = [TokenType.User],
+                TokenType = TokenType.User,
+                TokenPurpose = TokenPurpose.Access,
             }
         );
 

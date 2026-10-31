@@ -10,4 +10,5 @@ public static class MyClaims
     public const string CartId = "cart_id";
     public const string Email = "email";
     public const string TokenType = "token_type";
+    public const string TokenPurpose = "token_purpose";
 }

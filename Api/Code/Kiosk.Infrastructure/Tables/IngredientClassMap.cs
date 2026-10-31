@@ -10,7 +10,7 @@ public static class IngredientClassMap
     public static void ConfigureIngredientTable(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<IngredientModel>(builder =>
     {
-        builder.ConfigureBaseTableProps();
+        builder.ConfigureBaseWithSegmentTableProps();
         builder.HasKey(ingredient => ingredient.Id)
             .HasName("ingredient_id");
         builder.ToTable("tb_ingredient");

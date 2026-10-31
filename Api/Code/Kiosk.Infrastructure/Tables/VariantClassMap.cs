@@ -9,7 +9,7 @@ public static class VariantClassMap
     public static void ConfigureVariantTable(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<VariantModel>(builder =>
     {
-        builder.ConfigureBaseTableProps();
+        builder.ConfigureBaseWithSegmentTableProps();
         builder.HasKey(variant => variant.Id)
             .HasName("variant_id");
         builder.ToTable("tb_variant");

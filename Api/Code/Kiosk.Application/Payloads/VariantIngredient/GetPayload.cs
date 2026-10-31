@@ -1,8 +1,9 @@
+using Kiosk.Domain.Interfaces;
 using Kiosk.Domain.Models;
 
 namespace Kiosk.Application.Payloads.VariantIngredient;
 
-public record GetPayload
+public record GetPayload : IBaseGetPayload<VariantIngredientModel, GetPayload>
 {
     public required Guid Id {get;init;}
     public required bool Available {get;init;}

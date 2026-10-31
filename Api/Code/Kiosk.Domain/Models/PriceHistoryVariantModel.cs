@@ -1,7 +1,7 @@
 
 namespace Kiosk.Domain.Models;
 
-public class PriceHistoryVariantModel : BaseModel
+public class PriceHistoryVariantModel : BaseModelWithSegment
 {
     //================PROPERTIES================
     public required decimal Price {get;set;}

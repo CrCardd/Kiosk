@@ -13,8 +13,9 @@ using Kiosk.Domain.Interfaces;
 namespace Kiosk.Infrastructure.Services.Client;
 
 public class VariantService(
-    KioskContext ctx
-) : IVariantService
+    KioskContext context
+) : BaseService<VariantModel, GetPayload>(context, "variant"), 
+    IVariantService
 {
     public async Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken)
     {

@@ -27,7 +27,8 @@ public class Validate(
             {
                 SegmentId = Guid.Empty,
                 Email = request.Email,
-                TokenTypes = [TokenType.Register],
+                TokenType = TokenType.User,
+                TokenPurpose = TokenPurpose.Register,
             }
         );
 

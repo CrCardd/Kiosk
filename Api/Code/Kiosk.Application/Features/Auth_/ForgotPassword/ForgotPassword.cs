@@ -35,7 +35,8 @@ public class ForgotPassword
             {
                 UserId = user.Id,
                 Email = user.Email,
-                TokenTypes = [TokenType.Password],
+                TokenType = TokenType.User,
+                TokenPurpose = TokenPurpose.Password,
             },
             5
         );

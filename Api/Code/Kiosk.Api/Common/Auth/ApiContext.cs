@@ -1,3 +1,5 @@
+using System.Globalization;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Kiosk.Domain.Common.Enums;
 using Kiosk.Domain.Interfaces;
@@ -18,9 +20,8 @@ public class ApiContext(IHttpContextAccessor accessor) : IApiContext
 
     public string? Email => User?.FindFirst(MyClaims.Email)?.Value;
 
-    public List<TokenType> TokenTypes => User != null && User.HasClaim(c => c.Type == MyClaims.TokenType)
-        ? User.FindAll(MyClaims.TokenType).Select(c => Kiosk.Domain.Common.Enums.TokenTypes.GetTokenType(c.Value)).ToList()
-        : new List<TokenType>();
+    public TokenType TokenType => TokenTypes.GetTokenType(User?.FindFirst(MyClaims.TokenType)?.Value ?? string.Empty);
+    public TokenPurpose TokenPurpose => TokenPurposes.GetTokenPurpose(User?.FindFirst(MyClaims.TokenPurpose)?.Value ?? string.Empty);
 
     public Guid? SegmentId => User?.FindFirst(MyClaims.SegmentId) != null 
         ? Guid.Parse(User.FindFirst(MyClaims.SegmentId)!.Value) 
@@ -37,4 +38,21 @@ public class ApiContext(IHttpContextAccessor accessor) : IApiContext
     public OrganizationRole? OrganizationRoles => User?.FindFirst(MyClaims.OrganizationRoles) != null 
         ? (OrganizationRole)int.Parse(User.FindFirst(MyClaims.OrganizationRoles)!.Value) 
         : null;
+    
+    public DateTimeOffset? ExpiresAt
+    {
+        get
+        {
+            var exp = User?.FindFirst(JwtRegisteredClaimNames.Exp)?.Value;
+
+            return long.TryParse(
+                exp,
+                NumberStyles.None,
+                CultureInfo.InvariantCulture,
+                out var unixSeconds
+            )
+                ? DateTimeOffset.FromUnixTimeSeconds(unixSeconds)
+                : null;
+        }
+    }
 }

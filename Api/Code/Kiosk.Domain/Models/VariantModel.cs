@@ -1,7 +1,7 @@
 
 namespace Kiosk.Domain.Models;
 
-public class VariantModel : BaseModel
+public class VariantModel : BaseModelWithSegment
 {
     //================PROPERTIES================
     public required string Name {get;set;}
@@ -10,8 +10,6 @@ public class VariantModel : BaseModel
     public bool Surpass {get;set;}
     public required bool Available {get;set;}
     //================MY-RELATIONS================
-    public required SegmentModel Segment {get;set;}
-    public required Guid SegmentId {get;set;}
     public required ServiceModel Service {get;set;}
     public required Guid ServiceId {get;set;}
     //================RELATIONS================

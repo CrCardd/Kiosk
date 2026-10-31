@@ -9,7 +9,7 @@ public static class PriceHistoryIngredientClassMap
     public static void ConfigurePriceHistoryIngredientTable(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<PriceHistoryIngredientModel>(builder =>
     {
-        builder.ConfigureBaseTableProps();
+        builder.ConfigureBaseWithSegmentTableProps();
         builder.HasKey(pricehistoryingredient => pricehistoryingredient.Id)
             .HasName("price_history_ingredient_id");
         builder.ToTable("tb_price_history_ingredient");

@@ -16,7 +16,7 @@ public class UpdatePassword(
 {
     public async Task<Result> ExecuteAsync(string newPassword, CancellationToken cancellationToken)
     {
-        var user = service.Get(o => o.Id == ctx.UserId);
+        var user = await service.Get(o => o.Id == ctx.UserId, cancellationToken);
 
         var hashPassword = passwordService.Hash(newPassword);
         var update = new UpdatePayload

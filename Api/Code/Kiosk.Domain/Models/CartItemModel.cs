@@ -1,7 +1,7 @@
 
 namespace Kiosk.Domain.Models;
 
-public class CartItemModel : BaseModel
+public class CartItemModel : BaseModelWithSegment
 {
     //================PROPERTIES================
     public required decimal SnapShotPrice {get;set;}

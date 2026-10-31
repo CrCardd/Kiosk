@@ -7,20 +7,39 @@ using Kiosk.Application.Services.Client;
 using Kiosk.Domain.Models;
 using Kiosk.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
+using Kiosk.Domain.Common.Enums;
 
 namespace Kiosk.Infrastructure.Services.Client;
 
 public class SegmentService
 (
-    KioskContext ctx
-) : ISegmentService
+    KioskContext context
+) : BaseService<SegmentModel, GetPayload>(context, "segment"), 
+    ISegmentService
 {
     public async Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken)
     {
         var segment = new SegmentModel
         {
             Name = payload.Name,
+            OrganizationId = payload.BelongsTo
         };
+        var user = await ctx.Users
+            .FirstOrDefaultAsync(u => u.Id == payload.CreatedBy, cancellationToken);
+        if(user == null)
+            throw new NotFoundEx("User not found");
+
+        segment.UserSegments.Add(
+            new UserSegmentModel
+            {
+                User = user,
+                UserId = user.Id,
+                Segment = segment,
+                SegmentId = segment.Id,
+                Roles = SegmentRole.Owner
+            }
+        );
+
 
         ctx.Segments.Add(segment);
         await ctx.SaveChangesAsync(cancellationToken);
@@ -30,9 +49,7 @@ public class SegmentService
     {
         var segment = await ctx.Segments
             .Where(o => o.DisabledAt == null)
-            .FirstOrDefaultAsync(
-                cancellationToken
-            );
+            .FirstOrDefaultAsync(cancellationToken);
         if(segment is null)
             throw new NotFoundEx("segment not found");
         
@@ -41,30 +58,5 @@ public class SegmentService
             
         await ctx.SaveChangesAsync(cancellationToken);
         return GetPayload.ToDto(segment);
-    }
-
-
-    public GetPayload Get(Expression<Func<SegmentModel, bool>> predicate)
-    {
-        var segment = ctx.Segments
-            .Where(o => o.DisabledAt == null)
-            .FirstOrDefault(predicate);
-        if(segment is null)
-            throw new NotFoundEx("segment not found");
-        return GetPayload.ToDto(segment);
-    }
-
-    public bool TryGet(Expression<Func<SegmentModel, bool>> predicate, [NotNullWhen(true)] out GetPayload? getPayload)
-    {
-        var segment = ctx.Segments
-            .Where(o => o.DisabledAt == null)
-            .FirstOrDefault(predicate);
-        if(segment is null)
-        {            
-            getPayload = null;
-            return false;
-        }
-        getPayload = GetPayload.ToDto(segment);
-        return true;
     }
 }

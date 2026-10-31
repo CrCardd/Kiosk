@@ -29,7 +29,8 @@ public class StartKiosk(
             new CreateTokenPayload
             {
                 SegmentId = codeEntity.Segment.Id,
-                TokenTypes = [TokenType.Kiosk],
+                TokenType = TokenType.Kiosk,
+                TokenPurpose = TokenPurpose.Access,
             }
         );
 

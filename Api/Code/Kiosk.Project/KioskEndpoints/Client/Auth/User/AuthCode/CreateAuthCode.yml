@@ -5,7 +5,7 @@ info:
 
 http:
   method: POST
-  url: "{{host}}/register/code-create/{{segment_email}}"
+  url: "{{host}}/register/code-create/{{user_email}}"
   auth: inherit
 
 runtime:
@@ -18,3 +18,4 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+  forwardAuthorizationHeader: true

@@ -1,7 +1,7 @@
 
 namespace Kiosk.Domain.Models;
 
-public class CombinationModel : BaseModel
+public class CombinationModel : BaseModelWithSegment
 {
     //================PROPERTIES================
     //================MY-RELATIONS================

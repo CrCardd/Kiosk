@@ -1,15 +1,13 @@
 
 namespace Kiosk.Domain.Models;
 
-public class IngredientModel : BaseModel
+public class IngredientModel : BaseModelWithSegment
 {
     //================PROPERTIES================
     public required string Name {get;set;}
     public int? Quantity {get;set;}
     public bool Available {get;set;}
     //================MY-RELATIONS================
-    public required SegmentModel Segment {get;set;}
-    public required Guid SegmentId {get;set;}
     public required ServiceModel Service {get;set;}
     public required Guid ServiceId {get;set;}
     //================RELATIONS================

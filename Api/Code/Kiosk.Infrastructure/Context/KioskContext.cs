@@ -15,11 +15,14 @@ public class KioskContext(
     IApiContext apiContext
 ) : DbContext(options)
 {
-    public Guid? CurrentSegmentId {get;init;} = apiContext.SegmentId;
     public Guid? CurrentCartId {get;init;} = apiContext.CartId;
     public Guid? CurrentUserId {get;init;} = apiContext.UserId;
+    public Guid? CurrentSegmentId {get;init;} = apiContext.SegmentId;
+    public SegmentRole? CurrentSegmentRoles {get;init;} = apiContext.SegmentRoles;
     public Guid? CurrentOrganizationId {get;init;} = apiContext.OrganizationId;
-    public bool IsSuperAdmin {get;init;} = apiContext.TokenTypes.Any(r => r == TokenType.Super);
+    public OrganizationRole? CurrentOrganizationRoles {get;init;} = apiContext.OrganizationRoles;
+    public DateTimeOffset? ExpiresAt {get;init;} = apiContext.ExpiresAt;
+    public bool IsSuperAdmin {get;init;} = apiContext.TokenType == TokenType.Super;
 
     public DbSet<CartModel> Carts {get;set;}
     public DbSet<CartItemModel> CartItems {get;set;}
@@ -75,12 +78,9 @@ public class KioskContext(
     }
     public void ConfigureFilters(ModelBuilder modelBuilder)
     {
-        modelBuilder.ConfigureServiceFilter(this);
-        modelBuilder.ConfigureVariantFilter(this);
-        modelBuilder.ConfigureIngredientFilter(this);
-        modelBuilder.ConfigureCartFilter(this);
-        modelBuilder.ConfigureUserFilter(this);
-        modelBuilder.ConfigureSegmentFilter(this);
+        modelBuilder.ConfigureWithOrganizationFilter(this);
+        modelBuilder.ConfigureWithSegmentFilter(this);
+        // modelBuilder.ConfigureUserFilter(this);
     }
 
 

@@ -2,6 +2,7 @@ namespace Kiosk.Domain.Common.Enums;
 
 public enum OrganizationRole
 {
-    Admin = 1 << 0,
-    Viwer =  1 << 1
+    Owner = 1 << 0,
+    Admin = 1 << 1,
+    Viwer =  1 << 2
 }

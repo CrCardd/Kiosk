@@ -7,13 +7,15 @@ using Kiosk.Domain.Models;
 using Kiosk.Infrastructure.Context;
 using Kiosk.Application.Services;
 using Microsoft.EntityFrameworkCore;
+using Google.Apis.Logging;
 
 namespace Kiosk.Infrastructure.Services.Client;
 
 public class UserService
 (
-    KioskContext ctx
-) : IUserService
+    KioskContext context
+) : BaseService<UserModel, GetPayload>(context, "user"), 
+    IUserService
 {
     public async Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken)
     {
@@ -52,30 +54,5 @@ public class UserService
             
         await ctx.SaveChangesAsync(cancellationToken);
         return GetPayload.ToDto(user);
-    }
-
-
-    public GetPayload Get(Expression<Func<UserModel, bool>> predicate)
-    {
-        var user = ctx.Users
-            .Where(o => o.DisabledAt == null)
-            .FirstOrDefault(predicate);
-        if(user is null)
-            throw new NotFoundEx("organization not found");
-        return GetPayload.ToDto(user);
-    }
-
-    public bool TryGet(Expression<Func<UserModel, bool>> predicate, [NotNullWhen(true)] out GetPayload? getPayload)
-    {
-        var user = ctx.Users
-            .Where(o => o.DisabledAt == null)
-            .FirstOrDefault(predicate);
-        if(user is null)
-        {            
-            getPayload = null;
-            return false;
-        }
-        getPayload = GetPayload.ToDto(user);
-        return true;
     }
 }

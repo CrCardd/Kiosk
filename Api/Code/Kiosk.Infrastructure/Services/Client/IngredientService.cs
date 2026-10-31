@@ -11,8 +11,9 @@ using Kiosk.Domain.Interfaces;
 namespace Kiosk.Infrastructure.Services.Client;
 
 public class IngredientService(
-    KioskContext ctx
-) : IIngredientService
+    KioskContext context
+) : BaseService<IngredientModel, GetPayload>(context, "ingredient"), 
+    IIngredientService
 {
     public async Task<Result<GetPayload>> Create(CreatePayload payload, CancellationToken cancellationToken)
     {

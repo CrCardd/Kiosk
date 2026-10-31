@@ -3,7 +3,7 @@ using Kiosk.Domain.Models;
 
 namespace Kiosk.Application.Payloads.AuthCode;
 
-public record GetPayload
+public record GetPayload : IBaseGetPayload<AuthCodeModel, GetPayload>
 {
     public required Guid Id {get;init;}
     public required string Email {get;init;}

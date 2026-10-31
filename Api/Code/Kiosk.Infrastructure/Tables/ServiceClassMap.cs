@@ -9,7 +9,7 @@ public static class ServiceClassMap
     public static void ConfigureServiceTable(this ModelBuilder modelBuilder)
         => modelBuilder.Entity<ServiceModel>(builder =>
     {
-        builder.ConfigureBaseTableProps();
+        builder.ConfigureBaseWithSegmentTableProps();
         builder.HasKey(service => service.Id)
             .HasName("service_id");
         builder.ToTable("tb_service");
